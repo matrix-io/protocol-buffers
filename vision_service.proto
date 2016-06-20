@@ -13,10 +13,11 @@ message VisionRequest {
   // Image for the request.
   bytes image = 1;
 
-  // Detections to perform.
+  // Detections to perform on the image.
   repeated EnumDetectionTag detection = 2;
 
-  // Recognitions to perform on the image.
+  // Recognitions to perform on the image. The recognitions should be done
+  // after the detections.
   repeated EnumFacialRecognitionTag recognition = 3;
 }
 
