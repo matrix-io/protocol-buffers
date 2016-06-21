@@ -24,5 +24,5 @@ message VisionRequest {
 service VisionService {
   // Process an image and perform the requested detections and
   // recognitions.
-  rpc ProocessImage(VisionRequest) returns (VisionResult) {}
+  rpc ProcessImage(VisionRequest) returns (VisionResult) {}
 }
