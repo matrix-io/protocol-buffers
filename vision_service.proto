@@ -9,31 +9,20 @@ package admobilize_vision;
 
 import "vision.proto";
 
-message DetectionRequest {
+message VisionRequest {
   // Image for the request.
   bytes image = 1;
-  // What kind of detections do we want?
+
+  // Detections to perform on the image.
   repeated EnumDetectionTag detection = 2;
-}
 
-// Used when we don't care about what is being returned.
-message Void {
-}
-
-// We'll start with a generic service and endpoints that can be used for different
-// cases. If we do this and keep the enpoints limited (minimize the amount of
-// them), we can end up with pluggable components that let us create flexible
-// pipelines that combine local/remote processing.
-
-service MatrixVisionFrameworkService {
-  // Run face detection.
-  rpc Detect(DetectionRequest) returns (VisionResult) { }
-
-  // Receive the result of a vision process.
-  rpc VisionDetection(VisionResult) returns (Void);
+  // Recognitions to perform on the image. The recognitions should be done
+  // after the detections.
+  repeated EnumFacialRecognitionTag recognition = 3;
 }
 
 service VisionService {
-  // Receive the result of a vision process.
-  rpc VisionDetection(VisionResult) returns (VisionResult);
+  // Process an image and perform the requested detections and
+  // recognitions.
+  rpc ProcessImage(VisionRequest) returns (VisionResult) {}
 }
