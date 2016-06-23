@@ -70,11 +70,11 @@ message FacialRecognition {
   enum Emotion {
     ANGRY = 0;
     DISGUST = 1;
-    FEAR = 2;
+    CONFUSED = 2;
     HAPPY = 3;
     SAD = 4;
     SURPRISE = 5;
-    NEUTRAL = 6;
+    CALM = 6;
   }
 
   // The following fields should only be present when the tag HAS_EMOTION is set.
