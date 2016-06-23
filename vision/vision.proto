@@ -73,7 +73,7 @@ message FacialRecognition {
     CONFUSED = 2;
     HAPPY = 3;
     SAD = 4;
-    SURPRISE = 5;
+    SURPRISED = 5;
     CALM = 6;
   }
 
