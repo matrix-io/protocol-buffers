@@ -16,14 +16,14 @@ message Dummy {
 message Humidity {
   float humidity = 1;
 
-  float temp = 2;
+  float temperature = 2;
 }
 
 // Basic Pressure lecture.
 message Pressure {
-  float press = 1;
+  float pressure = 1;
 
-  float temp = 2;
+  float temperature = 2;
 }
 
 // Basic Pressure lecture.
@@ -54,7 +54,7 @@ message EverloopImage {
 message Snap {
   IMU imu = 1;
 
-  Pressure press = 2;
+  Pressure pressure = 2;
 
-  Humidity hum = 3;
+  Humidity humidity = 3;
 }
