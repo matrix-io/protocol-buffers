@@ -49,12 +49,3 @@ message LedValue {
 message EverloopImage {
   repeated LedValue led = 1;
 }
-
-// Basic sensors snap
-message Snap {
-  IMU imu = 1;
-
-  Pressure pressure = 2;
-
-  Humidity humidity = 3;
-}
