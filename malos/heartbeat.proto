@@ -1,0 +1,33 @@
+/*
+ * Copyright 2016 <Admobilize>
+ * All rights reserved.
+ */
+
+syntax = "proto3";
+
+package matrix_heartbeat;
+
+import "../vision/vision.proto"
+
+message Beat {
+  repeated Detection detections = 1
+  repeated Sensors sensors = 2;
+}
+message Detection {
+  // Grab detections from vision.proto so it's only in one place
+  EnumDetectionTag detection = 0;
+  EnumDetectionAlgorithm algorithm = 1;
+  repeated Rectangle zones = 2;
+}
+
+enum Sensors {
+  CAMERA = 0;
+  MICROPHONE = 1;
+  TEMPERATURE = 2;
+  HUMIDITY = 3;
+  PRESSURE = 4;
+  GYROSCOPE = 5;
+  ACCELEROMETER = 6;
+  COMPASS = 7;
+  UV = 8;
+}
