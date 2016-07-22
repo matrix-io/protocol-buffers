@@ -7,12 +7,39 @@ syntax = "proto3";
 
 package matrix_heartbeat;
 
-import "../vision/vision.proto"
+import "../vision/vision.proto";
 
 message Beat {
-  repeated Detection detections = 1
+  repeated Detection detections = 1;
   repeated Sensors sensors = 2;
 }
+
+enum EnumDetectionTag {
+  FACE = 0;
+  CAR = 1;
+  HAND_THUMB = 2;
+  HAND_PALM = 3;
+}
+
+
+enum EnumDetectionAlgorithm {
+    // Pico detector. See cpp/detector/pico_detector.h.
+    PICO = 0;
+    // Haar detector. See cpp/detector/haar_detector.h.
+    HAAR = 1;
+}
+
+message Rectangle {
+  // Starting X coordinate.
+  float x = 1;
+  // Starting Y coordinate.
+  float y = 2;
+  // Width.
+  float width = 3;
+  // Height.
+  float height = 4;
+}
+
 message Detection {
   // Grab detections from vision.proto so it's only in one place
   EnumDetectionTag detection = 0;
