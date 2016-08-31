@@ -71,7 +71,7 @@ message Humidity {
   float temperature = 2;
 }
 
-/ Basic UV radiation lecture.
+// Basic UV radiation lecture.
 message UV{
   // UV index.
   float uv_index = 1;
