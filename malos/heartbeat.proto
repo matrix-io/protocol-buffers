@@ -57,4 +57,5 @@ enum Sensors {
   ACCELEROMETER = 6;
   COMPASS = 7;
   UV = 8;
+  ALTITUDE = 9;
 }
