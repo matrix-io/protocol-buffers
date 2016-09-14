@@ -18,6 +18,53 @@ message DriverConfig {
   // Values for LEDs. When configuring the driver you should leave
   // delay_between_updates and timeout_after_last_ping unchanged.
   EverloopImage image = 3;
+
+  // Malos-Eye configuration.
+  MalosEyeConfig malos_eye_config = 4;
+}
+
+// This configuration can grow a lot. Let's separate the configuration of each component.
+message MalosEyeConfig {
+  // Camera configuration. Camera id, width, height, and so on.
+  CameraConfig camera_config = 1;
+  // Configuration of the object detector.l
+  ObjectDetectorConfig detector_config = 2;
+  // Tracker configuration.
+  TrackerConfig tracker_config = 3;
+  // Configuration of the detection server.
+  DetectionServerConfig detection_server_config = 4;
+}
+
+message CameraConfig {
+  // What camera to open? 0 is usually the first camera.
+  int32 camera_id = 1;
+  // Capture width, i.e. 640.
+  int32 width = 2;
+  // Capture height, i.e. 480.
+  int32 height = 3;
+}
+
+message ObjectDetectorConfig {
+  // Cascade path that the program can open
+  string cascade_path = 1;
+}
+
+// These settings could depend on time and not on frames, as frame-rate
+// depends on the resolution.
+message TrackerConfig {
+  // In how many frames does the object need to be before being taken
+  // into account?
+  int32 frames_to_count = 1;
+  // Once we stop seeing the object, how many frames should we wait before
+  // we discard the object?
+  int32 frames_to_discard = 2;
+}
+
+message DetectionServerConfig {
+  // Detection server connection string. For instance, "127.0.0.1:32061".
+  string detection_server_address = 1;
+  // Timeout for detection server (in milliseconds).
+  int32 detection_server_timeout = 2;
 }
 
 // Message used by MALOS to report its internal state and the configuration of
