@@ -121,10 +121,10 @@ enum EnumDetectionTag {
 }
 
 enum EnumDetectionAlgorithm {
-    // Pico detector. See cpp/detector/pico_detector.h.
-    PICO = 0;
-    // Haar detector. See cpp/detector/haar_detector.h.
-    HAAR = 1;
+    // Default algorithm.
+    DEFAULT = 0;
+    // First alternative.
+    FIRST_ALTERNATIVE = 1;
 }
 
 // Result of a rectangle detector.
