@@ -166,3 +166,37 @@ message LedValue {
 message EverloopImage {
   repeated LedValue led = 1;
 }
+
+
+/* ZigBee messages */
+
+// Network start event
+message ZigBeeNetworkStatus {
+  bool is_active = 1;
+  uint32 pan_id = 2;
+  uint32 short_id = 3;
+}
+
+// ZigBee device announce
+message ZigBeeAnnounce {
+  uint32 short_id = 1;
+  uint32 cluster_id = 2;
+  uint32 zdo_commnd = 3;
+  uint32 zdo_status = 4;
+}
+
+// ZigBee bulb commands
+message ZigBeeBulbCmd {
+  uint32 short_id = 1;
+  enum EnumCommands {
+    ON = 0;
+    OFF = 1;
+    TOGGLE = 2;
+    LEVEL = 3;
+    IDENTIFY = 4;
+    COLOR = 5;
+  }
+  EnumCommands command = 2;
+  repeated uint32 params  = 3;
+}
+
