@@ -21,6 +21,9 @@ message DriverConfig {
 
   // Malos-Eye configuration.
   MalosEyeConfig malos_eye_config = 4;
+
+  // ZigBee configuration for bulbs.
+  ZigbeeBulbConfig zigbee_bulb = 5;
 }
 
 // This configuration can grow a lot. Let's separate the configuration of each component.
@@ -169,6 +172,11 @@ message EverloopImage {
 
 
 /* ZigBee messages */
+
+message ZigbeeBulbConfig {
+    string address = 1;
+    int32 port = 2;
+}
 
 // Network start event
 message ZigBeeNetworkStatus {
