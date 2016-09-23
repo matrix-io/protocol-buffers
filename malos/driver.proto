@@ -174,8 +174,12 @@ message EverloopImage {
 /* ZigBee messages */
 
 message ZigbeeBulbConfig {
+    // IP address or host name.
     string address = 1;
+    // The port.
     int32 port = 2;
+    // ZigBee command.
+    ZigBeeBulbCmd command = 3;
 }
 
 // Network start event
