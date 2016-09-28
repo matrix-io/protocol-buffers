@@ -214,6 +214,10 @@ message ZigBeeBulbCmd {
   // ID of the bulb node
   uint32 short_id = 1;
 
+  // Enpoint. This is used in the send commands after the
+  // short_id.
+  uint32 endpoint = 4;
+
   enum EnumCommands {
     ON = 0;
     OFF = 1;
@@ -226,7 +230,7 @@ message ZigBeeBulbCmd {
   // Bulb commands
   EnumCommands command = 2;
 
-  // Params of the bulb commands  
+  // Params of the bulb commands. Used by LEVEL and COLOR commands.
   repeated uint32 params  = 3;
 }
 
