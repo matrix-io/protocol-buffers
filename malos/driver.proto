@@ -246,9 +246,9 @@ message ZigBeeBulbCmd {
 message LircParams {
 
   // IR remote device name
-  string device 1;
+  string device = 1;
 
   // IR command
-  string command 2;
+  string command = 2;
 
 }
