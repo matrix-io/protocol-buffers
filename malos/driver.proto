@@ -26,7 +26,7 @@ message DriverConfig {
   ZigbeeBulbConfig zigbee_bulb = 5;
 
   // LIRC service configuration for IR commands.
-  LircConfig lirc = 6;
+  LircParams lirc = 6;
 
 }
 
