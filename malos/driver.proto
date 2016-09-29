@@ -24,6 +24,10 @@ message DriverConfig {
 
   // ZigBee configuration for bulbs.
   ZigbeeBulbConfig zigbee_bulb = 5;
+
+  // LIRC service configuration for IR commands.
+  LircParams lirc = 6;
+
 }
 
 // This configuration can grow a lot. Let's separate the configuration of each component.
@@ -237,3 +241,14 @@ message ZigBeeBulbCmd {
   repeated uint32 params  = 3;
 }
 
+
+// LIRC service params
+message LircParams {
+
+  // IR remote device name
+  string device = 1;
+
+  // IR command
+  string command = 2;
+
+}
