@@ -28,6 +28,9 @@ message DriverConfig {
   // LIRC service configuration for IR commands.
   LircParams lirc = 6;
 
+  // Servo handler
+  ServoParams servo = 7;
+
 }
 
 // This configuration can grow a lot. Let's separate the configuration of each component.
@@ -250,5 +253,16 @@ message LircParams {
 
   // IR command
   string command = 2;
+
+}
+
+// Servo handler params
+message ServoParams {
+
+  // GPIO to config
+  uint32 pin = 1;
+
+  // GPIO mode
+  uint32 angle = 2; 
 
 }
