@@ -14,19 +14,14 @@ message Beat {
   repeated Sensors sensors = 2;
 }
 
+// TODO(sean.canton):  Use protos from vision.proto
+// (Some of the protos are redefined here).
+
 enum EnumDetectionTag {
   FACE = 0;
   CAR = 1;
   HAND_THUMB = 2;
   HAND_PALM = 3;
-}
-
-
-enum EnumDetectionAlgorithm {
-    // Pico detector. See cpp/detector/pico_detector.h.
-    PICO = 0;
-    // Haar detector. See cpp/detector/haar_detector.h.
-    HAAR = 1;
 }
 
 message Rectangle {
@@ -43,7 +38,6 @@ message Rectangle {
 message Detection {
   // Grab detections from vision.proto so it's only in one place
   EnumDetectionTag detection = 0;
-  EnumDetectionAlgorithm algorithm = 1;
   repeated Rectangle zones = 2;
 }
 
