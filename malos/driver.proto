@@ -46,8 +46,8 @@ enum EnumMalosEyeDetectionType {
 }
 
 // Configuration for MALOS-eye. If object_to_detect has at least
-// one element the rest of the configuration will be and the objects to
-// be detected will change acordingly.
+// one element the rest of the configuration will be ignored and the
+// objects to be detected will change acordingly.
 message MalosEyeConfig {
   // Camera configuration. Camera id, width, height, and so on.
   CameraConfig camera_config = 1;
