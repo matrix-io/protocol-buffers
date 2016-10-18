@@ -115,9 +115,11 @@ message FacialRecognition {
 // When a detection is done, a tag specifies what is being detected.
 enum EnumDetectionTag {
   FACE = 0;
-  CAR = 1;
-  HAND_THUMB = 2;
-  HAND_PALM = 3;
+
+  HAND_THUMB = 1;
+  HAND_PALM = 2;
+  HAND_PINCH = 3;
+  HAND_FIST = 4;
 }
 
 enum EnumDetectionAlgorithm {
