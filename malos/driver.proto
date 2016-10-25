@@ -27,7 +27,11 @@ message DriverConfig {
 
   // LIRC service configuration for IR commands.
   LircParams lirc = 6;
+
+  // ServoMotor service configuration 
+  ServoParams servo = 7;
 }
+
 
 enum EnumMalosEyeDetectionType {
   // Stop. Don't do detections.
@@ -264,11 +268,18 @@ message ZigBeeBulbCmd {
 
 // LIRC service params
 message LircParams {
-
   // IR remote device name
   string device = 1;
 
   // IR command
   string command = 2;
+}
 
+// Servo handler params
+message ServoParams {
+  // GPIO to config
+  uint32 pin = 1;
+
+  // GPIO mode
+  uint32 angle = 2; 
 }
