@@ -147,9 +147,15 @@ message Dummy {
 message Humidity {
   // Humidity.
   float humidity = 1;
-
+  
   // Temperature.
   float temperature = 2;
+
+  // Calibrated Humidity.
+  float humidity_calib = 3;
+
+  // Temperature.
+  float temperature_calib = 4;
 }
 
 message TemperatureCalibParams{
