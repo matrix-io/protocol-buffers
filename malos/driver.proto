@@ -30,6 +30,9 @@ message DriverConfig {
 
   // ServoMotor service configuration 
   ServoParams servo = 7;
+
+  // Temperature calibration configuration 
+  TemperatureCalibParams temp_calib = 8;
 }
 
 
@@ -147,6 +150,11 @@ message Humidity {
 
   // Temperature.
   float temperature = 2;
+}
+
+TemperatureCalibParams{
+  // Current Temperature.
+  float current_temp = 1; 
 }
 
 // Basic UV radiation lecture.
