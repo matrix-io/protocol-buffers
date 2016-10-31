@@ -152,7 +152,7 @@ message Humidity {
   float temperature = 2;
 }
 
-TemperatureCalibParams{
+message TemperatureCalibParams{
   // Current Temperature.
   float current_temp = 1; 
 }
