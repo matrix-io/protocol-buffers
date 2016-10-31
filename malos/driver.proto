@@ -154,12 +154,12 @@ message Humidity {
   // Calibrated Humidity.
   float humidity_calib = 3;
 
-  // Temperature.
+  // Calibrates Temperature.
   float temperature_calib = 4;
 }
 
 message TemperatureCalibParams{
-  // Current Temperature.
+  // Current Temperature used for calibration.
   float current_temp = 1; 
 }
 
