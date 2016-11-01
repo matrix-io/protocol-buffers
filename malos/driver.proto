@@ -31,8 +31,8 @@ message DriverConfig {
   // ServoMotor service configuration 
   ServoParams servo = 7;
 
-  // Temperature calibration configuration 
-  TemperatureCalibParams temp_calib = 8;
+  //Humidity configuration
+  HumidityParams humidity = 8;
 }
 
 
@@ -156,11 +156,17 @@ message Humidity {
 
   // Calibrates Temperature.
   float temperature_calib = 4;
+
+  //  Is calibrated ?
+  bool calibrated = 5 ;
 }
 
-message TemperatureCalibParams{
+message HumidityParams{
   // Current Temperature used for calibration.
   float current_temp = 1; 
+
+  // Flag that indicates that the current_temp value is valid
+  bool do_calibration = 2;
 }
 
 // Basic UV radiation lecture.
@@ -221,7 +227,7 @@ message ZigbeeBulbConfig {
     // The port.
     int32 port = 2;
     // ZigBee command.
-    ZigBeeBulbCmd command = 3;
+    ZigBeeBulbCmd command = 3; 
 }
 
 // Network start event
