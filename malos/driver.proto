@@ -151,14 +151,11 @@ message Humidity {
   // Temperature.
   float temperature = 2;
 
-  // Calibrated Humidity.
-  float humidity_calib = 3;
-
-  // Calibrates Temperature.
-  float temperature_calib = 4;
+  // Calibrated Temperature.
+  float temperature_calib = 3;
 
   //  Is calibrated ?
-  bool calibrated = 5 ;
+  bool calibrated = 4 ;
 }
 
 message HumidityParams{
