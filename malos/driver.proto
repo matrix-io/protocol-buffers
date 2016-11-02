@@ -32,7 +32,7 @@ message DriverConfig {
   ServoParams servo = 7;
 
   //Humidity configuration
-  HumidityParams humidity = 8;
+  HumidityParams humidity = 9;
 }
 
 
