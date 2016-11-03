@@ -31,7 +31,7 @@ message DriverConfig {
   // ServoMotor service configuration 
   ServoParams servo = 7;
 
-  //Humidity configuration
+  // Humidity configuration
   HumidityParams humidity = 9;
 }
 
@@ -147,15 +147,15 @@ message Dummy {
 message Humidity {
   // Humidity.
   float humidity = 1;
-  
+
   // Temperature.
   float temperature = 2;
 
-  // Calibrated Temperature.
-  float temperature_calib = 3;
+  // Raw temperature value from the sensor.
+  float temperature_raw = 3;
 
-  //  Is calibrated ?
-  bool calibrated = 4 ;
+  //  Flag that tells if the temperature is calibrated
+  bool temperature_is_calibrated = 4 ;
 }
 
 message HumidityParams{
