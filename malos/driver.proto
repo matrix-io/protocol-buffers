@@ -159,10 +159,10 @@ message Humidity {
 }
 
 message HumidityParams{
-  // Current Temperature used for calibration.
-  float current_temp = 1; 
+  // Current temperature used for calibration.
+  float current_temperature = 1; 
 
-  // Flag that indicates that the current_temp value is valid
+  // Flag that indicates that the current_temperature value is valid.
   bool do_calibration = 2;
 }
 
@@ -224,7 +224,7 @@ message ZigbeeBulbConfig {
     // The port.
     int32 port = 2;
     // ZigBee command.
-    ZigBeeBulbCmd command = 3; 
+    ZigBeeBulbCmd command = 3;
 }
 
 // Network start event
