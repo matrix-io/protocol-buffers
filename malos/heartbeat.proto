@@ -8,20 +8,30 @@ syntax = "proto3";
 package matrix_heartbeat;
 
 import "../vision/vision.proto";
+import "../malos/driver.proto";
 
 message Beat {
-  repeated Detection detections = 1;
+  repeated EnumMalosEyeDetectionType services = 1;
   repeated Sensors sensors = 2;
 }
 
 // TODO(sean.canton):  Use protos from vision.proto
 // (Some of the protos are redefined here).
 
-enum EnumDetectionTag {
-  FACE = 0;
-  CAR = 1;
-  HAND_THUMB = 2;
-  HAND_PALM = 3;
+enum EnumMalosEyeDetectionType {
+  // Stop. Don't do detections.
+  // This only makes sense when this is the only command sent to MalosEye.
+  STOP = 0;
+  // Detect faces.
+  FACE = 20;
+  // Detect faces and enhance the detection with demographics.
+  // This might involve a connection to a remote detection server.
+  FACE_DEMOGRAPHICS = 21;
+  // Thumb.
+  HAND_THUMB_UP = 40;
+  HAND_PALM = 41;
+  HAND_PINCH = 42;
+  HAND_FIST = 43;
 }
 
 message Rectangle {
@@ -37,7 +47,7 @@ message Rectangle {
 
 message Detection {
   // Grab detections from vision.proto so it's only in one place
-  EnumDetectionTag detection = 0;
+  EnumMalosEyeDetectionType services = 0;
   repeated Rectangle zones = 2;
 }
 
