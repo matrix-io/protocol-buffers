@@ -31,6 +31,9 @@ message DriverConfig {
   // ServoMotor service configuration 
   ServoParams servo = 7;
 
+  // Gpio service configuration
+  GpioParams gpio = 8;
+
   // Humidity configuration
   HumidityParams humidity = 9;
 }
@@ -299,4 +302,20 @@ message ServoParams {
 
   // GPIO mode
   uint32 angle = 2; 
+}
+
+// GPIO handler params
+message GpioParams {
+  // GPIO to config
+  uint32 pin = 1;
+
+  // GPIO mode input/output
+  enum EnumMode {
+    INPUT = 0;
+    OUTPUT = 1;
+  }
+  EnumMode mode = 2;
+
+  // GPIO value
+  uint32 value = 3;
 }
