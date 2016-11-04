@@ -33,6 +33,9 @@ message DriverConfig {
 
   // Gpio service configuration
   GpioParams gpio = 8;
+
+  // Humidity configuration
+  HumidityParams humidity = 9;
 }
 
 
@@ -150,6 +153,20 @@ message Humidity {
 
   // Temperature.
   float temperature = 2;
+
+  // Raw temperature value from the sensor.
+  float temperature_raw = 3;
+
+  //  Flag that tells if the temperature is calibrated
+  bool temperature_is_calibrated = 4 ;
+}
+
+message HumidityParams{
+  // Current temperature used for calibration.
+  float current_temperature = 1; 
+
+  // Flag that indicates that the current_temperature value is valid.
+  bool do_calibration = 2;
 }
 
 // Basic UV radiation lecture.
