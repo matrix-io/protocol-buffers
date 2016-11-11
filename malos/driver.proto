@@ -325,11 +325,12 @@ message GpioParams {
 
 // Microphone Array params
 message MicArrayParams {
+  // gain for all microphones
   int32 gain = 1;
 
   // Spherical coordinates for beamforming (azimutal_angle,
   // polar_angle, radial_distance_mm).
-
+  //
   // azimutal angle (must lie between -pi/2 an pi/2)
   float azimutal_angle  = 2;
   
