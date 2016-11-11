@@ -36,6 +36,9 @@ message DriverConfig {
 
   // Humidity configuration
   HumidityParams humidity = 9;
+
+  // Microphone Array configuration
+  MicArrayParams  micarray = 10;  
 }
 
 
@@ -319,3 +322,25 @@ message GpioParams {
   // GPIO value
   uint32 value = 3;
 }
+
+// Microphone Array params
+message MicArrayParams {
+  // gain for all microphones
+  int32 gain = 1;
+
+  // Spherical coordinates for beamforming (azimutal_angle,
+  // polar_angle, radial_distance_mm).
+  //
+  // azimutal angle (must lie between -pi/2 an pi/2)
+  float azimutal_angle  = 2;
+  
+  // polar angle (must lie between -pi/2 an pi/2)
+  float polar_angle = 3;
+
+  // distance from the center of the MATRIX Creator to the sound source.
+  float radial_distance_mm = 4;
+
+  // sound speed in mm/seg  
+  float sound_speed_mmseg = 5;
+}
+
