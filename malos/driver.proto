@@ -331,7 +331,7 @@ message MicArrayParams {
   // polar_angle, radial_distance_mm).
 
   // azimutal angle (must lie between -pi/2 an pi/2)
-  float zimutal_angle  = 2;
+  float azimutal_angle  = 2;
   
   // polar angle (must lie between -pi/2 an pi/2)
   float polar_angle = 3;
