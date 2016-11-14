@@ -53,7 +53,7 @@ message Detection {
 
 enum Sensors {
   CAMERA = 0;
-  MICROPHONE = 1;
+  MIC = 1;
   TEMPERATURE = 2;
   HUMIDITY = 3;
   PRESSURE = 4;
