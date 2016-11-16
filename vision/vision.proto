@@ -170,4 +170,11 @@ message VisionResult {
   // Same as above but with a resolution that is expected to have less details,
   // i.e.: 640x480 instead of 3840x2160. It could be useful to give the client an idea
   bytes image_small = 3;
+  // Elapsed time.
+  // If a program receives a proto of type VisionResult, what should it do with the
+  // elapsed time? Increment it? Perhaps this is the best thing to do. But we ware:
+  // The meaning of the field only makes sense in the context of a specific program.
+  // Known uses:
+  // - Detection server: Time to process a request.
+  float elapsed_time = 4;
 }
