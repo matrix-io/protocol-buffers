@@ -323,7 +323,7 @@ message GpioParams {
   uint32 value = 3;
 
   // GPIO vector value
-  uint32 vector = 4;
+  uint32 values = 4;
 }
 
 // Microphone Array params
