@@ -167,9 +167,6 @@ message Humidity {
 message HumidityParams{
   // Current temperature used for calibration.
   float current_temperature = 1; 
-
-  // Flag that indicates that the current_temperature value is valid.
-  bool do_calibration = 2;
 }
 
 // Basic UV radiation lecture.
