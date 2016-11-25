@@ -203,6 +203,21 @@ message Imu {
 
   //Longitudinal axis (roll)
   float roll = 3;
+
+  // acceleration
+  float accel_x = 4;
+  float accel_y = 5;
+  float accel_z = 6;
+
+  // gyroscope
+  float gyro_x = 7;
+  float gyro_y = 8;
+  float gyro_z = 9;
+
+  // magnetometer
+  float mag_x = 10
+  float mag_y = 11;
+  float mag_z = 12;
 }
 
 // Value for a led. Values range from 0 to 255.
