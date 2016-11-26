@@ -215,7 +215,7 @@ message Imu {
   float gyro_z = 9;
 
   // magnetometer
-  float mag_x = 10
+  float mag_x = 10;
   float mag_y = 11;
   float mag_z = 12;
 }
