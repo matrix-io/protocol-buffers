@@ -487,9 +487,9 @@ message ZigBeeMsg {
     // EndPoint Description Definition
     message EndPointDescription{
       // EndPoint Profile
-      ProfileDescription profile ;
+      ProfileDescription profile = 1;
       // EndPoint Clusters
-      repeated ClusterDescription clusters = 1;
+      repeated ClusterDescription clusters = 2;
     }
 
     // Node Info Definition
