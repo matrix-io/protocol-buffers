@@ -29,12 +29,20 @@ message Rectangle {
 }
 
 enum EnumFacialRecognitionTag {
+  // Age classification.
   AGE = 0;
+  // Emotion classification.
   EMOTION = 1;
+  // Gender classification.
   GENDER = 2;
+  // Identification.
   FACE_ID = 3;
+  // Pose of the head (pitch, yaw, roll).
   HEAD_POSE = 4;
+  // Features such as nose, eyes, mouth.
   FACE_FEATURES = 5;
+  // Descriptor vector.
+  FACE_DESCRIPTOR = 6;
 }
 
 message FacialRecognition {
@@ -82,11 +90,14 @@ message FacialRecognition {
   // Detected emotion.
   Emotion emotion = 5;
 
-  // The following fields should only be present when the HAS_FACE_ID is set.
+  // The following fields should only be present when the tag FACE_DESCRIPTOR is set.
 
-  // A signature for a face.
-  repeated float face_signature = 6;
-  // TODO(vision.team): Is this the best way to identify the person behind a face?
+  // Face descriptor.
+  repeated float face_descriptor = 6;
+
+  // The following fields should only be present when the tag HAS_FACE_ID is set.
+
+  // Face identification.
   string face_id = 7;
 
   // The following fields should only be present when the tag HAS_HEAD_POSE is set.
