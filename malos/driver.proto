@@ -39,6 +39,9 @@ message DriverConfig {
 
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
+
+  // ZigBee Message.
+  ZigBeeMsg zigbee_message = 11;
 }
 
 
@@ -233,8 +236,309 @@ message EverloopImage {
   repeated LedValue led = 1;
 }
 
+// ZigBee message
+message ZigBeeMsg {
 
-/* ZigBee messages */
+  // Zigbee command types definition
+  enum ZigBeeCmdType {
+    ZCL = 0;
+    ZLL = 1;
+    NETWORK_MGMT = 2;
+  }
+
+  // ZigBee Cluster Library command definition
+  message ZCLCmd {
+
+    // ZCL commands type
+    enum ZCLCmdType  {
+      ON_OFF = 0;
+      LEVEL = 1;
+      COLOR_CONTROL = 2;
+      IDENTIFY = 3;
+    }
+
+    // OnOff command definition
+    message OnOffCmd {
+
+      enum ZCLOnOffCmdType  {
+        ON = 0;
+        OFF = 1;
+        TOGGLE = 2;
+      }
+
+      // ZCL OnOff command type
+      ZCLOnOffCmdType type = 1;
+
+      // Params not required for ZCL OnOff cluster commands
+    }
+
+    // Level command definition
+    message LevelCmd {
+
+      // ZCL Level commands types
+      enum ZCLLevelCmdType  {
+        MOVE_TO_LEVEL = 0;
+        MOVE = 1;
+        // STEP = 2;
+        // STOP = 3;
+        // MOVE_TO_LEVEL_ONOFF = 4;
+        // MOVE_ONOFF = 5;
+        // STEP_ONOFF = 6;
+        // STOP_ONOFF = 7;
+      }
+
+       // MoveToLevel command parameters
+      message MoveToLevelCmdParams{
+        // level param <uint8>: The meaning of ‘level’ is device dependent – e.g. for a light it may mean brightness level.
+        uint32  level  = 1;
+        // Transition time <uint16>
+        uint32 transition_time  = 2;
+      }
+
+      // Move command parameters
+      message MoveCmdParams{
+        // |Fade Mode Value | Description  |
+        // |      0x00      |     Up       |
+        // |      0x01      |    Down      |
+        uint32  mode  = 1;
+        //Rate <uint8>: specifies the rate of movement in units per second.
+        uint32 rate  = 2;
+      }
+
+      ZCLLevelCmdType type = 1;
+
+      // MoveToLevel command
+      MoveToLevelCmdParams move_to_level_params = 2;
+
+      // Move command
+      MoveCmdParams move_params = 3;
+    }
+
+    // Color Control command definition
+    message ColorControlCmd {
+
+      // ZCL ColorControl command types
+      enum ZCLColorControlCmdType  {
+        MOVETOHUE = 0;
+        MOVETOSAT = 1;
+        MOVETOHUEANDSAT = 2;
+        // MOVEHUE = 3;
+        // STEPHUE = 4;
+        // MOVESAT = 5;
+        // STEPSAT = 6;
+        // MOVETOCOLOR = 7;
+        // MOVECOLOR = 8;
+        // STEPCOLOR = 9;
+        // MOVETOCOLORTEMPERATURE = 10;
+      }
+
+      // MoveToHue command
+      message MoveToHueCmdParams{
+
+        // Values of the Direction Param
+        enum DirectionParam{
+          SHORTEST_DISTANCE = 0;
+          LONGEST_DISTANCE = 1;
+          UP = 2;
+          DOWN = 3;
+        }
+
+        // Hue <uint8>: specifies the hue to be moved to.
+        uint32 hue = 1;
+
+        // Direciton param
+        DirectionParam direction  = 2;
+
+        //Transition time <uint16> : specifies, in 1/10ths of a second, the time that shall be taken to move to the new hue
+        uint32 transition_time = 3;
+      }
+
+      message MoveToSatCmdParams {
+
+        // Saturation <uint8>
+        uint32 saturation = 1;
+
+        // Transition Time <uint16>
+        uint32 transition_time = 2;
+      }
+
+      message MoveToHueAndSatCmdParams {
+
+        // Hue <uint8>
+        uint32 hue = 1;
+
+        // Saturation <uint8>
+        uint32 saturation = 2;
+
+        // Transition Time <uint16>
+        uint32 transition_time = 3;
+      }
+
+      // ZCLColorControl command type
+      ZCLColorControlCmdType type = 1;
+
+      // MoveToHue command params
+      MoveToHueCmdParams movetohue_params = 2;
+
+      // MoveToSat commands params
+      MoveToSatCmdParams movetosat_params = 3;
+
+      // MoveToHueAndSat commands params
+      MoveToHueAndSatCmdParams movetohueandsat_params = 4;
+    }
+
+    //ZCL Identify command type
+    message IdentifyCmd{
+
+      enum ZCLIdentifyCmdType  {
+        // The IDENTIFY command starts or stops the receiving device identifying itself.
+        IDENTIFY = 0;
+        // The IDENTIFY_QUERY command allows the sending device to request the target or
+        // targets to respond if they are currently identifying themselves.
+        // This command has no payload.
+        IDENTIFY_QUERY = 1;
+      }
+
+      message IdentifyCmdParams {
+        // Transition Time <uint16>
+        uint32 identify_time = 2;
+      }
+
+      ZCLIdentifyCmdType type = 1;
+
+      IdentifyCmdParams identify_params = 2;
+    }
+
+    // ZCL command type
+    ZCLCmdType type = 1;
+
+    // OnOff command
+    OnOffCmd onoff_cmd = 2;
+
+    // Level command
+    LevelCmd level_cmd = 3;
+
+    // Color control command
+    ColorControlCmd colorcontrol_cmd = 4;
+
+    // Identify command
+    IdentifyCmd identify_cmd = 5;
+  }
+
+  // ZigBee Light Link command definition
+  message ZLLCmd{}
+
+  // Network management command definition
+  message NetworkMgmtCmd{
+
+    // NetworkMgmt command types
+    enum NetworkMgmtCmdTypes {
+      CREATE_NWK = 0;  // Creates a new network. No params required
+      LEAVE_NWK = 1;  // Leave the current network. No params required
+      NODE_LEAVE_NWK = 2;  // Ask a specific node to leave the current network.
+      PERMIT_JOIN = 3; // Permit other devices to join the network for a time period.
+      NODE_INFO = 4; // Get all the info of the zigbee network and all the devices connected. No params required
+      DISCOVERY_INFO = 5; // Gets all the info from the devices connected to the network. No params required
+      RESET_PROXY = 6; // Reset the proxy app . No params required
+      IS_PROXY_ACTIVE = 7; // TRUE if the conection between the proxy and the ZigBee chip is active. No params required
+      // The Proxy is the app that talks with the ZigBee chip via
+      // COMs and with the MALOS services using Sockets.
+    }
+
+    // PermitJoin Params Definition
+    message PermitJoinParams{
+      // Joining time : Number of seconds during which devices will be allowed to join the network
+      uint32 time = 1;
+    }
+
+    // Is Proxy Active Params Definition
+    message IsProxyActiveParams{
+      bool is_proxy_active = 1;
+    }
+
+    // Node Leave Network Params Definition
+    message NodeLeaveNetParams{
+      // Node Id of the Node you want to leave the network
+      uint32 NodeId = 1;
+    }
+
+    // CLuster Description Definition
+    message ClusterDescription{
+      enum ClusterInOutType{
+        SERVER_IN = 0;
+        CLIENT_OUT = 1;
+      }
+      // Cluster server/client type: server (IN) or client (OUT) implementation
+      ClusterInOutType type = 1;
+      // Cluster ID : ex 0x0006 (On/off),  0x0008 (Level Control), 0x0201 (Thermostat)
+      uint32 cluster_id = 2;
+      // Cluster type name :
+      string cluster_name = 3;
+    }
+
+    // Profile Description Definition
+    message ProfileDescription{
+      // Profile ID : ex 0x0104
+      uint32 profile_id = 1;
+      // Profile type name : ex "Home Automation"
+      string profile_name = 2;
+    }
+
+    // EndPoint Description Definition
+    message EndPointDescription{
+      // EndPoint Profile
+      ProfileDescription profile ;
+      // EndPoint Clusters
+      repeated ClusterDescription clusters = 1;
+    }
+
+    // Node Info Definition
+    message NodeDescription{
+      // NodeId of the Node created by the Matrix Creator
+      uint32 nodeId = 1;
+      // EUI64 of the Node created by the Matrix Creator
+      uint32 eui64 = 2;
+      // EndPoints in the Node
+      repeated EndPointDescription  endpoints = 3;
+    }
+
+    // Node connected info
+    message DiscoveryInfoDescription{
+      repeated NodeDescription nodes = 1;
+    }
+
+    // NetworkMgmt command type
+    NetworkMgmtCmdTypes type = 1;
+
+    // PermitJoin params
+    PermitJoinParams permitjoin_params = 2;
+
+    // Is Proxy Active params
+    IsProxyActiveParams is_proxy_active = 3;
+
+    // Node Leave Network params
+    NodeLeaveNetParams node_leave_params = 4;
+
+    // Node Info
+    NodeDescription node_info  = 5;
+
+    // Discovery Nodes info
+    DiscoveryInfoDescription connected_nodes = 6;
+  }
+
+  // Zigbee command type
+  ZigBeeCmdType type = 1;
+
+  // ZigBee Cluster Library command
+  ZCLCmd zcl_cmd = 2;
+
+  // ZigBee Light Link command
+  ZLLCmd zll_cmd = 3;
+
+  // Network management commnad
+  NetworkMgmtCmd network_mgmt_cmd = 4;
+
+ }
 
 message ZigbeeBulbConfig {
     // IP address or host name.
