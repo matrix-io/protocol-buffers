@@ -1,3 +1,6 @@
+# FIXME: Update this file to compile protos.
+# This is useful to check that protos build before sending PRs.
+
 cmake_minimum_required(VERSION 2.8)
 project(build_protos C CXX)
 
