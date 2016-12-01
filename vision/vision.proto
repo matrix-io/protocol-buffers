@@ -190,7 +190,7 @@ message Video {
   // Video codec used to encode data
   EnumVideoCodec codec = 2;
 
-  // Arbitrary text to tags for video content
+  // Arbitrary text to tag video content
   // ie. tagging for training purposes
   repeated string tag = 3;
 }
