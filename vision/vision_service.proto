@@ -9,6 +9,7 @@ package admobilize_vision;
 
 import "vision.proto";
 
+// Message used to send vision requests
 message VisionRequest {
   // Image for the request.
   bytes image = 1;
@@ -19,6 +20,13 @@ message VisionRequest {
   // Recognitions to perform on the image. The recognitions should be done
   // after the detections.
   repeated EnumFacialRecognitionTag recognition = 3;
+
+  // It is sometimes more convenient to send more than one image to be processed
+  // by vision services
+  ImageList image_list = 4;
+
+  // Video data 
+  Video video = 5;
 }
 
 service VisionService {
