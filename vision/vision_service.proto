@@ -9,8 +9,7 @@ package admobilize_vision;
 
 import "vision.proto";
 
-// This proto aims at providing a flexible structure for client applications
-// to request processing by video services.
+// Message used to send vision requests
 message VisionRequest {
   // Image for the request.
   bytes image = 1;
@@ -22,12 +21,11 @@ message VisionRequest {
   // after the detections.
   repeated EnumFacialRecognitionTag recognition = 3;
 
-  // It is sometimes more convenient to send many images to be processed
+  // It is sometimes more convenient to send more than one image to be processed
   // by vision services
   ImageList image_list = 4;
 
-  // or video data if splitting into frames is not convenient
-  // in the client.
+  // Video data 
   Video video = 5;
 }
 

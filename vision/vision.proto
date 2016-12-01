@@ -161,19 +161,18 @@ message RectangularDetection {
   bytes image_small = 7;
 }
 
-// Collection of images used as source for
-// a detection
+// Collection of images. For some applications the 
+// order can be important for others doesn't. 
 message ImageList {
-  // image data 
+  // Image data 
   repeated bytes data = 1;
 
-  // if image data above was taken in a sequence, the fps should 
-  // describe how many of such frames were taken in a second
-  int32 fps = 2;
+  // If image data above was taken in a sequence, the frame rate
+  // at which images were taken
+  int32 frames_per_second = 2;
 }
 
-// Enumeration of video codecs available for 
-// vision requests
+// Video codecs available for vision requests
 enum EnumVideoCodec {
   UNDEFINED = 0;
   H264 = 1;
@@ -183,7 +182,7 @@ enum EnumVideoCodec {
   VP9 = 5;
 }
 
-// Source video for recognitions.
+// Source video
 message Video {
   // RGB video data
   bytes data = 1;
@@ -192,7 +191,7 @@ message Video {
   EnumVideoCodec codec = 2;
 }
 
-// This proto organizes (at least) four components:
+// This message organizes (at least) four components:
 // - Detections (faces, hands, cars).
 // - Tracking information.
 // - Recognition (gender, age, emotion).
