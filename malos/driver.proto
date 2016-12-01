@@ -315,7 +315,7 @@ message ServoParams {
   // GPIO to config
   uint32 pin = 1;
 
-  // GPIO mode
+  // Servo angle
   uint32 angle = 2; 
 }
 
