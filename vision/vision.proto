@@ -174,7 +174,7 @@ message ImageList {
 
 // Video codecs available for vision requests
 enum EnumVideoCodec {
-  UNDEFINED = 0;
+  UNDEFINED_VIDEO_CODEC = 0;
   H264 = 1;
   MP4V = 2;
   RV24 = 3;
