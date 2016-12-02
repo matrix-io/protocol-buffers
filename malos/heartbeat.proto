@@ -13,7 +13,6 @@ import "../malos/driver.proto";
 message Beat {
   repeated EnumMalosEyeDetectionType services = 1;
   repeated Sensors sensors = 2;
-  repeated Integrations integrations = 3;
 }
 
 // TODO(sean.canton):  Use protos from vision.proto
@@ -63,8 +62,4 @@ enum Sensors {
   COMPASS = 7;
   UV = 8;
   ALTITUDE = 9;
-}
-
-enum Integrations {
-  GPIO = 0;
 }
