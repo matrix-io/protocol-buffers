@@ -165,7 +165,7 @@ message RectangularDetection {
 // order can be important for others doesn't. 
 message ImageList {
   // Image data 
-  repeated bytes data = 1;
+  repeated bytes image_data = 1;
 
   // If image data above was taken in a sequence, the frame rate
   // at which images were taken
@@ -174,7 +174,7 @@ message ImageList {
 
 // Video codecs available for vision requests
 enum EnumVideoCodec {
-  UNDEFINED = 0;
+  UNDEFINED_VIDEO_CODEC = 0;
   H264 = 1;
   MP4V = 2;
   RV24 = 3;
@@ -185,7 +185,7 @@ enum EnumVideoCodec {
 // Source video
 message Video {
   // RGB video data
-  bytes data = 1;
+  bytes video_data = 1;
 
   // Video codec used to encode data
   EnumVideoCodec codec = 2;
