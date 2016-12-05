@@ -1,0 +1,152 @@
+/*
+ * Copyright 2016 <Admobilize>
+ * All rights reserved.
+ */
+
+syntax = "proto3";
+
+package admobilize_vision;
+
+import "vision.proto";
+import "vision_service.proto";
+
+// *********************** StoreDescriptor method  ***************************
+
+message StoreDescriptorRequest {
+
+  // Source images / video to obtain descriptors
+  VisionRequest vision_request = 1;
+
+  // List of descriptors
+  repeated Descriptor descriptor = 2;
+
+  // Arbitrary user defined string for the descriptor
+  string tag = 3;
+
+  // Optional device IDs to associate the descriptor
+  // with a set of devices
+  repeated string device_id = 4;
+}
+
+message StoreDescriptorResponse {
+
+  // Stored descriptor IDs in the same order they were sent
+  repeated string uuid = 1;
+
+  // In case store request fails, will contain the reason
+  string reason = 2;
+}
+
+// *********************** GetDescriptor method  ***************************
+
+message GetDescriptorRequest {
+  // Specific descriptors to obtain
+  repeated string uuid = 1;
+
+  // Device ID to get descriptors for
+  string device_id = 2;
+
+  // Next page token when paginating
+  string next_page_token = 3;
+}
+
+message GetDescriptorResponse {
+  // Descriptor list
+  repeated Descriptor descriptor = 1;
+
+  // Token use for pagination when there are too many results
+  string next_page_token = 2;
+}
+
+// *********************** DeleteDescriptor method  ***************************
+
+message DeleteDescriptorRequest {
+  // Stored descriptor IDs to delete
+  repeated string uuid = 1;
+}
+
+message DeleteDescriptorResponse {
+  // Amount of currently stored descriptors
+  int32 number_of_descriptors = 1;
+
+  // In case the delete fails, this field will contain the reason
+  string reason = 2;
+}
+
+// *********************** Recognize method  ***************************
+message RecognitionRequest {
+
+  // Source for VisionRequest for recognition
+  VisionRequest vision_request = 1;
+
+  // List of descriptors
+  repeated Descriptor descriptor = 2;
+
+  // Signals the desired algorithm for recognitions
+  // @TODO (nelson.castillo) document the default algo
+  EnumRecognitionMatchingAlgorithm matching_algorithm = 3;
+}
+
+// Describes descriptor matches
+message DescriptorMatch {
+  // user set tag
+  string tag = 1;
+
+  // Score for the match
+  float score = 2;
+}
+
+message RecognitionResponse {
+  // List of matches 
+  repeated DescriptorMatch recognition_match = 1;
+}
+
+service RecognitionService {
+
+  // Save a descriptor 
+  // The received Recognition request may:
+  //   - contain the calculated descriptors
+  //   - contain a VisionRequest with a populated ImageList field
+  //   - contain a VisionRequest with a populated Video field
+  //
+  // The tag is mandatory for a store call to be successful.
+  // When device_id items are specified, the descriptor will be scoped
+  // to the given device IDs, meaning that match requests will only
+  // succeed when correct device_id and credentials match.
+  // 
+  // Return values
+  // When the save is successfull, a descriptor list with the computed
+  // descriptor data and uuid is returned
+  // The message will contain an error if the descriptor can't be stored
+  rpc StoreDescriptors(StoreDescriptorRequest) returns (StoreDescriptorResponse) {}
+
+  // Obtain descriptors saved under a user account
+  //
+  // Return values
+  // A list of descriptors according to provided uuids and device_id.
+  // if both, uuid and device_id are defined, only descriptors
+  // associated with the given device ID will be returned
+  // If no uuid or devices_id are defined, all descriptors available for
+  // the user account will be returned
+  // An empty list will be returned if no descriptors are found
+  rpc GetDescriptors(GetDescriptorRequest) returns (GetDescriptorResponse) {}
+
+  // Delete descriptors saved under a user account
+  // Method will delete all descriptors matching provided uuids. When
+  // a device_id is provided, only those associated with the device will
+  // be deleted
+  rpc DeleteDescriptor(DeleteDescriptorRequest) returns (DeleteDescriptorResponse) {}
+
+  // Request a descriptor match against recognition services.
+  // For recognize requests to be possible, descriptors must first be
+  // stored (see StoreDescriptors method). 
+  // 
+  // Recognize calls can include a variety of fields:
+  //   - when descriptor field is set, it will be used to perform the match against
+  //     existent descriptors.
+  //   - when image field is set, descriptors will first be calculated for
+  //     the images and then matched.
+  //   - when video field is set, descriptors will be calculated splitting 
+  //     the video into frames, descriptors calculated, and then matched.
+  rpc Recognize(RecognitionRequest) returns (RecognitionResponse) {}
+}
