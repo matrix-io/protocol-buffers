@@ -6,6 +6,7 @@ You will need [gRPC](http://www.grpc.io/) and [cmake](https://cmake.org/) instal
 system :
 ```
 $ mkdir build
+$ cd build 
 $ cmake -DCMAKE_CXX_FLAGS="-std=c++11 ..
 $ make
 ```
