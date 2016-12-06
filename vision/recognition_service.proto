@@ -74,7 +74,7 @@ message DeleteDescriptorResponse {
 }
 
 // *********************** Recognize method  ***************************
-message RecognitionRequest {
+message RecognizeRequest {
 
   // Source for VisionRequest for recognition
   VisionRequest vision_request = 1;
@@ -83,8 +83,7 @@ message RecognitionRequest {
   repeated Descriptor descriptor = 2;
 
   // Signals the desired algorithm for recognitions
-  // @TODO (nelson.castillo) document the default algo
-  EnumRecognitionMatchingAlgorithm matching_algorithm = 3;
+  string matching_algorithm_version = 3;
 }
 
 // Describes descriptor matches
@@ -96,7 +95,7 @@ message DescriptorMatch {
   float score = 2;
 }
 
-message RecognitionResponse {
+message RecognizeResponse {
   // List of matches 
   repeated DescriptorMatch recognition_match = 1;
 }
@@ -148,5 +147,5 @@ service RecognitionService {
   //     the images and then matched.
   //   - when video field is set, descriptors will be calculated splitting 
   //     the video into frames, descriptors calculated, and then matched.
-  rpc Recognize(RecognitionRequest) returns (RecognitionResponse) {}
+  rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
 }

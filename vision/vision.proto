@@ -195,18 +195,6 @@ message Video {
   repeated string tag = 3;
 }
 
-// Algorithm used to extract the descriptor
-enum EnumRecognitionExtractorAlgorithm {
-  UNDEFINED_EXTRACTOR_ALGORITHM = 0;
-  CNN = 1;
-}
-
-// Alghorithm to be used to match recognition descriptors
-enum EnumRecognitionMatchingAlgorithm {
-  UNDEFINED_MATCHING_ALGORITHM = 0;
-  EUCLIDEAN_DISTANCE = 1;
-}
-
 // Describes a recognition descriptor
 message Descriptor {
 
@@ -214,13 +202,10 @@ message Descriptor {
   string uuid = 1; 
 
   // Algorithm used to extract the descriptor
-  EnumRecognitionExtractorAlgorithm algorithm = 2;
-
-  // Version of the algorithm used
-  string algorithm_version = 3;
+  string extractor_algorithm_version = 2;
 
   // The actual recognition descriptor data
-  repeated float descriptor_data = 4;
+  repeated float descriptor_data = 3;
 }
 
 // This message organizes (at least) four components:
