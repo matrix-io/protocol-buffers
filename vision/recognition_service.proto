@@ -18,7 +18,7 @@ message StoreDescriptorRequest {
   VisionRequest vision_request = 1;
 
   // List of descriptors
-  repeated Descriptor descriptor = 2;
+  repeated FaceDescriptor face_descriptor = 2;
 
   // Arbitrary user defined string for the descriptor
   string tag = 3;
@@ -52,7 +52,7 @@ message GetDescriptorRequest {
 
 message GetDescriptorResponse {
   // Descriptor list
-  repeated Descriptor descriptor = 1;
+  repeated FaceDescriptor face_descriptor = 1;
 
   // Token use for pagination when there are too many results
   string next_page_token = 2;
@@ -80,7 +80,7 @@ message RecognizeRequest {
   VisionRequest vision_request = 1;
 
   // List of descriptors
-  repeated Descriptor descriptor = 2;
+  repeated FaceDescriptor face_descriptor = 2;
 
   // Signals the desired algorithm for recognitions
   string matching_algorithm_version = 3;

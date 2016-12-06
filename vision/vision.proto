@@ -196,7 +196,7 @@ message Video {
 }
 
 // Describes a recognition descriptor
-message Descriptor {
+message FaceDescriptor {
 
   // A unique identifier for the descriptor according to UUID v4
   string uuid = 1; 
