@@ -17,123 +17,33 @@ syntax = "proto3";
 
 package admobilize_vision;
 
-import "vision.proto";
 import "vision_service.proto";
-
-// *********************** StoreDescriptor method  ***************************
-
-message StoreDescriptorRequest {
-
-  // Source images / video to obtain descriptors
-  VisionRequest vision_request = 1;
-
-  // List of descriptors
-  repeated FaceDescriptor face_descriptor = 2;
-
-  // Arbitrary user defined string for the descriptor
-  string tag = 3;
-
-  // Optional device IDs to associate the descriptor
-  // with a set of devices
-  repeated string device_id = 4;
-}
-
-message StoreDescriptorResponse {
-
-  // Stored descriptor IDs in the same order they were sent
-  repeated string uuid = 1;
-
-  // In case store request fails, will contain the reason
-  string reason = 2;
-}
-
-// *********************** GetDescriptor method  ***************************
-
-message GetDescriptorRequest {
-  // Specific descriptors to obtain
-  repeated string uuid = 1;
-
-  // Device ID to get descriptors for
-  string device_id = 2;
-
-  // Next page token when paginating
-  string next_page_token = 3;
-}
-
-message GetDescriptorResponse {
-  // Descriptor list
-  repeated FaceDescriptor face_descriptor = 1;
-
-  // Token use for pagination when there are too many results
-  string next_page_token = 2;
-}
-
-// *********************** DeleteDescriptor method  ***************************
-
-message DeleteDescriptorRequest {
-  // Stored descriptor IDs to delete
-  repeated string uuid = 1;
-}
-
-message DeleteDescriptorResponse {
-  // Amount of currently stored descriptors
-  int32 number_of_descriptors = 1;
-
-  // In case the delete fails, this field will contain the reason
-  string reason = 2;
-}
-
-// *********************** Recognize method  ***************************
-message RecognizeRequest {
-
-  // Source for VisionRequest for recognition
-  VisionRequest vision_request = 1;
-
-  // List of descriptors
-  repeated FaceDescriptor face_descriptor = 2;
-
-  // Signals the desired algorithm for recognitions
-  string matching_algorithm_version = 3;
-}
-
-// Describes descriptor matches
-message DescriptorMatch {
-  // user set tag
-  string tag = 1;
-
-  // Score for the match
-  float score = 2;
-}
-
-message RecognizeResponse {
-  // List of matches 
-  repeated DescriptorMatch recognition_match = 1;
-}
 
 service RecognitionService {
 
-  // Save a descriptor 
-  // The received Recognition request may:
+  // Store a descriptor 
+  //
+  // The received message may:
   //   - contain the calculated descriptors
   //   - contain a VisionRequest with a populated ImageList field
   //   - contain a VisionRequest with a populated Video field
   //
   // The tag is mandatory for a store call to be successful.
   // When device_id items are specified, the descriptor will be scoped
-  // to the given device IDs, meaning that match requests will only
-  // succeed when correct device_id and credentials match.
+  // to the given device IDs, meaning that only Recognize() requests from such
+  // device IDs will match those descriptors.
   // 
-  // Return values
+  // Returned Message
   // When the save is successfull, a descriptor list with the computed
-  // descriptor data and uuid is returned
-  // The message will contain an error if the descriptor can't be stored
+  // descriptor data and uuid is returned.
+  // The message will contain an error if the descriptor can't be stored.
   rpc StoreDescriptors(StoreDescriptorRequest) returns (StoreDescriptorResponse) {}
 
   // Obtain descriptors saved under a user account
   //
-  // Return values
+  // Returned Message
   // A list of descriptors according to provided uuids and device_id.
-  // if both, uuid and device_id are defined, only descriptors
+  // if both uuid and device_id are defined, only descriptors
   // associated with the given device ID will be returned
   // If no uuid or devices_id are defined, all descriptors available for
   // the user account will be returned
@@ -141,12 +51,14 @@ service RecognitionService {
   rpc GetDescriptors(GetDescriptorRequest) returns (GetDescriptorResponse) {}
 
   // Delete descriptors saved under a user account
+  //
   // Method will delete all descriptors matching provided uuids. When
   // a device_id is provided, only those associated with the device will
   // be deleted
   rpc DeleteDescriptor(DeleteDescriptorRequest) returns (DeleteDescriptorResponse) {}
 
   // Request a descriptor match against recognition services.
+  //
   // For recognize requests to be possible, descriptors must first be
   // stored (see StoreDescriptors method). 
   // 
@@ -159,3 +71,116 @@ service RecognitionService {
   //     the video into frames, descriptors calculated, and then matched.
   rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
 }
+
+// Describes a recognition descriptor
+message Descriptor {
+
+  // A unique identifier for the descriptor according to UUID v4
+  string uuid = 1; 
+
+  // Descriptor format used by extraction algorithm
+  string data_format = 2;
+
+  // The actual recognition descriptor data
+  repeated float descriptor_data = 3;
+}
+
+// Message used when calling StoreDescriptors()
+message StoreDescriptorRequest {
+
+  // Source images / video to obtain descriptors
+  VisionRequest vision_request = 1;
+
+  // List of descriptors
+  repeated Descriptor descriptor_list = 2;
+
+  // Arbitrary user defined strings for the descriptor
+  repeated string tag = 3;
+
+  // Optional device IDs to associate the descriptor
+  // with a set of devices
+  repeated string device_id = 4;
+}
+
+// Message returned by StoreDescriptors()
+message StoreDescriptorResponse {
+
+  // Stored descriptor IDs in the same order they were sent
+  repeated string uuid = 1;
+
+  // In case store request fails, will contain the reason
+  string reason = 2;
+}
+
+// Message used when calling GetDescriptors()
+message GetDescriptorRequest {
+
+  // Specific descriptors to obtain
+  repeated string uuid = 1;
+
+  // Device ID to get descriptors for
+  string device_id = 2;
+
+  // Next page token when paginating
+  string next_page_token = 3;
+}
+
+// Message returned by GetDescriptors()
+message GetDescriptorResponse {
+
+  // Descriptor list
+  repeated Descriptor descriptor_list = 1;
+
+  // Token use for pagination when there are too many results
+  string next_page_token = 2;
+}
+
+// Message used when calling DeleteDescriptor()
+message DeleteDescriptorRequest {
+
+  // Stored descriptor IDs to delete
+  repeated string uuid = 1;
+}
+
+// Message returned by DeleteDescriptor()
+message DeleteDescriptorResponse {
+
+  // UUIDs of deleted descriptors
+  repeated string uuid = 1;
+
+  // In case the delete fails, this field will contain the reason
+  string reason = 2;
+}
+
+// Message used when calling Recognize()
+message RecognizeRequest {
+
+  // Source for VisionRequest for recognition
+  VisionRequest vision_request = 1;
+
+  // List of descriptors
+  repeated Descriptor descriptors_list = 2;
+
+  // Signals the desired algorithm for recognitions
+  string matching_algorithm_version = 3;
+}
+
+// Message describes a descriptor match
+message DescriptorMatch {
+
+  // user set tags
+  repeated string tag = 1;
+
+  // Score for the match from 0 to 1. 
+  // A bigger value means a closer match.
+  // Statistical interpretation of the scores makes no sense with this value.
+  float score = 2;
+}
+
+// Message returned by Recognize()
+message RecognizeResponse {
+
+  // List of matches 
+  repeated DescriptorMatch recognition_match = 1;
+}
+
