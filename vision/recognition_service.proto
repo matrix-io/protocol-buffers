@@ -181,6 +181,6 @@ message DescriptorMatch {
 message RecognizeResponse {
 
   // List of matches 
-  repeated DescriptorMatch recognition_match = 1;
+  repeated DescriptorMatch match = 1;
 }
 
