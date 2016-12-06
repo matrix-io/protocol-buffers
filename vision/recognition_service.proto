@@ -91,8 +91,8 @@ message StoreDescriptorRequest {
   // Source images / video to obtain descriptors
   VisionRequest vision_request = 1;
 
-  // List of descriptors
-  repeated Descriptor descriptor_list = 2;
+  // Set of descriptors
+  repeated Descriptor descriptor_set = 2;
 
   // Arbitrary user defined strings for the descriptor
   repeated string tag = 3;
@@ -128,8 +128,8 @@ message GetDescriptorRequest {
 // Message returned by GetDescriptors()
 message GetDescriptorResponse {
 
-  // Descriptor list
-  repeated Descriptor descriptor_list = 1;
+  // Set of descriptors
+  repeated Descriptor descriptor_set = 1;
 
   // Token use for pagination when there are too many results
   string next_page_token = 2;
@@ -158,8 +158,8 @@ message RecognizeRequest {
   // Source for VisionRequest for recognition
   VisionRequest vision_request = 1;
 
-  // List of descriptors
-  repeated Descriptor descriptors_list = 2;
+  // Set of descriptors
+  repeated Descriptor descriptor_set = 2;
 
   // Signals the desired algorithm for recognitions
   string matching_algorithm_version = 3;
