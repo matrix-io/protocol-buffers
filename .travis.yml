@@ -1,0 +1,35 @@
+# Use new trusty images, should yield newer compilers and packages
+sudo: required
+dist: precise
+language: cpp
+cache: ccache
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
+
+env:
+  global:
+    - COMPILER=g++-5
+    - CXX_FLAGS=-std=c++11
+  matrix:
+    - GRPC_RELEASE_TAG=v1.0.0
+    - GRPC_RELEASE_TAG=v1.0.1
+
+before_install:
+  - sudo apt-get update -qq
+
+before_script:
+  - git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc
+
+script:
+  - cd grpc 
+  - git submodule update --init
+  - make && make install && make clean
+  - cd ..
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_FLAGS=$CXX_FLAGS .. && make
