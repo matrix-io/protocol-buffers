@@ -17,7 +17,7 @@ with a single [docker-compose](https://docs.docker.com/compose/) command:
 $ docker-compose run c-build
 ```
 
-Docker based Python builds coming soon !
+Docker based Python builds coming soon!
 
 ## Contributing
 As a general guideline, protocol buffers should be backwards compatible, so make sure any changes you do, are in fact backwards compatible. 
