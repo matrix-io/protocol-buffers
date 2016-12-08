@@ -459,7 +459,7 @@ message ZigBeeMsg {
     // Node Leave Network Params Definition
     message NodeLeaveNetParams{
       // Node Id of the Node you want to leave the network
-      uint32 NodeId = 1;
+      uint32 node_id = 1;
     }
 
     // CLuster Description Definition
@@ -511,7 +511,7 @@ message ZigBeeMsg {
     NetworkMgmtCmdTypes type = 1;
 
     // PermitJoin params
-    PermitJoinParams permitjoin_params = 2;
+    PermitJoinParams permit_join_params = 2;
 
     // Is Proxy Active params
     IsProxyActiveParams is_proxy_active = 3;
