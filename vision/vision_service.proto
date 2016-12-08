@@ -1,6 +1,16 @@
 /*
- * Copyright 2016 <Admobilize>
- * All rights reserved.
+ * Copyright 2016-2017 Matrix Labs
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 syntax = "proto3";
@@ -9,6 +19,7 @@ package admobilize_vision;
 
 import "vision.proto";
 
+// Message used to send vision requests
 message VisionRequest {
   // Image for the request.
   bytes image = 1;
@@ -19,6 +30,13 @@ message VisionRequest {
   // Recognitions to perform on the image. The recognitions should be done
   // after the detections.
   repeated EnumFacialRecognitionTag recognition = 3;
+
+  // It is sometimes more convenient to send more than one image to be processed
+  // by vision services
+  ImageList image_list = 4;
+
+  // Video data 
+  Video video = 5;
 }
 
 service VisionService {

@@ -1,0 +1,10 @@
+version: '2'
+services:
+  c-build:
+    image: matrix-io-protobuf
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/src
+    command: bash -c 'rm -rf /src/build/C++ && mkdir -p /src/build/C++ && cd /src/build/C++ && cmake -DCMAKE_CXX_FLAGS="-std=c++11" ../../ && make'

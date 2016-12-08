@@ -1,6 +1,16 @@
 /*
- * Copyright 2016 <Admobilize>
- * All rights reserved.
+ * Copyright 2016-2017 Matrix Labs
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 syntax = "proto3";
@@ -161,7 +171,41 @@ message RectangularDetection {
   bytes image_small = 7;
 }
 
-// This proto organizes (at least) four components:
+// Collection of images. For some applications the 
+// order can be important for others doesn't. 
+message ImageList {
+  // Image data 
+  repeated bytes image_data = 1;
+
+  // If image data above was taken in a sequence, the frame rate
+  // at which images were taken
+  int32 frames_per_second = 2;
+}
+
+// Video codecs available for vision requests
+enum EnumVideoCodec {
+  UNDEFINED_VIDEO_CODEC = 0;
+  H264 = 1;
+  MP4V = 2;
+  RV24 = 3;
+  VP8 = 4;
+  VP9 = 5;
+}
+
+// Source video
+message Video {
+  // RGB video data
+  bytes video_data = 1;
+
+  // Video codec used to encode data
+  EnumVideoCodec codec = 2;
+
+  // Arbitrary text to tag video content
+  // ie. tagging for training purposes
+  repeated string tag = 3;
+}
+
+// This message organizes (at least) four components:
 // - Detections (faces, hands, cars).
 // - Tracking information.
 // - Recognition (gender, age, emotion).
