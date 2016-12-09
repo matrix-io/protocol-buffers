@@ -55,7 +55,7 @@ service RecognitionService {
   // Method will delete all descriptors matching provided uuids. When
   // a device_id is provided, only those associated with the device will
   // be deleted
-  rpc DeleteDescriptor(DeleteDescriptorRequest) returns (DeleteDescriptorResponse) {}
+  rpc DeleteDescriptors(DeleteDescriptorsRequest) returns (DeleteDescriptorsResponse) {}
 
   // Request a descriptor match against recognition services.
   //
@@ -135,15 +135,15 @@ message GetDescriptorResponse {
   string next_page_token = 2;
 }
 
-// Message used when calling DeleteDescriptor()
-message DeleteDescriptorRequest {
+// Message used when calling DeleteDescriptors()
+message DeleteDescriptorsRequest {
 
   // Stored descriptor IDs to delete
   repeated string uuid = 1;
 }
 
-// Message returned by DeleteDescriptor()
-message DeleteDescriptorResponse {
+// Message returned by DeleteDescriptors()
+message DeleteDescriptorsResponse {
 
   // UUIDs of deleted descriptors
   repeated string uuid = 1;
