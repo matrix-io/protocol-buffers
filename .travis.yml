@@ -3,6 +3,8 @@ sudo: required
 dist: precise
 language: cpp
 cache: ccache
+compiler: 
+  - gcc
 
 addons:
   apt:
@@ -13,7 +15,7 @@ addons:
 
 env:
   global:
-    - COMPILER=g++-5
+    - CXX=g++-5
     - CXX_FLAGS=-std=c++11
   matrix:
     - GRPC_RELEASE_TAG=v1.0.0
@@ -32,4 +34,4 @@ script:
   - cd ..
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_FLAGS=$CXX_FLAGS .. && make
+  - cmake -DCMAKE_CXX_FLAGS=$CXX_FLAGS .. && make
