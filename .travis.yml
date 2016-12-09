@@ -1,21 +1,9 @@
 # Use new trusty images, should yield newer compilers and packages
-sudo: required
-dist: precise
+dist: jessie
 language: cpp
 cache: ccache
-compiler: 
-  - g++-5
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-5
 
 env:
-  global:
-    - CXX=g++-5
   matrix:
     - GRPC_RELEASE_TAG=v1.0.0
     - GRPC_RELEASE_TAG=v1.0.1
