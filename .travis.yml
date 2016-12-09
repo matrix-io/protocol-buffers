@@ -18,7 +18,7 @@ before_script:
 script:
   - cd grpc 
   - git submodule update --init
-  - make && sudo make install && make clean
+  - make HAS_SYSTEM_PROTOBUF=false && sudo make install && make clean
   - cd ..
   - mkdir build
   - cd build
