@@ -1,4 +1,5 @@
 # Use new trusty images, should yield newer compilers and packages
+sudo: required
 dist: jessie
 language: cpp
 cache: ccache
@@ -17,7 +18,7 @@ before_script:
 script:
   - cd grpc 
   - git submodule update --init
-  - make && make install && make clean
+  - make && sudo make install && make clean
   - cd ..
   - mkdir build
   - cd build
