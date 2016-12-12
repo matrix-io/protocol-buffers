@@ -391,22 +391,29 @@ message ZigBeeMsg {
     message IdentifyCmd{
 
       enum ZCLIdentifyCmdType  {
-        // The IDENTIFY command starts or stops the receiving device identifying itself.
-        IDENTIFY = 0;
-        // The IDENTIFY_QUERY command allows the sending device to request the target or
-        // targets to respond if they are currently identifying themselves.
-        // This command has no payload.
-        IDENTIFY_QUERY = 1;
+        // Starts the identification process
+        IDENTIFY_ON = 0; 
+        // Stops the identification process
+        IDENTIFY_OFF = 1;  
       }
 
-      message IdentifyCmdParams {
-        // Transition Time <uint16>
+      message IdentifyOnCmdParams {
+        // Transition Time <uint8>
+        uint32 endpoint = 1;
+        // Transition Time in seconds <uint16>
         uint32 identify_time = 2;
+      }
+
+      message IdentifyOffCmdParams {
+        // Transition Time in seconds <uint16>
+        uint32 identify_time = 1;
       }
 
       ZCLIdentifyCmdType type = 1;
 
-      IdentifyCmdParams identify_params = 2;
+      IdentifyOnCmdParams identify_on_params = 2;
+
+      IdentifyOffCmdParams identify_off_params = 3;
     }
 
     // ZCL command type
@@ -423,6 +430,13 @@ message ZigBeeMsg {
 
     // Identify command
     IdentifyCmd identify_cmd = 5;
+
+    // Node Id 
+    uint32 short_id = 6;
+
+    // Endpoint Id
+    uint32 endpoint_id = 7;
+
   }
 
   // ZigBee Light Link command definition
