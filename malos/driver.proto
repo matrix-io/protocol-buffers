@@ -541,7 +541,7 @@ message ZigBeeMsg {
       }
 
       // Status
-      Status status = 1;
+      Status type = 1;
     }
 
     // NetworkMgmt command type
@@ -551,7 +551,7 @@ message ZigBeeMsg {
     PermitJoinParams permit_join_params = 2;
 
     // Is Proxy Active params
-    IsProxyActiveParams is_proxy_active = 3;
+    bool is_proxy_active = 3;
 
     // Node Leave Network params
     NodeLeaveNetParams node_leave_params = 4;
