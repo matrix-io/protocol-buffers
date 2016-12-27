@@ -451,11 +451,10 @@ message ZigBeeMsg {
       LEAVE_NWK = 1;  // Leave the current network. No params required
       NODE_LEAVE_NWK = 2;  // Ask a specific node to leave the current network.
       PERMIT_JOIN = 3; // Permit other devices to join the network for a time period.
-      NODE_INFO = 4; // Gets all the info of the current zigbee network. No params required
-      DISCOVERY_INFO = 5; // Gets all the info from the devices already connected to the network. No params required
-      RESET_PROXY = 6; // Reset the proxy app . No params required
-      IS_PROXY_ACTIVE = 7; // TRUE if the conection between the proxy and the ZigBee chip is active. No params required
-      NETWORK_STATUS = 8; // Network status
+      DISCOVERY_INFO = 4; // Gets all the info from the devices already connected to the network. No params required
+      RESET_PROXY = 5; // Reset the proxy app . No params required
+      IS_PROXY_ACTIVE = 6; // TRUE if the conection between the proxy and the ZigBee chip is active. No params required
+      NETWORK_STATUS = 7; // Network status
       // The Proxy is the app that talks with the ZigBee chip via
       // COMs and with the MALOS services using Sockets.
     }
