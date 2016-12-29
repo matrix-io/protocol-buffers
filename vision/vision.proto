@@ -133,6 +133,26 @@ message FacialRecognition {
   BasicFaceFeature basic_feature = 11;
 }
 
+enum EventTag {
+  TRACKING_START = 0;
+  TRACKING_END = 1;
+}
+
+message VisionEvent {
+  // Tag for events. The fields below will make sense for a specific tag.
+  EventTag tag = 1;
+
+  // Object identifier. Used for tracking events (TRACKING_START and TRACKING_END).
+  int32 tracking_id = 2;
+
+  // Session time: Amount of seconds in tracker. Used for TRACKING_END event.
+  // In seconds.
+  float session_time = 3;
+  //  Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
+  // In seconds.
+  float dwell_time = 4;
+}
+
 // When a detection is done, a tag specifies what is being detected.
 enum EnumDetectionTag {
   FACE = 0;
@@ -162,6 +182,8 @@ message RectangularDetection {
   float confidence = 4;
   // Facial recognitions for this detection (age, gender, pose, features, etc).
   repeated FacialRecognition facial_recognition = 5;
+  // Vision events. For instance, tracking events (start, end).
+  repeated VisionEvent vision_event = 8;
   // Image snippet of the rectangle taken from the original image where the
   // detection took place.
   bytes image = 6;
