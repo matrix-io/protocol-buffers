@@ -146,8 +146,10 @@ message VisionEvent {
   int32 tracking_id = 2;
 
   // Session time: Amount of seconds in tracker. Used for TRACKING_END event.
+  // In seconds.
   float session_time = 3;
   //  Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
+  // In seconds.
   float dwell_time = 4;
 }
 
