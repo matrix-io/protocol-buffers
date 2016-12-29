@@ -182,8 +182,6 @@ message RectangularDetection {
   float confidence = 4;
   // Facial recognitions for this detection (age, gender, pose, features, etc).
   repeated FacialRecognition facial_recognition = 5;
-  // Vision events. For instance, tracking events (start, end).
-  repeated VisionEvent vision_event = 8;
   // Image snippet of the rectangle taken from the original image where the
   // detection took place.
   bytes image = 6;
@@ -238,6 +236,10 @@ message VisionResult {
   // rectangle. For instance, for faces the available recognitions are 
   // (age, gender, emotion).
   repeated RectangularDetection rect_detection = 1;
+  // Vision events. For instance, tracking events (start, end).
+  // This message is not inside rect_detection because some events will happen when the
+  // detection is no longer available, for instance: TRACKING_END.
+  repeated VisionEvent vision_event = 4;
   // Source image for the detection. It is mostly useful when you need to keep
   // the source image that was used to generating the detection when you want to
   // evaluate algorithmic changes (test different versions of the same
