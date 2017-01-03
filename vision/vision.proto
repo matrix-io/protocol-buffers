@@ -107,7 +107,7 @@ message FacialRecognition {
 
   // The following fields should only be present when the tag HAS_FACE_ID is set.
 
-  // Face identification.
+  // Face identification. A string, used to identify a face.
   string face_id = 7;
 
   // The following fields should only be present when the tag HAS_HEAD_POSE is set.
@@ -143,7 +143,7 @@ message VisionEvent {
   EventTag tag = 1;
 
   // Object identifier. Used for tracking events (TRACKING_START and TRACKING_END).
-  int32 tracking_id = 2;
+  uint64 tracking_id = 2;
 
   // Session time: Amount of seconds in tracker. Used for TRACKING_END event.
   // In seconds.
@@ -189,6 +189,8 @@ message RectangularDetection {
   // detection took place. This image is expected to be smaller than
   // "image".
   bytes image_small = 7;
+  // Tracking id for this detection.
+  uint64 tracking_id = 8;
 }
 
 // Collection of images. For some applications the 
