@@ -508,17 +508,12 @@ message ZigBeeMsg {
 
     // Node Info Definition
     message NodeDescription{
-      // NodeId of the Node created by the Matrix Creator
+      // NodeId of the Node
       uint32 nodeId = 1;
-      // EUI64 of the Node created by the Matrix Creator
-      uint32 eui64 = 2;
+      // EUI64 of the Node
+      uint64 eui64 = 2;
       // EndPoints in the Node
       repeated EndPointDescription  endpoints = 3;
-    }
-
-    // Node connected info
-    message DiscoveryInfoDescription{
-      repeated NodeDescription nodes = 1;
     }
 
     // Network Status Definition
@@ -556,10 +551,10 @@ message ZigBeeMsg {
     NodeLeaveNetParams node_leave_params = 4;
 
     // Node Info
-    NodeDescription node_info  = 5;
+    NodeDescription node_info = 5;
 
     // Discovery Nodes info
-    DiscoveryInfoDescription connected_nodes = 6;
+    repeated NodeDescription connected_nodes = 6;
 
     // Network status
     NetworkStatus network_status = 7;
