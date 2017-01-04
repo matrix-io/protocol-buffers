@@ -465,11 +465,6 @@ message ZigBeeMsg {
       uint32 time = 1;
     }
 
-    // Is Proxy Active Params Definition
-    message IsProxyActiveParams{
-      bool is_proxy_active = 1;
-    }
-
     // Node Leave Network Params Definition
     message NodeLeaveNetParams{
       // Node Id of the Node you want to leave the network
@@ -486,24 +481,16 @@ message ZigBeeMsg {
       ClusterInOutType type = 1;
       // Cluster ID : ex 0x0006 (On/off),  0x0008 (Level Control), 0x0201 (Thermostat)
       uint32 cluster_id = 2;
-      // Cluster type name :
-      string cluster_name = 3;
-    }
-
-    // Profile Description Definition
-    message ProfileDescription{
-      // Profile ID : ex 0x0104
-      uint32 profile_id = 1;
-      // Profile type name : ex "Home Automation"
-      string profile_name = 2;
     }
 
     // EndPoint Description Definition
     message EndPointDescription{
-      // EndPoint Profile
-      ProfileDescription profile = 1;
+      // EndPoint Profile ID
+      uint32 profile_id = 1;
+      // EndPoint Device ID 
+      uint32 device_id = 2;
       // EndPoint Clusters
-      repeated ClusterDescription clusters = 2;
+      repeated ClusterDescription clusters = 3;
     }
 
     // Node Info Definition
