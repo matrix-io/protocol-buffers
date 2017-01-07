@@ -432,7 +432,7 @@ message ZigBeeMsg {
     IdentifyCmd identify_cmd = 5;
 
     // Node Id 
-    uint32 short_id = 6;
+    uint32 node_id = 6;
 
     // Endpoint Id
     uint32 endpoint_id = 7;
@@ -496,7 +496,7 @@ message ZigBeeMsg {
     // Node Info Definition
     message NodeDescription{
       // NodeId of the Node
-      uint32 nodeId = 1;
+      uint32 node_id = 1;
       // EUI64 of the Node
       uint64 eui64 = 2;
       // EndPoints in the Node
