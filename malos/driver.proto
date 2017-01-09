@@ -435,7 +435,7 @@ message ZigBeeMsg {
     uint32 node_id = 6;
 
     // Endpoint Id
-    uint32 endpoint_id = 7;
+    uint32 endpoint_index = 7;
 
   }
 
@@ -485,12 +485,14 @@ message ZigBeeMsg {
 
     // EndPoint Description Definition
     message EndPointDescription{
+      // EndPoint Profile Index
+      uint32 endpoint_index = 1;
       // EndPoint Profile ID
-      uint32 profile_id = 1;
+      uint32 profile_id = 2;
       // EndPoint Device ID 
-      uint32 device_id = 2;
+      uint32 device_id = 3;
       // EndPoint Clusters
-      repeated ClusterDescription clusters = 3;
+      repeated ClusterDescription clusters = 4;
     }
 
     // Node Info Definition
