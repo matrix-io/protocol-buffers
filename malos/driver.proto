@@ -331,10 +331,7 @@ message LircParams {
   string command = 2;
 
   // Set config
-  string set_config = 3;
-
-  // Get config
-  string get_config = 4;
+  string config = 3;
 }
 
 // Servo handler params
