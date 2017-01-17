@@ -338,7 +338,6 @@ message LircParams {
 
   // Get config remotes
   repeated string remotes = 5;
-
 }
 
 // Servo handler params
