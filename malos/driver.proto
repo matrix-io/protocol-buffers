@@ -330,8 +330,11 @@ message LircParams {
   // IR command
   string command = 2;
 
-  // Remote path config
+  // Set remote path config
   string add_remote_path = 3;
+
+  // Current remote
+  string current_remote = 4;
 }
 
 // Servo handler params
