@@ -25,7 +25,7 @@ message Point {
   float y = 2;
 }
 
-// Basic rect. Coordinates are float so that we can return relative
+// Basic rectangle. Coordinates are float so that we can return relative
 // coordinates when needed.
 message Rectangle {
   // Starting X coordinate.
@@ -148,7 +148,7 @@ message VisionEvent {
   // Session time: Amount of seconds in tracker. Used for TRACKING_END event.
   // In seconds.
   float session_time = 3;
-  //  Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
+  // Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
   // In seconds.
   float dwell_time = 4;
 }
@@ -156,7 +156,6 @@ message VisionEvent {
 // When a detection is done, a tag specifies what is being detected.
 enum EnumDetectionTag {
   FACE = 0;
-
   HAND_THUMB = 1;
   HAND_PALM = 2;
   HAND_PINCH = 3;
