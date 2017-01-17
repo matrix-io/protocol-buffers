@@ -335,6 +335,9 @@ message LircParams {
 
   // Current remote
   string current_remote = 4;
+
+  // Get config remotes
+  repeated string remotes = 5; 
 }
 
 // Servo handler params
