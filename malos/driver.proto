@@ -329,6 +329,12 @@ message LircParams {
 
   // IR command
   string command = 2;
+
+  //For transport of LIRC remote devices configuration.
+  //Format: http://www.lirc.org/html/configuration-guide.html
+  //Admobilize config remotes resources:
+  //http://assets.admobilize.com/lirc-remotes/
+  string config = 3;
 }
 
 // Servo handler params

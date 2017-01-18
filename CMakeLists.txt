@@ -1,6 +1,7 @@
 # Build protocol buffers just to check they compile without errors.
 
 cmake_minimum_required(VERSION 2.8)
+add_definitions(-std=c++11)
 project(build_protos C CXX)
 
 find_package(Protobuf 3 REQUIRED)
