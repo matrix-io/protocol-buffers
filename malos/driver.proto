@@ -330,7 +330,7 @@ message LircParams {
   // IR command
   string command = 2;
 
-  // Set config
+  //For transport of LIRC remote devices configuration
   string config = 3;
 }
 
