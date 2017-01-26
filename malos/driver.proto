@@ -22,8 +22,8 @@ message DriverConfig {
   // Malos-Eye configuration.
   MalosEyeConfig malos_eye_config = 4;
 
-  // ZigBee configuration for bulbs.
-  ZigbeeBulbConfig zigbee_bulb = 5;
+  // ZigBee Message.
+  ZigBeeMsg zigbee_message = 5;
 
   // LIRC service configuration for IR commands.
   LircParams lirc = 6;
@@ -40,8 +40,7 @@ message DriverConfig {
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
 
-  // ZigBee Message.
-  ZigBeeMsg zigbee_message = 11;
+  
 }
 
 
@@ -562,71 +561,6 @@ message ZigBeeMsg {
   NetworkMgmtCmd network_mgmt_cmd = 4;
 
  }
-
-message ZigbeeBulbConfig {
-    // IP address or host name.
-    string address = 1;
-    // The port.
-    int32 port = 2;
-    // ZigBee command.
-    ZigBeeBulbCmd command = 3;
-}
-
-// Network start event
-message ZigBeeNetworkStatus {
-  // ZigBee is active
-  bool is_active = 1;
-  
-  // ID shared by all nodes in the network
-  uint32 pan_id = 2;
-
-  // ID of the node  (in the network)
-  uint32 short_id = 3;
-}
-
-// ZigBee device announce
-message ZigBeeAnnounce {
-  // ID of the announced node
-  uint32 short_id = 1;
-
-  // Cluster Id for ZCL command
-  uint32 cluster_id = 2;
-
-  // ZigBee device object command
-  uint32 zdo_command = 3;
-
-  // ZigBee device object status
-  uint32 zdo_status = 4;
-}
-
-// ZigBee bulb commands
-message ZigBeeBulbCmd {
-  // ID of the bulb node
-  uint32 short_id = 1;
-
-  // Enpoint. This is used in the send commands after the
-  // short_id. We are still figuring out how to use the ZigBee protocol for
-  // bulbs thus for the moment we will assume that when this value is 0xb
-  // we're dealing with a Philips bulb, and when it's 0 (default value) we're
-  // using a generic brand (whatever that means, we need to do more tests).
-  uint32 endpoint = 4;
-
-  enum EnumCommands {
-    ON = 0;
-    OFF = 1;
-    TOGGLE = 2;
-    LEVEL = 3;
-    IDENTIFY = 4;
-    COLOR = 5;
-  }
-
-  // Bulb commands
-  EnumCommands command = 2;
-
-  // Params of the bulb commands. Used by LEVEL and COLOR commands.
-  repeated uint32 params  = 3;
-}
-
 
 // LIRC service params
 message LircParams {
