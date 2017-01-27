@@ -73,6 +73,7 @@ enum Sensors {
   COMPASS = 7;
   UV = 8;
   ALTITUDE = 9;
+  MAGNETOMETER = 10;
 }
 
 enum Integrations {
