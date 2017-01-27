@@ -40,7 +40,6 @@ message DriverConfig {
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
 
-  
 }
 
 
@@ -241,8 +240,7 @@ message ZigBeeMsg {
   // Zigbee command types definition
   enum ZigBeeCmdType {
     ZCL = 0;
-    ZLL = 1;
-    NETWORK_MGMT = 2;
+    NETWORK_MGMT = 1;
   }
 
   // ZigBee Cluster Library command definition
@@ -321,14 +319,6 @@ message ZigBeeMsg {
         MOVETOHUE = 0;
         MOVETOSAT = 1;
         MOVETOHUEANDSAT = 2;
-        // MOVEHUE = 3;
-        // STEPHUE = 4;
-        // MOVESAT = 5;
-        // STEPSAT = 6;
-        // MOVETOCOLOR = 7;
-        // MOVECOLOR = 8;
-        // STEPCOLOR = 9;
-        // MOVETOCOLORTEMPERATURE = 10;
       }
 
       // MoveToHue command
@@ -437,9 +427,6 @@ message ZigBeeMsg {
     uint32 endpoint_index = 7;
 
   }
-
-  // ZigBee Light Link command definition
-  message ZLLCmd{}
 
   // Network management command definition
   message NetworkMgmtCmd{
@@ -554,11 +541,8 @@ message ZigBeeMsg {
   // ZigBee Cluster Library command
   ZCLCmd zcl_cmd = 2;
 
-  // ZigBee Light Link command
-  ZLLCmd zll_cmd = 3;
-
   // Network management commnad
-  NetworkMgmtCmd network_mgmt_cmd = 4;
+  NetworkMgmtCmd network_mgmt_cmd = 3;
 
  }
 
