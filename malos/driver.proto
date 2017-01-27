@@ -32,8 +32,8 @@ message DriverConfig {
   // Malos-Eye configuration.
   MalosEyeConfig malos_eye_config = 4;
 
-  // ZigBee configuration for bulbs.
-  ZigbeeBulbConfig zigbee_bulb = 5;
+  // ZigBee Message.
+  ZigBeeMsg zigbee_message = 5;
 
   // LIRC service configuration for IR commands.
   LircParams lirc = 6;
@@ -49,6 +49,7 @@ message DriverConfig {
 
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
+
 }
 
 
@@ -254,73 +255,317 @@ message EverloopImage {
   repeated LedValue led = 1;
 }
 
+// ZigBee message
+message ZigBeeMsg {
 
-/* ZigBee messages */
-
-message ZigbeeBulbConfig {
-    // IP address or host name.
-    string address = 1;
-    // The port.
-    int32 port = 2;
-    // ZigBee command.
-    ZigBeeBulbCmd command = 3;
-}
-
-// Network start event
-message ZigBeeNetworkStatus {
-  // ZigBee is active
-  bool is_active = 1;
-  
-  // ID shared by all nodes in the network
-  uint32 pan_id = 2;
-
-  // ID of the node  (in the network)
-  uint32 short_id = 3;
-}
-
-// ZigBee device announce
-message ZigBeeAnnounce {
-  // ID of the announced node
-  uint32 short_id = 1;
-
-  // Cluster Id for ZCL command
-  uint32 cluster_id = 2;
-
-  // ZigBee device object command
-  uint32 zdo_command = 3;
-
-  // ZigBee device object status
-  uint32 zdo_status = 4;
-}
-
-// ZigBee bulb commands
-message ZigBeeBulbCmd {
-  // ID of the bulb node
-  uint32 short_id = 1;
-
-  // Enpoint. This is used in the send commands after the
-  // short_id. We are still figuring out how to use the ZigBee protocol for
-  // bulbs thus for the moment we will assume that when this value is 0xb
-  // we're dealing with a Philips bulb, and when it's 0 (default value) we're
-  // using a generic brand (whatever that means, we need to do more tests).
-  uint32 endpoint = 4;
-
-  enum EnumCommands {
-    ON = 0;
-    OFF = 1;
-    TOGGLE = 2;
-    LEVEL = 3;
-    IDENTIFY = 4;
-    COLOR = 5;
+  // Zigbee command types definition
+  enum ZigBeeCmdType {
+    ZCL = 0;
+    NETWORK_MGMT = 1;
   }
 
-  // Bulb commands
-  EnumCommands command = 2;
+  // ZigBee Cluster Library command definition
+  message ZCLCmd {
 
-  // Params of the bulb commands. Used by LEVEL and COLOR commands.
-  repeated uint32 params  = 3;
-}
+    // ZCL commands type
+    enum ZCLCmdType  {
+      ON_OFF = 0;
+      LEVEL = 1;
+      COLOR_CONTROL = 2;
+      IDENTIFY = 3;
+    }
 
+    // OnOff command definition
+    message OnOffCmd {
+
+      enum ZCLOnOffCmdType  {
+        ON = 0;
+        OFF = 1;
+        TOGGLE = 2;
+      }
+
+      // ZCL OnOff command type
+      ZCLOnOffCmdType type = 1;
+
+      // Params not required for ZCL OnOff cluster commands
+    }
+
+    // Level command definition
+    message LevelCmd {
+
+      // ZCL Level commands types
+      enum ZCLLevelCmdType  {
+        MOVE_TO_LEVEL = 0;
+        MOVE = 1;
+        // STEP = 2;
+        // STOP = 3;
+        // MOVE_TO_LEVEL_ONOFF = 4;
+        // MOVE_ONOFF = 5;
+        // STEP_ONOFF = 6;
+        // STOP_ONOFF = 7;
+      }
+
+       // MoveToLevel command parameters
+      message MoveToLevelCmdParams{
+        // level param <uint8>: The meaning of ‘level’ is device dependent – e.g. for a light it may mean brightness level.
+        uint32  level  = 1;
+        // Transition time <uint16>
+        uint32 transition_time  = 2;
+      }
+
+      // Move command parameters
+      message MoveCmdParams{
+        // |Fade Mode Value | Description  |
+        // |      0x00      |     Up       |
+        // |      0x01      |    Down      |
+        uint32  mode  = 1;
+        //Rate <uint8>: specifies the rate of movement in units per second.
+        uint32 rate  = 2;
+      }
+
+      ZCLLevelCmdType type = 1;
+
+      // MoveToLevel command
+      MoveToLevelCmdParams move_to_level_params = 2;
+
+      // Move command
+      MoveCmdParams move_params = 3;
+    }
+
+    // Color Control command definition
+    message ColorControlCmd {
+
+      // ZCL ColorControl command types
+      enum ZCLColorControlCmdType  {
+        MOVETOHUE = 0;
+        MOVETOSAT = 1;
+        MOVETOHUEANDSAT = 2;
+      }
+
+      // MoveToHue command
+      message MoveToHueCmdParams{
+
+        // Values of the Direction Param
+        enum DirectionParam{
+          SHORTEST_DISTANCE = 0;
+          LONGEST_DISTANCE = 1;
+          UP = 2;
+          DOWN = 3;
+        }
+
+        // Hue <uint8>: specifies the hue to be moved to.
+        uint32 hue = 1;
+
+        // Direciton param
+        DirectionParam direction  = 2;
+
+        //Transition time <uint16> : specifies, in 1/10ths of a second, the time that shall be taken to move to the new hue
+        uint32 transition_time = 3;
+      }
+
+      message MoveToSatCmdParams {
+
+        // Saturation <uint8>
+        uint32 saturation = 1;
+
+        // Transition Time <uint16>
+        uint32 transition_time = 2;
+      }
+
+      message MoveToHueAndSatCmdParams {
+
+        // Hue <uint8>
+        uint32 hue = 1;
+
+        // Saturation <uint8>
+        uint32 saturation = 2;
+
+        // Transition Time <uint16>
+        uint32 transition_time = 3;
+      }
+
+      // ZCLColorControl command type
+      ZCLColorControlCmdType type = 1;
+
+      // MoveToHue command params
+      MoveToHueCmdParams movetohue_params = 2;
+
+      // MoveToSat commands params
+      MoveToSatCmdParams movetosat_params = 3;
+
+      // MoveToHueAndSat commands params
+      MoveToHueAndSatCmdParams movetohueandsat_params = 4;
+    }
+
+    //ZCL Identify command type
+    message IdentifyCmd{
+
+      enum ZCLIdentifyCmdType  {
+        // Starts the identification process
+        IDENTIFY_ON = 0; 
+        // Stops the identification process
+        IDENTIFY_OFF = 1;  
+      }
+
+      message IdentifyOnCmdParams {
+        // Transition Time <uint8>
+        uint32 endpoint = 1;
+        // Transition Time in seconds <uint16>
+        uint32 identify_time = 2;
+      }
+
+      message IdentifyOffCmdParams {
+        // Transition Time in seconds <uint16>
+        uint32 identify_time = 1;
+      }
+
+      ZCLIdentifyCmdType type = 1;
+
+      IdentifyOnCmdParams identify_on_params = 2;
+
+      IdentifyOffCmdParams identify_off_params = 3;
+    }
+
+    // ZCL command type
+    ZCLCmdType type = 1;
+
+    // OnOff command
+    OnOffCmd onoff_cmd = 2;
+
+    // Level command
+    LevelCmd level_cmd = 3;
+
+    // Color control command
+    ColorControlCmd colorcontrol_cmd = 4;
+
+    // Identify command
+    IdentifyCmd identify_cmd = 5;
+
+    // Node Id 
+    uint32 node_id = 6;
+
+    // Endpoint Id
+    uint32 endpoint_index = 7;
+
+  }
+
+  // Network management command definition
+  message NetworkMgmtCmd{
+
+    // NetworkMgmt command types
+    enum NetworkMgmtCmdTypes {
+      CREATE_NWK = 0;  // Creates a new network. No params required
+      LEAVE_NWK = 1;  // Leave the current network. No params required
+      NODE_LEAVE_NWK = 2;  // Ask a specific node to leave the current network.
+      PERMIT_JOIN = 3; // Permit other devices to join the network for a time period.
+      DISCOVERY_INFO = 4; // Gets all the info from the devices already connected to the network. No params required
+      RESET_PROXY = 5; // Reset the proxy app . No params required
+      IS_PROXY_ACTIVE = 6; // TRUE if the conection between the proxy and the ZigBee chip is active. No params required
+      NETWORK_STATUS = 7; // Network status
+      // The Proxy is the app that talks with the ZigBee chip via
+      // COMs and with the MALOS services using Sockets.
+    }
+
+    // PermitJoin Params Definition
+    message PermitJoinParams{
+      // Joining time : Number of seconds during which devices will be allowed to join the network
+      uint32 time = 1;
+    }
+
+    // Node Leave Network Params Definition
+    message NodeLeaveNetParams{
+      // Node Id of the Node you want to leave the network
+      uint32 node_id = 1;
+    }
+
+    // CLuster Description Definition
+    message ClusterDescription{
+      enum ClusterInOutType{
+        SERVER_IN = 0;
+        CLIENT_OUT = 1;
+      }
+      // Cluster server/client type: server (IN) or client (OUT) implementation
+      ClusterInOutType type = 1;
+      // Cluster ID : ex 0x0006 (On/off),  0x0008 (Level Control), 0x0201 (Thermostat)
+      uint32 cluster_id = 2;
+    }
+
+    // EndPoint Description Definition
+    message EndPointDescription{
+      // EndPoint Profile Index
+      uint32 endpoint_index = 1;
+      // EndPoint Profile ID
+      uint32 profile_id = 2;
+      // EndPoint Device ID 
+      uint32 device_id = 3;
+      // EndPoint Clusters
+      repeated ClusterDescription clusters = 4;
+    }
+
+    // Node Info Definition
+    message NodeDescription{
+      // NodeId of the Node
+      uint32 node_id = 1;
+      // EUI64 of the Node
+      uint64 eui64 = 2;
+      // EndPoints in the Node
+      repeated EndPointDescription  endpoints = 3;
+    }
+
+    // Network Status Definition
+    message NetworkStatus{
+
+      enum Status
+      {
+        /** The node is not associated with a network in any way. */
+        NO_NETWORK = 0;
+        /** The node is currently attempting to join a network. */
+        JOINING_NETWORK = 1;
+        /* The node is joined to a network. */
+        JOINED_NETWORK = 2;
+        /** The node is an end device joined to a network but its parent
+            is not responding. */
+        JOINED_NETWORK_NO_PARENT = 3;
+        /** The node is in the process of leaving its current network. */
+        LEAVING_NETWORK = 4;
+      }
+
+      // Status
+      Status type = 1;
+    }
+
+    // NetworkMgmt command type
+    NetworkMgmtCmdTypes type = 1;
+
+    // PermitJoin params
+    PermitJoinParams permit_join_params = 2;
+
+    // Is Proxy Active params
+    bool is_proxy_active = 3;
+
+    // Node Leave Network params
+    NodeLeaveNetParams node_leave_params = 4;
+
+    // Node Info
+    NodeDescription node_info = 5;
+
+    // Discovery Nodes info
+    repeated NodeDescription connected_nodes = 6;
+
+    // Network status
+    NetworkStatus network_status = 7;
+  }
+
+  // Zigbee command type
+  ZigBeeCmdType type = 1;
+
+  // ZigBee Cluster Library command
+  ZCLCmd zcl_cmd = 2;
+
+  // Network management commnad
+  NetworkMgmtCmd network_mgmt_cmd = 3;
+
+ }
 
 // LIRC service params
 message LircParams {
