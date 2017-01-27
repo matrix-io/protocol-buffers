@@ -103,7 +103,7 @@ message FacialRecognition {
   // The following fields should only be present when the tag FACE_DESCRIPTOR is set.
 
   // Face descriptor.
-  repeated float face_descriptor = 6;
+  repeated float face_descriptor = 6 [packed=true];
 
   // The following fields should only be present when the tag HAS_FACE_ID is set.
 
