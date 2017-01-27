@@ -102,7 +102,8 @@ message FacialRecognition {
 
   // The following fields should only be present when the tag FACE_DESCRIPTOR is set.
 
-  // Face descriptor.
+  // Face descriptor. Setting packed=true because of a
+  // protobufjs 5.1 bug. packed=true is the default for proto3 syntax.
   repeated float face_descriptor = 6 [packed=true];
 
   // The following fields should only be present when the tag HAS_FACE_ID is set.
