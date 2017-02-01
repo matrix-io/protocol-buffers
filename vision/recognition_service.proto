@@ -61,6 +61,10 @@ service RecognitionService {
   rpc DeleteFeatureDescriptors(DeleteFeatureDescriptorsRequest) 
     returns (DeleteFeatureDescriptorsResponse) {}
 
+  // Request all available descriptor tags for the user account
+  rpc GetFeatureDescriptorTags(GetFeatureDescriptorTagsRequest)
+    returns (GetFeatureDescriptorTagsResponse) {}
+
   // Request a descriptor match against recognition services.
   //
   // For recognize requests to be possible, descriptors must first be
@@ -74,10 +78,6 @@ service RecognitionService {
   //   - when video field is set, descriptors will be calculated splitting 
   //     the video into frames, descriptors calculated, and then matched.
   rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
-
-  // Request all available descriptor tags for the user account
-  rpc GetFeatureDescriptorTags(GetFeatureDescriptorTagsRequest)
-    returns (GetFeatureDescriptorTagsResponse) {}
 }
 
 // Message used when calling StoreDescriptors()
@@ -193,10 +193,17 @@ message RecognizeResponse {
   string reason = 2;
 }
 
+// Message used when calling GetFeatureDescriptorTags()
+message GetFeatureDescriptorTagsRequest {
+
+  // Device IDs to get descriptors tags for
+  repeated string device_id = 1;
+}
+
 // Groups tags per device, so client apps can
 // pull all tags and then present which tags
 // are only registered under a specific device
-message DeviceFeatureDescriptorTags {
+message FeatureDescriptorTagsForDevice {
 
   // Available descriptor tags
   repeated string tags = 1;
@@ -205,18 +212,11 @@ message DeviceFeatureDescriptorTags {
   string device_id = 2;
 }
 
-// Message used when calling GetFeatureDescriptorTags()
-message GetFeatureDescriptorTagsRequest {
-
-  // Device IDs to get descriptors tags for
-  repeated string device_id = 1;
-}
-
 // Message returned by GetFeatureDescriptorTags()
 message GetFeatureDescriptorTagsResponse {
 
   // Device ID to get descriptors tags for
-  repeated DeviceFeatureDescriptorTags device_tags = 1;
+  repeated FeatureDescriptorTagsForDevice feature_tags_for_device = 1;
 
   // In case the request fails, this field will contain the reason
   string reason = 2;
