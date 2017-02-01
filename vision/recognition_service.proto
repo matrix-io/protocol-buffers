@@ -74,6 +74,10 @@ service RecognitionService {
   //   - when video field is set, descriptors will be calculated splitting 
   //     the video into frames, descriptors calculated, and then matched.
   rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
+
+  // Request all available descriptor tags for the user account
+  rpc GetFeatureDescriptorTags(GetFeatureDescriptorTagsRequest)
+    returns (GetFeatureDescriptorTagsResponse) {}
 }
 
 // Message used when calling StoreDescriptors()
@@ -188,4 +192,34 @@ message RecognizeResponse {
   // In case the recognize fails, this field will contain the reason
   string reason = 2;
 }
+
+// Groups tags per device, so client apps can
+// pull all tags and then present which tags
+// are only registered under a specific device
+message DeviceFeatureDescriptorTags {
+
+  // Available descriptor tags
+  repeated string tags = 1;
+
+  // If set, the above tags are only available in such device id
+  string device_id = 2;
+}
+
+// Message used when calling GetFeatureDescriptorTags()
+message GetFeatureDescriptorTagsRequest {
+
+  // Device IDs to get descriptors tags for
+  repeated string device_id = 1;
+}
+
+// Message returned by GetFeatureDescriptorTags()
+message GetFeatureDescriptorTagsResponse {
+
+  // Device ID to get descriptors tags for
+  repeated DeviceFeatureDescriptorTags device_tags = 1;
+
+  // In case the request fails, this field will contain the reason
+  string reason = 2;
+}
+
 
