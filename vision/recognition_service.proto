@@ -183,6 +183,9 @@ message FeatureDescriptorMatch {
 message RecognizeResponse {
 
   // List of matches 
-  repeated FeatureDescriptorMatch match = 1;
+  repeated FeatureDescriptorMatch matches = 1;
+
+  // In case the recognize fails, this field will contain the reason
+  string reason = 2;
 }
 
