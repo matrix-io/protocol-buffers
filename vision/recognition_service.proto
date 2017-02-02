@@ -103,9 +103,6 @@ message StoreFeatureDescriptorsResponse {
 
   // Stored descriptor IDS
   repeated string uuids = 1;
-
-  // In case store request fails, will contain the reason
-  string reason = 2;
 }
 
 // Message used when calling GetDescriptors()
@@ -132,9 +129,6 @@ message GetFeatureDescriptorsResponse {
 
   // Token use for pagination when there are too many results
   string next_page_token = 2;
-
-  // In case the request fails, this field will contain the reason
-  string reason = 3;
 }
 
 // Message used when calling DeleteFeatureDescriptors()
@@ -153,9 +147,6 @@ message DeleteFeatureDescriptorsResponse {
 
   // UUIDs of deleted descriptors
   repeated string uuids = 1;
-
-  // In case the delete fails, this field will contain the reason
-  string reason = 2;
 }
 
 // Message used when calling Recognize()
@@ -188,9 +179,6 @@ message RecognizeResponse {
 
   // List of matches 
   repeated FeatureDescriptorMatch matches = 1;
-
-  // In case the recognize fails, this field will contain the reason
-  string reason = 2;
 }
 
 // Message used when calling GetFeatureDescriptorTags()
@@ -217,9 +205,4 @@ message GetFeatureDescriptorTagsResponse {
 
   // Device ID to get descriptors tags for
   repeated FeatureDescriptorTagsForDevice feature_tags_for_device = 1;
-
-  // In case the request fails, this field will contain the reason
-  string reason = 2;
 }
-
-
