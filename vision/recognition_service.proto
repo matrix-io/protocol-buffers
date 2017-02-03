@@ -29,54 +29,57 @@ service RecognitionService {
   //   - contain a VisionRequest with a populated ImageList field
   //   - contain a VisionRequest with a populated Video field
   //
-  // The tag is mandatory for a store call to be successful.
-  // When device_id items are specified, the descriptor will be scoped
+  // The tags field is mandatory for a store call to be successful.
+  // When device_id field is set, the descriptor will be scoped
   // to the given device IDs, meaning that only Recognize() requests from such
   // device IDs will match those descriptors.
   // 
   // Returned Message
-  // When the save is successfull, a descriptor list with the computed
-  // descriptor data and uuid is returned.
-  // The message will contain an error if the descriptor can't be stored.
+  // When the save is successful, a list of unique string UUIDs identifying
+  // the stored descriptors
   rpc StoreFeatureDescriptors(StoreFeatureDescriptorsRequest) 
     returns (StoreFeatureDescriptorsResponse) {}
 
-  // Obtain descriptors saved under a user account
+  // Obtain a list of descriptors
   //
   // Returned Message
-  // A list of descriptors according to provided uuids and device_id.
+  // A list of descriptors according to provided uuids, tags and device_id.
   // if both uuid and device_id are defined, only descriptors
-  // associated with the given device ID will be returned
-  // If no uuid or devices_id are defined, all descriptors available for
-  // the user account will be returned
+  // associated with the given device ID will be returned. The same
+  // applies for tags and device_id.
+  //
+  // If no uuid, tags or devices_id fields are defined, all available 
+  // descriptor will be returned.
+  //
   // An empty list will be returned if no descriptors are found
   rpc GetFeatureDescriptors(GetFeatureDescriptorsRequest) 
     returns (GetFeatureDescriptorsResponse) {}
 
   // Delete descriptors saved under a user account
   //
-  // Method will delete all descriptors matching provided uuids. When
-  // a device_id is provided, only those associated with the device will
-  // be deleted
+  // Method will delete all descriptors matching provided uuids or tags. 
+  // When matching tags, descriptors matching any tag will be returned.
+  //
+  // When a device_id is provided, only those associated with the device will
+  // be deleted.
   rpc DeleteFeatureDescriptors(DeleteFeatureDescriptorsRequest) 
     returns (DeleteFeatureDescriptorsResponse) {}
 
-  // Request all available descriptor tags for the user account
+  // Request a set of all available descriptor tags for the user account
+  // grouped by device id
   rpc GetFeatureDescriptorTags(GetFeatureDescriptorTagsRequest)
     returns (GetFeatureDescriptorTagsResponse) {}
 
   // Request a descriptor match against recognition services.
   //
   // For recognize requests to be possible, descriptors must first be
-  // stored (see StoreDescriptors method). 
+  // stored (see StoreFeatureDescriptors method). 
   // 
   // Recognize calls can include a variety of fields:
-  //   - when descriptor field is set, it will be used to perform the match against
-  //     existent descriptors.
-  //   - when image field is set, descriptors will first be calculated for
-  //     the images and then matched.
-  //   - when video field is set, descriptors will be calculated splitting 
-  //     the video into frames, descriptors calculated, and then matched.
+  //   - when feature_descriptor_list field is set, it will be used to perform the 
+  //     match against stored descriptors.
+  //   - when vision_request field is set, descriptors will first be calculated for
+  //     the images and then matched against stored descriptors.
   rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
 }
 
@@ -88,6 +91,7 @@ message StoreFeatureDescriptorsRequest {
 
   // Arbitrary tags to use for descriptors calculated from
   // vision_request. Ignored when feature_descriptors are set.
+  // ie ['ruben', 'godoy family']
   repeated string tags = 2;
 
   // Set of descriptors

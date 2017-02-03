@@ -16,12 +16,14 @@ message FeatureDescriptor {
   repeated float data = 3;
 
   // Arbitrary tags for the descriptor set
+  // i.e ['lucas', 'jackson family'] 
   repeated string tags = 4;
 }
 
 // Container to group multiple FeatureDescriptors
 // makes storage of multiple FeatureDescriptors more
-// convenient
+// convenient in files.
 message FeatureDescriptorList {
+
    repeated FeatureDescriptor feature_descriptors = 1;
 }
