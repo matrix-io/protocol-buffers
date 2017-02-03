@@ -18,6 +18,7 @@ syntax = "proto3";
 package admobilize_vision;
 
 import "vision_service.proto";
+import "recognition.proto";
 
 service RecognitionService {
 
@@ -28,74 +29,73 @@ service RecognitionService {
   //   - contain a VisionRequest with a populated ImageList field
   //   - contain a VisionRequest with a populated Video field
   //
-  // The tag is mandatory for a store call to be successful.
-  // When device_id items are specified, the descriptor will be scoped
+  // The tags field is mandatory for a store call to be successful.
+  // When device_id field is set, the descriptor will be scoped
   // to the given device IDs, meaning that only Recognize() requests from such
   // device IDs will match those descriptors.
   // 
   // Returned Message
-  // When the save is successfull, a descriptor list with the computed
-  // descriptor data and uuid is returned.
-  // The message will contain an error if the descriptor can't be stored.
-  rpc StoreDescriptors(StoreDescriptorRequest) returns (StoreDescriptorResponse) {}
+  // When the save is successful, a list of unique string UUIDs identifying
+  // the stored descriptors
+  rpc StoreFeatureDescriptors(StoreFeatureDescriptorsRequest) 
+    returns (StoreFeatureDescriptorsResponse) {}
 
-  // Obtain descriptors saved under a user account
+  // Obtain a list of descriptors
   //
   // Returned Message
-  // A list of descriptors according to provided uuids and device_id.
+  // A list of descriptors according to provided uuids, tags and device_id.
   // if both uuid and device_id are defined, only descriptors
-  // associated with the given device ID will be returned
-  // If no uuid or devices_id are defined, all descriptors available for
-  // the user account will be returned
+  // associated with the given device ID will be returned. The same
+  // applies for tags and device_id.
+  //
+  // If no uuid, tags or devices_id fields are defined, all available 
+  // descriptor will be returned.
+  //
   // An empty list will be returned if no descriptors are found
-  rpc GetDescriptors(GetDescriptorRequest) returns (GetDescriptorResponse) {}
+  rpc GetFeatureDescriptors(GetFeatureDescriptorsRequest) 
+    returns (GetFeatureDescriptorsResponse) {}
 
   // Delete descriptors saved under a user account
   //
-  // Method will delete all descriptors matching provided uuids. When
-  // a device_id is provided, only those associated with the device will
-  // be deleted
-  rpc DeleteDescriptors(DeleteDescriptorsRequest) returns (DeleteDescriptorsResponse) {}
+  // Method will delete all descriptors matching provided uuids or tags. 
+  // When matching tags, descriptors matching any tag will be returned.
+  //
+  // When a device_id is provided, only those associated with the device will
+  // be deleted.
+  rpc DeleteFeatureDescriptors(DeleteFeatureDescriptorsRequest) 
+    returns (DeleteFeatureDescriptorsResponse) {}
+
+  // Request a set of all available descriptor tags for the user account
+  // grouped by device id
+  rpc GetFeatureDescriptorTags(GetFeatureDescriptorTagsRequest)
+    returns (GetFeatureDescriptorTagsResponse) {}
 
   // Request a descriptor match against recognition services.
   //
   // For recognize requests to be possible, descriptors must first be
-  // stored (see StoreDescriptors method). 
+  // stored (see StoreFeatureDescriptors method). 
   // 
   // Recognize calls can include a variety of fields:
-  //   - when descriptor field is set, it will be used to perform the match against
-  //     existent descriptors.
-  //   - when image field is set, descriptors will first be calculated for
-  //     the images and then matched.
-  //   - when video field is set, descriptors will be calculated splitting 
-  //     the video into frames, descriptors calculated, and then matched.
+  //   - when feature_descriptor_list field is set, it will be used to perform the 
+  //     match against stored descriptors.
+  //   - when vision_request field is set, descriptors will first be calculated for
+  //     the images and then matched against stored descriptors.
   rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
 }
 
-// Describes a recognition descriptor
-message Descriptor {
-
-  // A unique identifier for the descriptor according to UUID v4
-  string uuid = 1; 
-
-  // Descriptor format used by extraction algorithm
-  string data_format = 2;
-
-  // The actual recognition descriptor data
-  repeated float descriptor_data = 3;
-}
-
 // Message used when calling StoreDescriptors()
-message StoreDescriptorRequest {
+message StoreFeatureDescriptorsRequest {
 
   // Source images / video to obtain descriptors
   VisionRequest vision_request = 1;
 
-  // Set of descriptors
-  repeated Descriptor descriptor_set = 2;
+  // Arbitrary tags to use for descriptors calculated from
+  // vision_request. Ignored when feature_descriptors are set.
+  // ie ['ruben', 'godoy family']
+  repeated string tags = 2;
 
-  // Arbitrary user defined strings for the descriptor
-  repeated string tag = 3;
+  // Set of descriptors
+  repeated FeatureDescriptor feature_descriptors = 3;
 
   // Optional device IDs to associate the descriptor
   // with a set of devices
@@ -103,53 +103,54 @@ message StoreDescriptorRequest {
 }
 
 // Message returned by StoreDescriptors()
-message StoreDescriptorResponse {
+message StoreFeatureDescriptorsResponse {
 
-  // Stored descriptor IDs in the same order they were sent
-  repeated string uuid = 1;
-
-  // In case store request fails, will contain the reason
-  string reason = 2;
+  // Stored descriptor IDS
+  repeated string uuids = 1;
 }
 
 // Message used when calling GetDescriptors()
-message GetDescriptorRequest {
+message GetFeatureDescriptorsRequest {
 
-  // Specific descriptors to obtain
-  repeated string uuid = 1;
+  // Specific descriptor uuids to obtain
+  repeated string uuids = 1;
+
+  // Specific tags to obtain. Ignored when uuids is defined.
+  repeated string tags = 2;
 
   // Device ID to get descriptors for
-  string device_id = 2;
+  string device_id = 3;
 
   // Next page token when paginating
-  string next_page_token = 3;
+  string next_page_token = 4;
 }
 
-// Message returned by GetDescriptors()
-message GetDescriptorResponse {
+// Message returned by GetFeatureDescriptors()
+message GetFeatureDescriptorsResponse {
 
   // Set of descriptors
-  repeated Descriptor descriptor_set = 1;
+  FeatureDescriptorList feature_descriptor_list = 1;
 
   // Token use for pagination when there are too many results
   string next_page_token = 2;
 }
 
-// Message used when calling DeleteDescriptors()
-message DeleteDescriptorsRequest {
+// Message used when calling DeleteFeatureDescriptors()
+message DeleteFeatureDescriptorsRequest {
 
   // Stored descriptor IDs to delete
-  repeated string uuid = 1;
+  repeated string uuids = 1;
+
+  // Delete descriptors by tags, delete ALL descriptors
+  // matching given tags. Ignored when uuid is set.
+  repeated string tags = 2;
 }
 
 // Message returned by DeleteDescriptors()
-message DeleteDescriptorsResponse {
+message DeleteFeatureDescriptorsResponse {
 
   // UUIDs of deleted descriptors
-  repeated string uuid = 1;
-
-  // In case the delete fails, this field will contain the reason
-  string reason = 2;
+  repeated string uuids = 1;
 }
 
 // Message used when calling Recognize()
@@ -159,17 +160,17 @@ message RecognizeRequest {
   VisionRequest vision_request = 1;
 
   // Set of descriptors
-  repeated Descriptor descriptor_set = 2;
+  FeatureDescriptorList feature_descriptor_list= 2;
 
   // Signals the desired algorithm for recognitions
   string matching_algorithm_version = 3;
 }
 
 // Message describes a descriptor match
-message DescriptorMatch {
+message FeatureDescriptorMatch {
 
   // user set tags
-  repeated string tag = 1;
+  repeated string tags = 1;
 
   // Score for the match from 0 to 1. 
   // A bigger value means a closer match.
@@ -181,6 +182,31 @@ message DescriptorMatch {
 message RecognizeResponse {
 
   // List of matches 
-  repeated DescriptorMatch match = 1;
+  repeated FeatureDescriptorMatch matches = 1;
 }
 
+// Message used when calling GetFeatureDescriptorTags()
+message GetFeatureDescriptorTagsRequest {
+
+  // Device IDs to get descriptors tags for
+  repeated string device_id = 1;
+}
+
+// Groups tags per device, so client apps can
+// pull all tags and then present which tags
+// are only registered under a specific device
+message FeatureDescriptorTagsForDevice {
+
+  // Available descriptor tags
+  repeated string tags = 1;
+
+  // If set, the above tags are only available in such device id
+  string device_id = 2;
+}
+
+// Message returned by GetFeatureDescriptorTags()
+message GetFeatureDescriptorTagsResponse {
+
+  // Device ID to get descriptors tags for
+  repeated FeatureDescriptorTagsForDevice feature_tags_for_device = 1;
+}
