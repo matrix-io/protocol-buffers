@@ -50,6 +50,9 @@ message DriverConfig {
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
 
+  // Pocket Sphinx wake word configuration
+  PocketSphinxParams psphinx = 11;
+
 }
 
 
@@ -629,5 +632,23 @@ message MicArrayParams {
 
   // sound speed in mm/seg  
   float sound_speed_mmseg = 5;
+}
+
+message PocketSphinxParams {
+  // Wake Word
+  string wake_word = 1;
+
+  // Mic channel
+  enum MicChannel {
+    channel0 = 0;
+    channel1 = 1;
+    channel2 = 2;
+    channel3 = 3;
+    channel4 = 4;
+    channel5 = 5;
+    channel6 = 6;
+    channel7 = 7;
+    channel8 = 8;
+  }
 }
 
