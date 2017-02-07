@@ -51,7 +51,7 @@ message DriverConfig {
   MicArrayParams  micarray = 10;  
 
   // Pocket Sphinx wake word configuration
-  WakeWordParams psphinx = 11;
+  WakeWordParams wakeword = 11;
 
 }
 
