@@ -17,8 +17,8 @@ syntax = "proto3";
 
 package matrix_vision;
 
-import "matrixlabs_pb/vision/vision_service.proto";
-import "matrixlabs_pb/vision/recognition.proto";
+import "matrixlabs_pb/public/vision/vision_service.proto";
+import "matrixlabs_pb/public/vision/recognition.proto";
 
 service RecognitionService {
 

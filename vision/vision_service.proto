@@ -17,7 +17,7 @@ syntax = "proto3";
 
 package matrix_vision;
 
-import "matrixlabs_pb/vision/vision.proto";
+import "matrixlabs_pb/public/vision/vision.proto";
 
 // Message used to send vision requests
 message VisionRequest {
