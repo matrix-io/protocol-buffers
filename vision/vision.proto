@@ -161,6 +161,7 @@ enum EnumDetectionTag {
   HAND_PALM = 2;
   HAND_PINCH = 3;
   HAND_FIST = 4;
+  PERSON = 5;
 }
 
 enum EnumDetectionAlgorithm {
