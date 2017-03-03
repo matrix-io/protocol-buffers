@@ -52,6 +52,8 @@ message DriverConfig {
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
 
+  //  ZWave message for send commands through the Z/IP Gateway
+  ZwaveParams zwave = 11;
 }
 
 
@@ -568,6 +570,21 @@ message ZigBeeMsg {
   NetworkMgmtCmd network_mgmt_cmd = 3;
 
  }
+
+// ZwaveParams params
+message ZwaveParams {
+  enum ZwaveOperations {
+   UNDEF=0;
+   SEND=1;
+   ADDNODE=2;
+   REMOVENODE=3;
+   SETDEFAULT=4;
+   LIST=5;
+  }
+  ZwaveOperations operation = 1; 
+  ZWaveCommand zwave_cmd = 2;
+  string device_id = 3;
+}
 
 // LIRC service params
 message LircParams {
