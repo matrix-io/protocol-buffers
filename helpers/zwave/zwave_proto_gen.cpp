@@ -21,7 +21,6 @@ int main(int argc, char* argv[]) {
   int n;
   std::valarray<const char*> names(512);
   std::set<std::string> class_names;
-  std::set<std::string> cmd_names;
 
   n = zw_cmd_tool_get_command_class_names(&names[0]);
 
@@ -30,32 +29,50 @@ int main(int argc, char* argv[]) {
     class_names.insert(std::string(class_name));
   }
 
-  int index = 0;
-  os << "enum EnumZWaveClassType {" << std::endl;
-  for (auto& class_name : class_names) {
-    os << "  " << class_name << " = " << (index++) << ";" << std::endl;
-  }
-  os << "}" << std::endl << std::endl;
+  os << "message ZWaveCommand {" << std::endl << std::endl;
 
+  int class_index = 0;
   for (auto& class_name : class_names) {
+    os << std::endl;
+    os << "  message " << class_name << "_MSG {" << std::endl;
+
     const zw_command_class* p_class_class =
         zw_cmd_tool_get_class_by_name(class_name.c_str());
 
     n = zw_cmd_tool_get_cmd_names(p_class_class, &names[0]);
-
+    int cmd_index = 0;
+    os << "   enum  CmdType { " << std::endl;
+    os << "    UNDEFINED = 0;" << std::endl;
     for (auto& cmd_name :
          std::valarray<const char*>(names[std::slice(0, n, 1)])) {
-      cmd_names.insert(std::string(cmd_name));
+      os << "    " << cmd_name << " = " << (++cmd_index) << ";" << std::endl;
+
+      const zw_command* p_zw_command =
+          zw_cmd_tool_get_cmd_by_name(p_class_class, cmd_name);
+      n = zw_cmd_tool_get_param_names(p_zw_command, &names[0]);
+
+      int param_index = 0;
+      for (auto& param_name :
+           std::valarray<const char*>(names[std::slice(0, n, 1)])) {
+        os << "      // param " << (param_index++) << ": " << param_name
+           << std::endl;
+      }
     }
+    os << "   }" << std::endl;
+    os << "   CmdType cmd = 1;" << std::endl;
+    os << "  }" << std::endl;
   }
 
-  index = 0;
-  os << "enum EnumZWaveCommandType {" << std::endl;
-  for (auto& cmd_name : cmd_names) {
-    os << "  " << cmd_name << " = " << (index++) << ";" << std::endl;
-  }
-  os << "}" << std::endl << std::endl;
+  os << "  oneof class_oneofmessage {" << std::endl;
 
+  class_index = 0;
+  for (auto& class_name : class_names) {
+    os << "    " << class_name << "_MSG " << class_name << " = "
+       << (++class_index) << ";" << std::endl;
+  }
+  os << "   }" << std::endl;
+  os << "   string params = " << (++class_index) << ";" << std::endl;
+  os << "}" << std::endl;
   os.close();
 
   return 0;

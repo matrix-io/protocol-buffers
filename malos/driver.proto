@@ -17,6 +17,8 @@ syntax = "proto3";
 
 package matrix_malos;
 
+import "zwave_commands.proto";
+
 // configuration of drivers. Both global configuration and
 // for specific drivers.
 message DriverConfig {
