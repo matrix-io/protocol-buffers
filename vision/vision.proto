@@ -25,6 +25,13 @@ message Point {
   float y = 2;
 }
 
+message Size {
+  // Width (x).
+  float width = 1;
+  // Height (y).
+  float height = 2;
+}
+
 // Basic rectangle. Coordinates are float so that we can return relative
 // coordinates when needed.
 message Rectangle {
@@ -249,7 +256,11 @@ message VisionResult {
   // algorithm) or compare different detection algorithms. It is also useful if you want to
   // augment an image with detection results (but not very efficient for this case).
   bytes image = 2;
+  // Size of the image. Useful when sending a raw buffer.
+  Size image_size = 5;
   // Same as above but with a resolution that is expected to have less details,
   // i.e.: 640x480 instead of 3840x2160. It could be useful to give the client an idea
   bytes image_small = 3;
+  // Size of the small image. Useful when sending a raw buffer.
+  Size image_small_size = 6;
 }
