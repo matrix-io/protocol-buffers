@@ -50,6 +50,8 @@ message DriverConfig {
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
 
+  // NFC Message
+  NFCMessage nfc_message = 11;
 }
 
 
@@ -631,3 +633,17 @@ message MicArrayParams {
   float sound_speed_mmseg = 5;
 }
 
+// Microphone Array params
+message NFCMessage {
+  // NFC card type definition
+  enum NFCType {
+    INPUT = 0;
+    OUTPUT = 1;
+  }
+
+  // NFC Type
+  NFCType type = 1;
+
+  // ID from NFC Tag detected
+  int32 id = 2;
+}
