@@ -637,13 +637,62 @@ message MicArrayParams {
 message NFCMessage {
   // NFC card type definition
   enum NFCType {
-    INPUT = 0;
-    OUTPUT = 1;
+    TYPE_A = 0;
+    TYPE_B = 1 ;
+    TYPE_F212 = 2 ;
+    TYPE_F424 = 3 ;
+    TYPE_V = 4 ;
+    TYPE_ISO_18000P3M3 = 5;
   }
+
+  message NFCTypeA{
+
+    enum NFCTypeA_Types{
+      TYPEA_I3P3 = 0;
+      TYPEA_P2P  = 1;
+      TYPEA_I3P4 = 2;
+    }
+
+    // Type I3P3 : Structure info required for ISO/IEC 14443 communication 
+    message NFCTypeA_I3P3{
+      string atqa = 1;      /**< ATQA received from ISO/IEC 14443A compliant device. */
+      string uid = 2;       /**< Contains known UID bytes for the given cascade level. */
+      string uid_size = 3;  /**< Size of the UID that was received from the PICC. */
+      string sak = 4;       /**< Select acknowledge from the ISO/IEC 14443A type A card. */
+    }
+
+    // Type P2P : Structure holding information on Type A P2P activation/communication 
+    message NFCTypeA_P2P{
+      
+
+      // uint8_t bDid;                                             /**< Device ID (DID) for ISO/IEC 18092 Initiator ATR command. */
+      // uint8_t bLri;                                             /**< Length reduction for ISO/IEC 18092 initiator. */
+      // uint8_t bNadEnable;                                       /**< Indicates whether Node Address (NAD) is enabled or not. */
+      // uint8_t bNad;                                             /**< Node address. Ignored if \a bNadEnabled is zero. */
+      // uint8_t *pGi;                                             /**< General bytes information. \a User should populate with appropriate address if \a bGiLength in non zero. */
+      // uint8_t bGiLength;                                        /**< Length of the general bytes. Should be zero if general bytes are not used. */
+      // uint8_t *pAtrRes;                                         /**< Attribute response; uint8_t[64]. */
+      // uint8_t bAtrResLength;                                    /**< Length of the ATR response. */
+
+    }
+
+    // Type I3P4 : Structure info required for ISO/IEC 14443-4 communication 
+    message NFCTypeA_I3P4{
+      
+    }
+
+
+  }
+
+  
+
+  
 
   // NFC Type
   NFCType type = 1;
 
   // ID from NFC Tag detected
-  int32 id = 2;
+  NFCTypeA type_A_info = 2;
 }
+
+
