@@ -250,6 +250,8 @@ message Image {
   bytes image = 1;
   // Image format.
   ImageFormat format = 2;
+  // Image size.
+  Size size = 3;
 }
 
 // This message organizes (at least) four components:
