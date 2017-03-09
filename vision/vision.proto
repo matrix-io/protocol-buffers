@@ -25,6 +25,13 @@ message Point {
   float y = 2;
 }
 
+message Size {
+  // Width (x).
+  int32 width = 1;
+  // Height (y).
+  int32 height = 2;
+}
+
 // Basic rectangle. Coordinates are float so that we can return relative
 // coordinates when needed.
 message Rectangle {
@@ -228,6 +235,25 @@ message Video {
   repeated string tag = 3;
 }
 
+enum ImageFormat {
+  UNSPECIFIED = 0;
+  // unsigned byte, 3 channels. RGB.
+  FORMAT_8URGB = 1;
+  // unsigned byte, 3 channels. BGR.
+  FORMAT_8UBGR = 2;
+  // unsigned byte, 1 channel.
+  FORMAT_8U = 3;
+}
+
+message Image {
+  // Image data.
+  bytes image = 1;
+  // Image format.
+  ImageFormat format = 2;
+  // Image size.
+  Size size = 3;
+}
+
 // This message organizes (at least) four components:
 // - Detections (faces, hands, cars).
 // - Tracking information.
@@ -248,8 +274,13 @@ message VisionResult {
   // evaluate algorithmic changes (test different versions of the same
   // algorithm) or compare different detection algorithms. It is also useful if you want to
   // augment an image with detection results (but not very efficient for this case).
-  bytes image = 2;
+  Image result_image = 5;
   // Same as above but with a resolution that is expected to have less details,
   // i.e.: 640x480 instead of 3840x2160. It could be useful to give the client an idea
+  Image result_image_small = 6;
+
+  // Deprecated by result_image.
+  bytes image = 2;
+  // Deprecated by result_image_small.
   bytes image_small = 3;
 }
