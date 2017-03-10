@@ -39,7 +39,7 @@ message DriverConfig {
   LircParams lirc = 6;
 
   // ServoMotor service configuration 
-  ServoParams servo = 7;
+  ServoParams servo = 7;  
 
   // Gpio service configuration
   GpioParams gpio = 8;
@@ -649,17 +649,18 @@ message NFCMessage {
   // NFC Type A parameter structure
   message NFCTypeA{
 
+    // NFC TypeA Types Definition
     enum NFCTypeA_Types{
-      TYPEA_I3P3 = 0;
-      TYPEA_P2P  = 1;
-      TYPEA_I3P4 = 2;
+      I3P3 = 0;
+      P2P  = 1;
+      I3P4 = 2;
     }
 
     // Type I3P3 Definition: Structure info required for ISO/IEC 14443 communication
     message NFCTypeA_I3P3{
-      int32 atqa = 1;      // ATQA received from ISO/IEC 14443A compliant device.
-      int32 uid = 2;       // Contains known UID bytes for the given cascade level.
-      int32 sak = 3;       // Select acknowledge from the ISO/IEC 14443A type A card.
+      string atqa = 1;      // ATQA received from ISO/IEC 14443A compliant device.
+      string uid = 2;       // Contains known UID bytes for the given cascade level.
+      int32 sak = 3;        // Select acknowledge from the ISO/IEC 14443A type A card.
     }
 
     // Type P2P Definition: Structure holding information on Type A P2P activation/communication
@@ -681,7 +682,7 @@ message NFCMessage {
       int32 data_rate_sent = 5;       // Data Rate send by Initiator.
       string answer_to_response = 6;  // Holds the answer to select response.
     }
-
+    
     // NFC TypeA Types
     NFCTypeA_Types types = 1;
 
@@ -699,28 +700,49 @@ message NFCMessage {
 
     // NFC Type A I3P4
     NFCTypeA_I3P4 I3P4 = 6;
+
   }
 
   message NFCTypeB{
 
+    // NFC TypeB Types Definition
     enum NFCTypeB_Types{
-      TYPEA_I3P3 = 0;
-      TYPEA_I3P4 = 1;
+      I3P3 = 0;
+      I3P4 = 1;
     }
 
+    // Parameters for Type B (ISO/IEC 14443-B) tags
+    message NFCTypeB_I3P3{
+      string seudo_unique_picc_id = 1;  // ISO/IEC 14443-3B Pseudo Unique PICC identifier.
+      string atqb = 2;                  // ATQB received from ISO/IEC 14443-3B compliant device.
+      bool support_type_4B = 3;                 // Indicates activated TypeB tag supports Type 4B Tag Platform or not.
+    }
+
+    // Type B ISO/IEC 14443-4B tag structure.
+    message NFCTypeB_I3P4{
+      int32 max_buf_lenght = 1;    // Maximum Buffer Length Index (MBLI) is available on bits [3:0].
+      int32 attrib_param = 2;  //  Param1 for type B Attrib:
+                        //    Bit 2 ..... SOF
+                        //    Bit 3 ..... EOF
+                        //    Bit 4-5 ... Minimum TR1
+                        //    Bit 6-7 ... Minimum TR0.
+    }
+
+    // NFC TypeB Types
     NFCTypeB_Types type = 1;
 
-    int32 total_tags_found = 2;  // Number of type B tags found.
-    int32 app_file_id = 3;       // Application file Identifier.
+    int32 total_tags_found = 2;   // Number of type B tags found.
+    int32 app_file_id = 3;        // Application file Identifier.
     int32 extended_atq_bit = 4;   // For coding b5 of PARAM of REQB:  b5=1 extended ATQB supported.
     int32 adv_feature_bit = 5;    // For coding b6 of PARAM of REQB:  b6=1 advanced features supported (NFC Forum).
-    int32 frame_size = 6;              // Frame size integer. Valid values: 0-8.
-    int32 card_id = 7;               // Card identifier. Valid values 0-14.
-    int32 node_address = 8;               // Node ADdress.
-    int32 data_rate_received = 9;               // Data Rate receive (PICC --> PCD) integer. Valid values: 0-3.
-    int32 data_rate_sent = 10;              // Data Rate send (PCD --> PICC) integer. Valid values: 0-3.
+    int32 frame_size = 6;         // Frame size integer. Valid values: 0-8.
+    int32 card_id = 7;            // Card identifier. Valid values 0-14.
+    int32 node_address = 8;       // Node ADdress.
+    int32 data_rate_received = 9; // Data Rate receive (PICC --> PCD) integer. Valid values: 0-3.
+    int32 data_rate_sent = 10;    // Data Rate send (PCD --> PICC) integer. Valid values: 0-3.
 
-
+    repeated NFCTypeB_I3P3 I3P3 = 11;
+    NFCTypeB_I3P4 I3P4 = 12;
   }
 
   // NFC Type 
