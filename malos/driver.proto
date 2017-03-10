@@ -693,16 +693,17 @@ message NFCMessage {
     int32 total_tags_found = 3;
 
     // NFC Type A I3P3
-    repeated NFCTypeA_I3P3 I3P3 = 4;
+    repeated NFCTypeA_I3P3 I3P3_info = 4;
 
     // NFC Type A P2P
-    NFCTypeA_P2P P2P = 5;
+    NFCTypeA_P2P P2P_info = 5;
 
     // NFC Type A I3P4
-    NFCTypeA_I3P4 I3P4 = 6;
+    NFCTypeA_I3P4 I3P4_info = 6;
 
   }
 
+  // NFC Type B parameter structure
   message NFCTypeB{
 
     // NFC TypeB Types Definition
@@ -741,8 +742,69 @@ message NFCMessage {
     int32 data_rate_received = 9; // Data Rate receive (PICC --> PCD) integer. Valid values: 0-3.
     int32 data_rate_sent = 10;    // Data Rate send (PCD --> PICC) integer. Valid values: 0-3.
 
-    repeated NFCTypeB_I3P3 I3P3 = 11;
-    NFCTypeB_I3P4 I3P4 = 12;
+    // NFC Type B I3P3
+    repeated NFCTypeB_I3P3 I3P3_info = 11;
+
+    // NFC Type B I3P4
+    NFCTypeB_I3P4 I3P4_info = 12;
+  }
+
+  message NFCTypeF{
+
+     // NFC TypeF Types Definition
+    enum NFCTypeF_Types{
+      TAGS_INFO = 0;
+      P2P = 1;
+    }
+
+    // Parameters for Type F Tags Info
+    message NFCTypeF_TAGS_INFO{
+      string manufacture_id = 1;      // Manufacture ID + PMm.
+      string  request_data_rx = 2;    // Request Data received as response to Felica polling command. (unint8 [2])
+      int32 baud_rate = 3;            // Baud rate which card support.
+    }
+
+    // Parameters for Type F Tags Info
+    message NFCTypeF_P2P{
+      int32 device_id = 1;             // Device identifier. Disabled if set to 0 else should have a value between 1-14.
+      int32 lenght_reduction = 2;      // Length reduction of Initiator. Should be a value in range 0-3.
+      int32 node_address_enable = 3;   // Enable usage of node address. If set to zero NAD is disabled.
+      int32 node_address = 4;                  // Node address.
+      string opt_address_bytes = 5;                  // Optional general bytes.
+      string attribute_response = 6;              //  Attribute response.
+    }
+
+    NFCTypeF_Types type = 1;     // NFC Type F type
+    int32 total_tags_found = 2;  // Number of type F tags found.
+    string system_code = 3;      // System code. uint8_t [2].
+    int32 time_slots = 4;        // Maximum number of time slots.
+
+    // Type F Tags Info
+    repeated NFCTypeF_TAGS_INFO tag_info = 5;
+
+    // Type P2P Info
+    NFCTypeF_P2P p2p_info = 6;
+  }
+
+  message NFCTypeV{
+
+    // Type V TAGS
+    message NFCTypeV_Tags{
+      int32 ds_format_id = 1;    // [Out] Data Storage Format Identifier.
+      int32 uid = 2;             // [Out] UID Received from card. uint8_t[8]
+    }
+
+    int32 total_tags_found = 1;            // Number of type V (ISO 15693) tags found.
+    int32 flags = 2;                       // Request flags byte.
+    repeated NFCTypeV_Tags tags_info = 3;  // Type V TAGS info
+  }
+
+  message NFC_I18000p3m3{
+
+    int32 total_tags_found = 1;   // Holds the number of tags detected
+    int32 modulation = 2;         // Modulation; default #PHPAL_I18000P3M3_M_MANCHESTER_4
+    int32 frequency = 3;          // Link frequency; default #PHPAL_I18000P3M3_LF_847KHZ
+    repeated string uii = 4;     // ACK response from each tag. uint8_t[58]
   }
 
   // NFC Type 
@@ -751,6 +813,17 @@ message NFCMessage {
   // NFC Type A 
   NFCTypeA type_A = 2;
 
+  // NFC Type B
+  NFCTypeB type_B  = 3;
+
+  // NFC Type F
+  NFCTypeF type_F  = 4;
+
+  // NFC Type V
+  NFCTypeV type_V  = 5;
+
+  // NFC Type I18000p3m3
+  NFC_I18000p3m3 type_I18000p3m3 = 6;
 
 }
 
