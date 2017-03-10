@@ -639,11 +639,10 @@ message NFCMessage {
   // NFC card type definition
   enum NFCType {
     TYPE_A = 0;
-    TYPE_B = 1 ;
-    TYPE_F212 = 2 ;
-    TYPE_F424 = 3 ;
-    TYPE_V = 4 ;
-    TYPE_ISO_18000P3M3 = 5;
+    TYPE_B = 1;
+    TYPE_F = 2;
+    TYPE_V = 3;
+    TYPE_I18000P3M3 = 4;
   }
 
   // NFC Type A parameter structure
@@ -799,7 +798,7 @@ message NFCMessage {
     repeated NFCTypeV_Tags tags_info = 3;  // Type V TAGS info
   }
 
-  message NFC_I18000p3m3{
+  message NFC_I18000P3M3{
 
     int32 total_tags_found = 1;   // Holds the number of tags detected
     int32 modulation = 2;         // Modulation; default #PHPAL_I18000P3M3_M_MANCHESTER_4
@@ -822,8 +821,8 @@ message NFCMessage {
   // NFC Type V
   NFCTypeV type_V  = 5;
 
-  // NFC Type I18000p3m3
-  NFC_I18000p3m3 type_I18000p3m3 = 6;
+  // NFC Type I18000P3M3
+  NFC_I18000P3M3 type_I18000P3M3 = 6;
 
 }
 
