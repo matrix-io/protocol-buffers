@@ -144,21 +144,27 @@ message FacialRecognition {
 enum EventTag {
   TRACKING_START = 0;
   TRACKING_END = 1;
+  AREA_ENTER = 2;
+  AREA_EXIT = 3;
 }
 
 message VisionEvent {
   // Tag for events. The fields below will make sense for a specific tag.
   EventTag tag = 1;
 
-  // Object identifier. Used for tracking events (TRACKING_START and TRACKING_END).
+  // Object identifier.
   uint64 tracking_id = 2;
 
-  // Session time: Amount of seconds in tracker. Used for TRACKING_END event.
-  // In seconds.
+  // Session time: Amount of seconds in tracker
+  // Used by TRACKING_END and AREA_EXIT.
   float session_time = 3;
+
   // Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
   // In seconds.
   float dwell_time = 4;
+
+  // Area identifier.
+  uint64 area_id = 5;
 }
 
 // When a detection is done, a tag specifies what is being detected.
