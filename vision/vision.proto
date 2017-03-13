@@ -162,6 +162,9 @@ message VisionEvent {
   // Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
   // In seconds.
   float dwell_time = 4;
+
+  // Area identifier.
+  uint64 area_id = 5;
 }
 
 // When a detection is done, a tag specifies what is being detected.
