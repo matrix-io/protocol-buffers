@@ -141,11 +141,23 @@ message FacialRecognition {
   BasicFaceFeature basic_feature = 11;
 }
 
+enum ZoneDirection {
+  // We can get an unknown direction when the object enters and leaves
+  // the zone from the same side or in other edge cases. This enumerator
+  // is included here because it is still useful to report the session time
+  // of the objects that traverse a zone.
+  UNKNOWN = 0;
+  FORWARD = 1;
+  BACKWARD = 2;
+}
+
 enum EventTag {
   TRACKING_START = 0;
   TRACKING_END = 1;
   AREA_ENTER = 2;
   AREA_EXIT = 3;
+  ZONE_ENTER = 4;
+  ZONE_EXIT = 5;
 }
 
 message VisionEvent {
@@ -156,15 +168,22 @@ message VisionEvent {
   uint64 tracking_id = 2;
 
   // Session time: Amount of seconds in tracker
-  // Used by TRACKING_END and AREA_EXIT.
+  // Used by TRACKING_END, AREA_EXIT and ZONE_EXIT.
   float session_time = 3;
 
   // Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
   // In seconds.
   float dwell_time = 4;
 
-  // Area identifier.
+  // Area identifier. Used when AREA_ENTER or AREA_EXIT is set.
   uint64 area_id = 5;
+
+  // Zone identifier. Used when ZONE_ENTER or ZONE_EXIT is set.
+  uint64 zone_id = 6;
+
+  // Direction of the object that leaves the zone.
+  // Used when ZONE_ENTER or ZONE_EXIT is set.
+  ZoneDirection zone_directon = 7;
 }
 
 // When a detection is done, a tag specifies what is being detected.
