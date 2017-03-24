@@ -15,9 +15,12 @@ before_script:
   - git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc
 
 script:
-  - cd grpc 
+  - cd grpc
   - git submodule update --init
-  - make HAS_SYSTEM_PROTOBUF=false && sudo make install && make clean
+  - cd third_party/protobuf
+  - make && sudo make install
+  - cd ../../
+  - make && sudo make install && make clean
   - cd ..
   - mkdir build
   - cd build
