@@ -1,6 +1,7 @@
 # Build protocol buffers just to check they compile without errors.
 
 cmake_minimum_required(VERSION 2.8)
+add_definitions(-std=c++11)
 project(build_protos C CXX)
 
 find_package(Protobuf 3 REQUIRED)
@@ -19,6 +20,7 @@ PROTOBUF_GENERATE_GRPC_CPP(VISION_GRPC_SRC VISION_GRPC_HEADER vision/vision_serv
 # GRPC recognition_service
 PROTOBUF_GENERATE_CPP(RECOGNITION_GRPC_PROTO_SRC RECOGNITION_GRPC_PROTO_HEADER vision/recognition_service.proto)
 PROTOBUF_GENERATE_GRPC_CPP(RECOGNITION_GRPC_SRC RECOGNITION_GRPC_HEADER vision/recognition_service.proto)
+PROTOBUF_GENERATE_CPP(RECOGNITION_PROTO_SRC RECOGNITION_PROTO_HEADER vision/recognition.proto)
 
 # driver.proto (MALOS)
 PROTOBUF_GENERATE_CPP(DRIVER_PROTO_SRC DRIVER_PROTO_HEADER malos/driver.proto)
@@ -35,6 +37,7 @@ set(build_protos_src
   ${VISION_GRPC_SRC}
   ${RECOGNITION_GRPC_PROTO_SRC}
   ${RECOGNITION_GRPC_SRC}
+  ${RECOGNITION_PROTO_SRC}
   ${DRIVER_PROTO_SRC}
   ${HAL_PROTO_SRC}
 )

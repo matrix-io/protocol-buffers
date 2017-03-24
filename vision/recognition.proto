@@ -1,0 +1,29 @@
+
+syntax = "proto3";
+
+package admobilize_vision;
+
+// Describes a recognition feature descriptor
+message FeatureDescriptor {
+
+  // A unique identifier for the descriptor according to UUID v4
+  string uuid = 1; 
+
+  // Descriptor format used by extraction algorithm
+  string data_format = 2;
+
+  // The actual recognition descriptor data
+  repeated float data = 3;
+
+  // Arbitrary tags for the descriptor set
+  // i.e ['lucas', 'jackson family'] 
+  repeated string tags = 4;
+}
+
+// Container to group multiple FeatureDescriptors
+// makes storage of multiple FeatureDescriptors more
+// convenient in files.
+message FeatureDescriptorList {
+
+   repeated FeatureDescriptor feature_descriptors = 1;
+}
