@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
   pkg-config \
   && apt-get clean
 
-ENV GRPC_RELEASE_TAG v1.0.1
+ENV GRPC_RELEASE_TAG v1.2.0
 
 RUN git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc /var/local/git/grpc
 
