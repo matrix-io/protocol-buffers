@@ -19,6 +19,7 @@ script:
   - git submodule update --init
   # Build protobuf
   - cd third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install
+  - ldconfig
   # Build grpc
   - cd ../../ && make && sudo make install && make clean
   - cd .. && mkdir build
