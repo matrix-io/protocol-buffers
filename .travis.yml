@@ -17,11 +17,9 @@ before_script:
 script:
   - cd grpc
   - git submodule update --init
-  - cd third_party/protobuf
-  - make && sudo make install
-  - cd ../../
-  - make && sudo make install && make clean
-  - cd ..
-  - mkdir build
-  - cd build
-  - cmake -D CMAKE_CXX_FLAGS="-std=c++11" .. && make
+  # Build protobuf
+  - cd third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install
+  # Build grpc
+  - cd ../../ && make && sudo make install && make clean
+  - cd .. && mkdir build
+  - cd build && cmake -D CMAKE_CXX_FLAGS="-std=c++11" .. && make
