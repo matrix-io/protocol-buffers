@@ -25,6 +25,13 @@ message Point {
   float y = 2;
 }
 
+message Size {
+  // Width (x).
+  int32 width = 1;
+  // Height (y).
+  int32 height = 2;
+}
+
 // Basic rectangle. Coordinates are float so that we can return relative
 // coordinates when needed.
 message Rectangle {
@@ -134,24 +141,73 @@ message FacialRecognition {
   BasicFaceFeature basic_feature = 11;
 }
 
+enum ZoneDirection {
+  // We can get an unknown direction when the object enters and leaves
+  // the zone from the same side or in other edge cases. This enumerator
+  // is included here because it is still useful to report the session time
+  // of the objects that traverse a zone.
+  UNKNOWN = 0;
+  FORWARD = 1;
+  BACKWARD = 2;
+}
+
+message ZoneConfig {
+  // Zone name.
+  string name = 1;
+  // First point for the zone. The "FORWARD" direction of a zone is
+  // at 90° to the right of the line formed by B->A.
+  Point point_a = 2;
+  // Second point of the zone.
+  Point point_b = 3;
+  // Total height of the zone.
+  int32 height = 4;
+}
+
+message AreaConfig {
+  // Area name.
+  string name = 1;
+  // Points of the area. At least 3 different points.
+  repeated Point point = 2;
+}
+
+message AreaAndZoneConfig {
+  repeated AreaConfig area = 1;
+  repeated ZoneConfig zone = 2;
+}
+
 enum EventTag {
   TRACKING_START = 0;
   TRACKING_END = 1;
+  AREA_ENTER = 2;
+  AREA_EXIT = 3;
+  ZONE_ENTER = 4;
+  ZONE_EXIT = 5;
 }
 
 message VisionEvent {
   // Tag for events. The fields below will make sense for a specific tag.
   EventTag tag = 1;
 
-  // Object identifier. Used for tracking events (TRACKING_START and TRACKING_END).
+  // Object identifier.
   uint64 tracking_id = 2;
 
-  // Session time: Amount of seconds in tracker. Used for TRACKING_END event.
-  // In seconds.
+  // Session time: Amount of seconds in tracker
+  // Used by TRACKING_END, AREA_EXIT and ZONE_EXIT.
   float session_time = 3;
+
   // Dwell time: Amount of seconds facing the camera. Used for TRACKING_END event.
   // In seconds.
   float dwell_time = 4;
+
+  // Area identifier. Used when AREA_ENTER or AREA_EXIT is set.
+  uint64 area_id = 5;
+
+  // Zone identifier. Used when ZONE_ENTER or ZONE_EXIT is set.
+  uint64 zone_id = 6;
+
+  // Direction of the object that leaves the zone.
+  // Used when ZONE_ENTER or ZONE_EXIT is set.
+  ZoneDirection zone_direction = 7;
 }
 
 // When a detection is done, a tag specifies what is being detected.
@@ -161,6 +217,7 @@ enum EnumDetectionTag {
   HAND_PALM = 2;
   HAND_PINCH = 3;
   HAND_FIST = 4;
+  PERSON = 5;
 }
 
 enum EnumDetectionAlgorithm {
@@ -227,6 +284,25 @@ message Video {
   repeated string tag = 3;
 }
 
+enum ImageFormat {
+  UNSPECIFIED = 0;
+  // unsigned byte, 3 channels. RGB.
+  FORMAT_8URGB = 1;
+  // unsigned byte, 3 channels. BGR.
+  FORMAT_8UBGR = 2;
+  // unsigned byte, 1 channel.
+  FORMAT_8U = 3;
+}
+
+message Image {
+  // Image data.
+  bytes image = 1;
+  // Image format.
+  ImageFormat format = 2;
+  // Image size.
+  Size size = 3;
+}
+
 // This message organizes (at least) four components:
 // - Detections (faces, hands, cars).
 // - Tracking information.
@@ -247,8 +323,13 @@ message VisionResult {
   // evaluate algorithmic changes (test different versions of the same
   // algorithm) or compare different detection algorithms. It is also useful if you want to
   // augment an image with detection results (but not very efficient for this case).
-  bytes image = 2;
+  Image result_image = 5;
   // Same as above but with a resolution that is expected to have less details,
   // i.e.: 640x480 instead of 3840x2160. It could be useful to give the client an idea
+  Image result_image_small = 6;
+
+  // Deprecated by result_image.
+  bytes image = 2;
+  // Deprecated by result_image_small.
   bytes image_small = 3;
 }
