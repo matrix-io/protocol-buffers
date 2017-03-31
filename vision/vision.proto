@@ -15,7 +15,7 @@
 
 syntax = "proto3";
 
-package admobilize_vision;
+package matrix_vision;
 
 // Basic point.
 message Point {
