@@ -15,7 +15,12 @@
 
 syntax = "proto3";
 
-package matrix_malos;
+package matrixlabs.malos.v1.driver;
+
+option csharp_namespace = "Matrixlabs.Malos.Driver.V1";
+option java_multiple_files = true;
+option java_outer_classname = "DriverProto";
+option java_package = "com.matrixlabs.malos.v1";
 
 // configuration of drivers. Both global configuration and
 // for specific drivers.

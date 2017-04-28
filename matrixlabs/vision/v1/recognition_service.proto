@@ -15,10 +15,15 @@
 
 syntax = "proto3";
 
-package matrix_vision;
+package matrixlabs.vision.v1;
 
-import "matrixlabs_pb/public/vision/vision_service.proto";
-import "matrixlabs_pb/public/vision/recognition.proto";
+import "matrixlabs/vision/v1/vision_service.proto";
+import "matrixlabs/vision/v1/recognition.proto";
+
+option csharp_namespace = "Matrixlabs.Vision.V1";
+option java_multiple_files = true;
+option java_outer_classname = "RecognitionServiceProto";
+option java_package = "com.matrixlabs.vision.v1";
 
 service RecognitionService {
 
