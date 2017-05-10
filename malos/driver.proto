@@ -652,5 +652,12 @@ message WakeWordParams {
   }
 
   MicChannel channel = 2;
+
+  string lm_path = 3;
+
+  string dic_path = 4;
+
+  string actions_path = 5;
+
 }
 
