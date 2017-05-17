@@ -780,5 +780,5 @@ message ZWaveCommand {
 
  ClassType zwclass = 1;
  CmdType cmd = 2;
- string  params = 3;
+ bytes params = 3;
 }

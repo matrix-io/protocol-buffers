@@ -581,9 +581,9 @@ message ZwaveParams {
    SETDEFAULT=4;
    LIST=5;
   }
-  ZwaveOperations operation = 1; 
-  ZWaveCommand zwave_cmd = 2;
-  string device_id = 3;
+  string device = 1;
+  ZwaveOperations operation = 2; 
+  ZWaveCommand zwave_cmd = 3;
 }
 
 // LIRC service params
