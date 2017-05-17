@@ -660,7 +660,11 @@ message WakeWordParams {
   // dictionary path from lmtool 
   string dic_path = 4;
 
-  // actions/commands for voice recognition (input on lmtool)
-  string actions_path = 5;
+  // enable pocketsphinx verbose mode
+  bool enable_verbose = 5;
+
+  // stop recognition service
+  bool stop_recognition = 6;
+  
 }
 
