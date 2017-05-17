@@ -6,7 +6,7 @@ package matrix_malos;
 
 message ZWaveCommand {
  enum ClassType {
-  UNDEFINED = 0;
+  COMMAND_CLASS_UNDEFINED = 0;
   COMMAND_CLASS_ALARM = 1;
   COMMAND_CLASS_ANTITHEFT = 2;
   COMMAND_CLASS_APPLICATION_CAPABILITY = 3;
@@ -140,7 +140,7 @@ message ZWaveCommand {
   }
 
  enum CmdType {
-  UNDEFINED = 0;
+  CMD_UNDEFINED = 0;
   ACCEPT_LOST = 1;
   ALARM_GET = 2;
   ALARM_REPORT = 3;
