@@ -581,9 +581,17 @@ message ZwaveParams {
    SETDEFAULT=4;
    LIST=5;
   }
+
+  message ZwaveNode {
+    string service_name = 1;
+    repeated ZwaveClassType zwave_class = 2;
+  }  
+
   string device = 1;
   ZwaveOperations operation = 2; 
   ZWaveCommand zwave_cmd = 3;
+  bool result = 4;
+  repeated ZwaveNode nodes = 5;
 }
 
 // LIRC service params
