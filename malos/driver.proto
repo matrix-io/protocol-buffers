@@ -53,7 +53,7 @@ message DriverConfig {
   MicArrayParams  micarray = 10;  
 
   //  ZWave message for send commands through the Z/IP Gateway
-  ZwaveParams zwave = 11;
+  ZwaveMsg zwave = 11;
 }
 
 
@@ -571,8 +571,8 @@ message ZigBeeMsg {
 
  }
 
-// ZwaveParams params
-message ZwaveParams {
+// ZwaveMsg params
+message ZwaveMsg {
   enum ZwaveOperations {
    UNDEF=0;
    SEND=1;
@@ -591,7 +591,7 @@ message ZwaveParams {
   ZwaveOperations operation = 2; 
   ZWaveCommand zwave_cmd = 3;
   bool result = 4;
-  repeated ZwaveNode nodes = 5;
+  repeated ZwaveNode node = 5;
 }
 
 // LIRC service params
