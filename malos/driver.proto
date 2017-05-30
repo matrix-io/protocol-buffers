@@ -53,7 +53,7 @@ message DriverConfig {
   MicArrayParams  micarray = 10;  
 
   //  ZWave message for send commands through the Z/IP Gateway
-  ZwaveMsg zwave = 11;
+  ZWaveMsg zwave = 11;
 }
 
 
@@ -571,9 +571,10 @@ message ZigBeeMsg {
 
  }
 
-// ZwaveMsg params
-message ZwaveMsg {
-  enum ZwaveOperations {
+// ZWaveMsg params
+message ZWaveMsg {
+  // ZWave Malos Opcodes
+  enum ZWaveOperations {
    UNDEF=0;
    SEND=1;
    ADDNODE=2;
@@ -581,17 +582,17 @@ message ZwaveMsg {
    SETDEFAULT=4;
    LIST=5;
   }
-
-  message ZwaveNode {
+  // Z
+  message ZWaveNode {
     string service_name = 1;
-    repeated ZwaveClassType zwave_class = 2;
+    repeated ZWaveClassType zwave_class = 2;
   }  
 
-  string device = 1;
-  ZwaveOperations operation = 2; 
+  ZWaveOperations operation = 1;
+  string service_to_send = 2;
   ZWaveCommand zwave_cmd = 3;
-  bool result = 4;
-  repeated ZwaveNode node = 5;
+  repeated ZWaveNode node = 4;
+  bool result = 5;
 }
 
 // LIRC service params

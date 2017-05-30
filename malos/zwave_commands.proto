@@ -4,7 +4,7 @@
 syntax = "proto3";
 package matrix_malos;
 
-enum ZwaveClassType {
+enum ZWaveClassType {
  option allow_alias = true;
  COMMAND_CLASS_NO_OPERATION = 0;
  ZWAVE_CMD_CLASS = 1;
@@ -138,7 +138,7 @@ enum ZwaveClassType {
  COMMAND_CLASS_NON_INTEROPERABLE = 240;
 }
 
-enum ZwaveCmdType {
+enum ZWaveCmdType {
  CMD_UNDEFINED = 0;
  ACCEPT_LOST = 1;
  ALARM_GET = 2;
@@ -778,7 +778,7 @@ enum ZwaveCmdType {
 }
 
 message ZWaveCommand {
- ZwaveClassType zwclass = 1;
- ZwaveCmdType cmd = 2;
+ ZWaveClassType zwclass = 1;
+ ZWaveCmdType cmd = 2;
  bytes params = 3;
 }
