@@ -603,6 +603,13 @@ message ZWaveMsg {
     // list of ZWave classes supported by the device 
     repeated ZWaveClassInfo zwave_class = 2;
   }
+
+  // ZWave command to sent
+  message ZWaveCommand {
+    ZWaveClassType zwclass = 1;
+    ZWaveCmdType cmd = 2;
+    bytes params = 3;
+  }
  
   // Malos operation {SEND,ADDNODE,REMOVENODE,LIST,...}
   ZWaveOperations operation = 1;
