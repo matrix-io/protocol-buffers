@@ -583,13 +583,34 @@ message ZWaveMsg {
    SETDEFAULT=4;
    LIST=5;
   }
+
+  // ZWave command with params
+  message ZWaveCommandInfo {
+    ZWaveCmdType cmd = 1;
+    repeated string param = 2;
+  } 
+
+  // ZWave class with params
+  message ZWaveClassInfo {
+    ZWaveClassType zwave_class = 1;
+    repeated ZWaveCommandInfo command = 2;
+  }
+
   // ZWave devices or nodes
   message ZWaveNode {
     // unique service name (device address)
     string service_name = 1;
     // list of ZWave classes supported by the device 
-    repeated ZWaveClassType zwave_class = 2;
-  }  
+    repeated ZWaveClassInfo zwave_class = 2;
+  }
+
+  // ZWave command to sent
+  message ZWaveCommand {
+    ZWaveClassType zwclass = 1;
+    ZWaveCmdType cmd = 2;
+    bytes params = 3;
+  }
+ 
   // Malos operation {SEND,ADDNODE,REMOVENODE,LIST,...}
   ZWaveOperations operation = 1;
 

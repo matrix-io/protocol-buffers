@@ -777,8 +777,3 @@ enum ZWaveCmdType {
  ZWAVE_CMD_RESERVE_NODE_IDS = 635;
 }
 
-message ZWaveCommand {
- ZWaveClassType zwclass = 1;
- ZWaveCmdType cmd = 2;
- bytes params = 3;
-}
