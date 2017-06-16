@@ -28,6 +28,9 @@ PROTOBUF_GENERATE_CPP(DRIVER_PROTO_SRC DRIVER_PROTO_HEADER malos/driver.proto)
 # hal.proto
 PROTOBUF_GENERATE_CPP(HAL_PROTO_SRC HAL_PROTO_HEADER malos/hal.proto)
 
+# zwave_commands.proto
+PROTOBUF_GENERATE_CPP(ZWAVE_COMMANDS_PROTO_SRC ZWAVE_COMMANDS_PROTO_HEADER malos/zwave_commands.proto)
+
 # Delete hearbeat.proto (Ask Sean).
 
 # Just build all the protos.
@@ -40,6 +43,7 @@ set(build_protos_src
   ${RECOGNITION_PROTO_SRC}
   ${DRIVER_PROTO_SRC}
   ${HAL_PROTO_SRC}
+  ${ZWAVE_COMMANDS_PROTO_SRC}
 )
 
 add_library(build_protos ${build_protos_src})

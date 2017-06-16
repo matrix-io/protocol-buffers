@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2016-2017 Matrix Labs
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +17,8 @@
 syntax = "proto3";
 
 package matrix_malos;
+
+import "zwave_commands.proto";
 
 // configuration of drivers. Both global configuration and
 // for specific drivers.
@@ -50,8 +53,11 @@ message DriverConfig {
   // Microphone Array configuration
   MicArrayParams  micarray = 10;  
 
+  //  ZWave message for send commands through the Z/IP Gateway
+  ZWaveMsg zwave = 11;
+
   // Pocket Sphinx wake word configuration
-  WakeWordParams wakeword = 11;
+  WakeWordParams wakeword = 12;
 
 }
 
@@ -569,6 +575,40 @@ message ZigBeeMsg {
   NetworkMgmtCmd network_mgmt_cmd = 3;
 
  }
+
+// ZWaveMsg params to send commands through the Z/IP Gateway
+message ZWaveMsg {
+  // ZWave Malos Opcodes
+  enum ZWaveOperations {
+   UNDEF=0;
+   SEND=1;
+   ADDNODE=2;
+   REMOVENODE=3;
+   SETDEFAULT=4;
+   LIST=5;
+  }
+  // ZWave devices or nodes
+  message ZWaveNode {
+    // unique service name (device address)
+    string service_name = 1;
+    // list of ZWave classes supported by the device 
+    repeated ZWaveClassType zwave_class = 2;
+  }  
+  // Malos operation {SEND,ADDNODE,REMOVENODE,LIST,...}
+  ZWaveOperations operation = 1;
+
+  // service name of the device to send ZWave commands
+  string service_to_send = 2;
+
+  // ZWave command, when operation=SEND
+  ZWaveCommand zwave_cmd = 3;
+
+  // List of ZWave devices/nodes, when operation=LIST
+  repeated ZWaveNode node = 4;
+
+  // Result of Malos Operation
+  bool result = 5;
+}
 
 // LIRC service params
 message LircParams {
