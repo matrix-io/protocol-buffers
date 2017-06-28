@@ -16,12 +16,12 @@
 
 syntax = "proto3";
 
-package matrixlabs.malos.v1.driver;
+package matrix.malos.v1.driver;
 
-option csharp_namespace = "Matrixlabs.Malos.Driver.V1";
+option csharp_namespace = "Matrix.Malos.Driver.V1";
 option java_multiple_files = true;
 option java_outer_classname = "DriverProto";
-option java_package = "com.matrixlabs.malos.v1";
+option java_package = "com.matrix.malos.v1";
 
 import "zwave_commands.proto";
 

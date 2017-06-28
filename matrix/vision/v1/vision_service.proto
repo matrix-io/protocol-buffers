@@ -15,14 +15,14 @@
 
 syntax = "proto3";
 
-package matrixlabs.vision.v1;
+package matrix.vision.v1;
 
-import "matrixlabs/vision/v1/vision.proto";
+import "matrix/vision/v1/vision.proto";
 
-option csharp_namespace = "Matrixlabs.Vision.V1";
+option csharp_namespace = "Matrix.Vision.V1";
 option java_multiple_files = true;
 option java_outer_classname = "VisionServiceProto";
-option java_package = "com.matrixlabs.vision.v1";
+option java_package = "com.matrix.vision.v1";
 
 // Message used to send vision requests
 message VisionRequest {
