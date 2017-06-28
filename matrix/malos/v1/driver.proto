@@ -23,7 +23,7 @@ option java_multiple_files = true;
 option java_outer_classname = "DriverProto";
 option java_package = "com.matrix.malos.v1";
 
-import "zwave_commands.proto";
+import "matrix/malos/v1/zwave_commands.proto";
 
 // configuration of drivers. Both global configuration and
 // for specific drivers.
@@ -595,13 +595,13 @@ message ZWaveMsg {
 
   // ZWave command with params
   message ZWaveCommandInfo {
-    ZWaveCmdType cmd = 1;
+    matrix.malos.v1.zwave.ZWaveCmdType cmd = 1;
     repeated string param = 2;
   } 
 
   // ZWave class with params
   message ZWaveClassInfo {
-    ZWaveClassType zwave_class = 1;
+    matrix.malos.v1.zwave.ZWaveClassType zwave_class = 1;
     repeated ZWaveCommandInfo command = 2;
   }
 
@@ -615,8 +615,8 @@ message ZWaveMsg {
 
   // ZWave command to sent
   message ZWaveCommand {
-    ZWaveClassType zwclass = 1;
-    ZWaveCmdType cmd = 2;
+    matrix.malos.v1.zwave.ZWaveClassType zwclass = 1;
+    matrix.malos.v1.zwave.ZWaveCmdType cmd = 2;
     bytes params = 3;
   }
  
