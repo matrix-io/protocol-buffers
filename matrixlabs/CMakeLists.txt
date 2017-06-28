@@ -63,6 +63,8 @@ PROTOBUF_GENERATE_CPP(
 
 # Just build all the protos.
 set(build_protos_src
+  ${VISION_PROTO_SRC}
+  ${RECOGNITION_PROTO_SRC}
   ${DRIVER_PROTO_SRC}
   ${ZWAVE_COMMANDS_PROTO_SRC}
 )
