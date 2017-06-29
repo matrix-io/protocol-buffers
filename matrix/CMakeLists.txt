@@ -14,6 +14,7 @@ PROTOBUF_GENERATE_CPP(
   VISION_PROTO_HEADER 
   vision/v1/vision.proto)
 
+
 # GRPC vision_service
 PROTOBUF_GENERATE_CPP(
   VISION_GRPC_PROTO_SRC 
@@ -41,17 +42,35 @@ PROTOBUF_GENERATE_CPP(
   RECOGNITION_PROTO_HEADER 
   recognition/v1/recognition.proto)
 
-# driver.proto (MALOS)
+# io.proto (MALOS)
 PROTOBUF_GENERATE_CPP(
-  DRIVER_PROTO_SRC 
-  DRIVER_PROTO_HEADER 
-  malos/v1/driver.proto)
+  IO_PROTO_SRC
+  IO_PROTO_HEADER
+  malos/v1/io.proto)
+
+# sense.proto (MALOS)
+PROTOBUF_GENERATE_CPP(
+  SENSE_PROTO_SRC
+  SENSE_PROTO_HEADER
+  malos/v1/sense.proto)
 
 # zwave_commands.proto (MALOS)
 PROTOBUF_GENERATE_CPP(
   ZWAVE_COMMANDS_PROTO_SRC 
   ZWAVE_COMMANDS_PROTO_HEADER 
   malos/v1/zwave_commands.proto)
+
+# comm.proto (MALOS)
+PROTOBUF_GENERATE_CPP(
+  COMM_PROTO_SRC
+  COMM_PROTO_HEADER
+  malos/v1/comm.proto)
+
+# driver.proto (MALOS)
+PROTOBUF_GENERATE_CPP(
+  DRIVER_PROTO_SRC
+  DRIVER_PROTO_HEADER
+  malos/v1/driver.proto)
 
 # hal.proto
 PROTOBUF_GENERATE_CPP(
@@ -63,9 +82,12 @@ PROTOBUF_GENERATE_CPP(
 
 # Just build all the protos.
 set(build_protos_src
+  ${IO_PROTO_SRC}
+  ${COMM_PROTO_SRC}
+  ${SENSE_PROTO_SRC}
+  ${DRIVER_PROTO_SRC}
   ${VISION_PROTO_SRC}
   ${RECOGNITION_PROTO_SRC}
-  ${DRIVER_PROTO_SRC}
   ${ZWAVE_COMMANDS_PROTO_SRC}
 )
 
