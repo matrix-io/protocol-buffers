@@ -1,0 +1,411 @@
+
+/*
+ * Copyright 2016-2017 Matrix Labs
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+syntax = "proto3";
+
+package matrix.malos.v1.comm;
+
+option csharp_namespace = "Matrix.Malos.Comm.V1";
+option java_multiple_files = true;
+option java_outer_classname = "CommProto";
+option java_package = "com.matrix.malos.v1";
+
+import "zwave_commands.proto";
+
+
+// ZigBee message
+message ZigBeeMsg {
+
+  // Zigbee command types definition
+  enum ZigBeeCmdType {
+    ZCL = 0;
+    NETWORK_MGMT = 1;
+  }
+
+  // ZigBee Cluster Library command definition
+  message ZCLCmd {
+
+    // ZCL commands type
+    enum ZCLCmdType  {
+      ON_OFF = 0;
+      LEVEL = 1;
+      COLOR_CONTROL = 2;
+      IDENTIFY = 3;
+    }
+
+    // OnOff command definition
+    message OnOffCmd {
+
+      enum ZCLOnOffCmdType  {
+        ON = 0;
+        OFF = 1;
+        TOGGLE = 2;
+      }
+
+      // ZCL OnOff command type
+      ZCLOnOffCmdType type = 1;
+
+      // Params not required for ZCL OnOff cluster commands
+    }
+
+    // Level command definition
+    message LevelCmd {
+
+      // ZCL Level commands types
+      enum ZCLLevelCmdType  {
+        MOVE_TO_LEVEL = 0;
+        MOVE = 1;
+        // STEP = 2;
+        // STOP = 3;
+        // MOVE_TO_LEVEL_ONOFF = 4;
+        // MOVE_ONOFF = 5;
+        // STEP_ONOFF = 6;
+        // STOP_ONOFF = 7;
+      }
+
+       // MoveToLevel command parameters
+      message MoveToLevelCmdParams{
+        // level param <uint8>: The meaning of ‘level’ is device dependent – e.g. for a light it may mean brightness level.
+        uint32  level  = 1;
+        // Transition time <uint16>
+        uint32 transition_time  = 2;
+      }
+
+      // Move command parameters
+      message MoveCmdParams{
+        // |Fade Mode Value | Description  |
+        // |      0x00      |     Up       |
+        // |      0x01      |    Down      |
+        uint32  mode  = 1;
+        //Rate <uint8>: specifies the rate of movement in units per second.
+        uint32 rate  = 2;
+      }
+
+      ZCLLevelCmdType type = 1;
+
+      // MoveToLevel command
+      MoveToLevelCmdParams move_to_level_params = 2;
+
+      // Move command
+      MoveCmdParams move_params = 3;
+    }
+
+    // Color Control command definition
+    message ColorControlCmd {
+
+      // ZCL ColorControl command types
+      enum ZCLColorControlCmdType  {
+        MOVETOHUE = 0;
+        MOVETOSAT = 1;
+        MOVETOHUEANDSAT = 2;
+      }
+
+      // MoveToHue command
+      message MoveToHueCmdParams{
+
+        // Values of the Direction Param
+        enum DirectionParam{
+          SHORTEST_DISTANCE = 0;
+          LONGEST_DISTANCE = 1;
+          UP = 2;
+          DOWN = 3;
+        }
+
+        // Hue <uint8>: specifies the hue to be moved to.
+        uint32 hue = 1;
+
+        // Direciton param
+        DirectionParam direction  = 2;
+
+        //Transition time <uint16> : specifies, in 1/10ths of a second, the time that shall be taken to move to the new hue
+        uint32 transition_time = 3;
+      }
+
+      message MoveToSatCmdParams {
+
+        // Saturation <uint8>
+        uint32 saturation = 1;
+
+        // Transition Time <uint16>
+        uint32 transition_time = 2;
+      }
+
+      message MoveToHueAndSatCmdParams {
+
+        // Hue <uint8>
+        uint32 hue = 1;
+
+        // Saturation <uint8>
+        uint32 saturation = 2;
+
+        // Transition Time <uint16>
+        uint32 transition_time = 3;
+      }
+
+      // ZCLColorControl command type
+      ZCLColorControlCmdType type = 1;
+
+      // MoveToHue command params
+      MoveToHueCmdParams movetohue_params = 2;
+
+      // MoveToSat commands params
+      MoveToSatCmdParams movetosat_params = 3;
+
+      // MoveToHueAndSat commands params
+      MoveToHueAndSatCmdParams movetohueandsat_params = 4;
+    }
+
+    //ZCL Identify command type
+    message IdentifyCmd{
+
+      enum ZCLIdentifyCmdType  {
+        // Starts the identification process
+        IDENTIFY_ON = 0; 
+        // Stops the identification process
+        IDENTIFY_OFF = 1;  
+      }
+
+      message IdentifyOnCmdParams {
+        // Transition Time <uint8>
+        uint32 endpoint = 1;
+        // Transition Time in seconds <uint16>
+        uint32 identify_time = 2;
+      }
+
+      message IdentifyOffCmdParams {
+        // Transition Time in seconds <uint16>
+        uint32 identify_time = 1;
+      }
+
+      ZCLIdentifyCmdType type = 1;
+
+      IdentifyOnCmdParams identify_on_params = 2;
+
+      IdentifyOffCmdParams identify_off_params = 3;
+    }
+
+    // ZCL command type
+    ZCLCmdType type = 1;
+
+    // OnOff command
+    OnOffCmd onoff_cmd = 2;
+
+    // Level command
+    LevelCmd level_cmd = 3;
+
+    // Color control command
+    ColorControlCmd colorcontrol_cmd = 4;
+
+    // Identify command
+    IdentifyCmd identify_cmd = 5;
+
+    // Node Id 
+    uint32 node_id = 6;
+
+    // Endpoint Id
+    uint32 endpoint_index = 7;
+
+  }
+
+  // Network management command definition
+  message NetworkMgmtCmd{
+
+    // NetworkMgmt command types
+    enum NetworkMgmtCmdTypes {
+      CREATE_NWK = 0;  // Creates a new network. No params required
+      LEAVE_NWK = 1;  // Leave the current network. No params required
+      NODE_LEAVE_NWK = 2;  // Ask a specific node to leave the current network.
+      PERMIT_JOIN = 3; // Permit other devices to join the network for a time period.
+      DISCOVERY_INFO = 4; // Gets all the info from the devices already connected to the network. No params required
+      RESET_PROXY = 5; // Reset the proxy app . No params required
+      IS_PROXY_ACTIVE = 6; // TRUE if the conection between the proxy and the ZigBee chip is active. No params required
+      NETWORK_STATUS = 7; // Network status
+      // The Proxy is the app that talks with the ZigBee chip via
+      // COMs and with the MALOS services using Sockets.
+    }
+
+    // PermitJoin Params Definition
+    message PermitJoinParams{
+      // Joining time : Number of seconds during which devices will be allowed to join the network
+      uint32 time = 1;
+    }
+
+    // Node Leave Network Params Definition
+    message NodeLeaveNetParams{
+      // Node Id of the Node you want to leave the network
+      uint32 node_id = 1;
+    }
+
+    // CLuster Description Definition
+    message ClusterDescription{
+      enum ClusterInOutType{
+        SERVER_IN = 0;
+        CLIENT_OUT = 1;
+      }
+      // Cluster server/client type: server (IN) or client (OUT) implementation
+      ClusterInOutType type = 1;
+      // Cluster ID : ex 0x0006 (On/off),  0x0008 (Level Control), 0x0201 (Thermostat)
+      uint32 cluster_id = 2;
+    }
+
+    // EndPoint Description Definition
+    message EndPointDescription{
+      // EndPoint Profile Index
+      uint32 endpoint_index = 1;
+      // EndPoint Profile ID
+      uint32 profile_id = 2;
+      // EndPoint Device ID 
+      uint32 device_id = 3;
+      // EndPoint Clusters
+      repeated ClusterDescription clusters = 4;
+    }
+
+    // Node Info Definition
+    message NodeDescription{
+      // NodeId of the Node
+      uint32 node_id = 1;
+      // EUI64 of the Node
+      uint64 eui64 = 2;
+      // EndPoints in the Node
+      repeated EndPointDescription  endpoints = 3;
+    }
+
+    // Network Status Definition
+    message NetworkStatus{
+
+      enum Status
+      {
+        /** The node is not associated with a network in any way. */
+        NO_NETWORK = 0;
+        /** The node is currently attempting to join a network. */
+        JOINING_NETWORK = 1;
+        /* The node is joined to a network. */
+        JOINED_NETWORK = 2;
+        /** The node is an end device joined to a network but its parent
+            is not responding. */
+        JOINED_NETWORK_NO_PARENT = 3;
+        /** The node is in the process of leaving its current network. */
+        LEAVING_NETWORK = 4;
+      }
+
+      // Status
+      Status type = 1;
+    }
+
+    // NetworkMgmt command type
+    NetworkMgmtCmdTypes type = 1;
+
+    // PermitJoin params
+    PermitJoinParams permit_join_params = 2;
+
+    // Is Proxy Active params
+    bool is_proxy_active = 3;
+
+    // Node Leave Network params
+    NodeLeaveNetParams node_leave_params = 4;
+
+    // Node Info
+    NodeDescription node_info = 5;
+
+    // Discovery Nodes info
+    repeated NodeDescription connected_nodes = 6;
+
+    // Network status
+    NetworkStatus network_status = 7;
+  }
+
+  // Zigbee command type
+  ZigBeeCmdType type = 1;
+
+  // ZigBee Cluster Library command
+  ZCLCmd zcl_cmd = 2;
+
+  // Network management commnad
+  NetworkMgmtCmd network_mgmt_cmd = 3;
+
+ }
+
+// ZWaveMsg params to send commands through the Z/IP Gateway
+message ZWaveMsg {
+  // ZWave Malos Opcodes
+  enum ZWaveOperations {
+   UNDEF=0;
+   SEND=1;
+   ADDNODE=2;
+   REMOVENODE=3;
+   SETDEFAULT=4;
+   LIST=5;
+  }
+
+  // ZWave command with params
+  message ZWaveCommandInfo {
+    matrix.malos.v1.zwave.ZWaveCmdType cmd = 1;
+    repeated string param = 2;
+  } 
+
+  // ZWave class with params
+  message ZWaveClassInfo {
+    matrix.malos.v1.zwave.ZWaveClassType zwave_class = 1;
+    repeated ZWaveCommandInfo command = 2;
+  }
+
+  // ZWave devices or nodes
+  message ZWaveNode {
+    // unique service name (device address)
+    string service_name = 1;
+    // list of ZWave classes supported by the device 
+    repeated ZWaveClassInfo zwave_class = 2;
+  }
+
+  // ZWave command to sent
+  message ZWaveCommand {
+    matrix.malos.v1.zwave.ZWaveClassType zwclass = 1;
+    matrix.malos.v1.zwave.ZWaveCmdType cmd = 2;
+    bytes params = 3;
+  }
+ 
+  // Malos operation {SEND,ADDNODE,REMOVENODE,LIST,...}
+  ZWaveOperations operation = 1;
+
+  // service name of the device to send ZWave commands
+  string service_to_send = 2;
+
+  // ZWave command, when operation=SEND
+  ZWaveCommand zwave_cmd = 3;
+
+  // List of ZWave devices/nodes, when operation=LIST
+  repeated ZWaveNode node = 4;
+
+  // Result of Malos Operation
+  bool result = 5;
+}
+
+// LIRC service params
+message LircParams {
+  // IR remote device name
+  string device = 1;
+
+  // IR command
+  string command = 2;
+
+  //For transport of LIRC remote devices configuration.
+  //Format: http://www.lirc.org/html/configuration-guide.html
+  //Admobilize config remotes resources:
+  //http://assets.admobilize.com/lirc-remotes/
+  string config = 3;
+}
+
+
