@@ -15,15 +15,15 @@
 
 syntax = "proto3";
 
-package matrixlabs.vision.v1;
+package matrix.recognition.v1;
 
-import "matrixlabs/vision/v1/vision_service.proto";
-import "matrixlabs/vision/v1/recognition.proto";
+import "matrix/vision/v1/vision_service.proto";
+import "matrix/recognition/v1/recognition.proto";
 
-option csharp_namespace = "Matrixlabs.Vision.V1";
+option csharp_namespace = "Matrix.Recognition.V1";
 option java_multiple_files = true;
 option java_outer_classname = "RecognitionServiceProto";
-option java_package = "com.matrixlabs.vision.v1";
+option java_package = "com.matrix.recognition.v1";
 
 service RecognitionService {
 
@@ -92,7 +92,7 @@ service RecognitionService {
 message StoreFeatureDescriptorsRequest {
 
   // Source images / video to obtain descriptors
-  VisionRequest vision_request = 1;
+  matrix.vision.v1.VisionRequest vision_request = 1;
 
   // Arbitrary tags to use for descriptors calculated from
   // vision_request. Ignored when feature_descriptors are set.
@@ -162,7 +162,7 @@ message DeleteFeatureDescriptorsResponse {
 message RecognizeRequest {
 
   // Source for VisionRequest for recognition
-  VisionRequest vision_request = 1;
+  matrix.vision.v1.VisionRequest vision_request = 1;
 
   // Set of descriptors
   FeatureDescriptorList feature_descriptor_list= 2;

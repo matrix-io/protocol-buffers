@@ -15,12 +15,12 @@
 
 syntax = "proto3";
 
-package matrixlabs.malos.v1.hal;
+package matrix.malos.v1.hal;
 
-option csharp_namespace = "Matrixlabs.Malos.Hal.V1";
+option csharp_namespace = "Matrix.Malos.Hal.V1";
 option java_multiple_files = true;
 option java_outer_classname = "HalProto";
-option java_package = "com.matrixlabs.malos.v1";
+option java_package = "com.matrix.malos.v1";
 
 // Dummy lecture.
 message Dummy {

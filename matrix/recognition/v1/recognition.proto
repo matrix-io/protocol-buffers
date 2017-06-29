@@ -1,12 +1,12 @@
 
 syntax = "proto3";
 
-package matrixlabs.vision.v1;
+package matrix.recognition.v1;
 
-option csharp_namespace = "Matrixlabs.Vision.V1";
+option csharp_namespace = "Matrix.Recognition.V1";
 option java_multiple_files = true;
 option java_outer_classname = "RecognitionProto";
-option java_package = "com.matrixlabs.vision.v1";
+option java_package = "com.matrix.recognition.v1";
 
 // Describes a recognition feature descriptor
 message FeatureDescriptor {

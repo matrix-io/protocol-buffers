@@ -29,17 +29,17 @@ PROTOBUF_GENERATE_GRPC_CPP(
 PROTOBUF_GENERATE_CPP(
   RECOGNITION_GRPC_PROTO_SRC 
   RECOGNITION_GRPC_PROTO_HEADER 
-  vision/v1/recognition_service.proto)
+  recognition/v1/recognition_service.proto)
 
 PROTOBUF_GENERATE_GRPC_CPP(
   RECOGNITION_GRPC_SRC 
   RECOGNITION_GRPC_HEADER 
-  vision/v1/recognition_service.proto)
+  recognition/v1/recognition_service.proto)
 
 PROTOBUF_GENERATE_CPP(
   RECOGNITION_PROTO_SRC 
   RECOGNITION_PROTO_HEADER 
-  vision/v1/recognition.proto)
+  recognition/v1/recognition.proto)
 
 # driver.proto (MALOS)
 PROTOBUF_GENERATE_CPP(
