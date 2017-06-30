@@ -23,7 +23,7 @@ option java_multiple_files = true;
 option java_outer_classname = "CommProto";
 option java_package = "com.matrix.malos.v1";
 
-import "zwave_commands.proto";
+import "matrix/malos/v1/zwave_commands.proto";
 
 
 // ZigBee message

@@ -23,9 +23,9 @@ option java_multiple_files = true;
 option java_outer_classname = "DriverProto";
 option java_package = "com.matrix.malos.v1";
 
-import "comm.proto";
-import "io.proto";
-import "sense.proto";
+import "matrix/malos/v1/comm.proto";
+import "matrix/malos/v1/io.proto";
+import "matrix/malos/v1/sense.proto";
 
 // configuration of drivers. Both global configuration and
 // for specific drivers.

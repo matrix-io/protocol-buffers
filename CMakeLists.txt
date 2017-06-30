@@ -8,6 +8,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 add_definitions(-std=c++11)
 project(build_protos C CXX)
 
+set(PROTOBUF_IMPORT_DIRS ${PROJECT_SOURCE_DIR})
+
 find_package(Protobuf 3 REQUIRED)
 
 find_package(GRPC REQUIRED)
