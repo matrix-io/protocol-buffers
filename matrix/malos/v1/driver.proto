@@ -1,0 +1,105 @@
+
+/*
+ * Copyright 2016-2017 Matrix Labs
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+syntax = "proto3";
+
+package matrix.malos.v1.driver;
+
+option csharp_namespace = "Matrix.Malos.Driver.V1";
+option java_multiple_files = true;
+option java_outer_classname = "DriverProto";
+option java_package = "com.matrix.malos.v1";
+
+import "matrix/malos/v1/comm.proto";
+import "matrix/malos/v1/io.proto";
+import "matrix/malos/v1/sense.proto";
+
+// configuration of drivers. Both global configuration and
+// for specific drivers.
+message DriverConfig {
+  // Delay between updates. In seconds.
+  float delay_between_updates = 1;
+  // Timeout after last ping.
+  float timeout_after_last_ping = 2;
+
+  // Values for LEDs. When configuring the driver you should leave
+  // delay_between_updates and timeout_after_last_ping unchanged.
+  matrix.malos.v1.io.EverloopImage image = 3;
+
+  // Malos-Eye configuration.
+  //MalosEyeConfig malos_eye_config = 4;
+
+  // ZigBee Message.
+  matrix.malos.v1.comm.ZigBeeMsg zigbee_message = 5;
+
+  // LIRC service configuration for IR commands.
+  matrix.malos.v1.comm.LircParams lirc = 6;
+
+  // ServoMotor service configuration 
+  matrix.malos.v1.io.ServoParams servo = 7;
+
+  // Gpio service configuration
+  matrix.malos.v1.io.GpioParams gpio = 8;
+
+  // Humidity configuration
+  matrix.malos.v1.sense.HumidityParams humidity = 9;
+
+  // Microphone Array configuration
+  matrix.malos.v1.io.MicArrayParams  micarray = 10;  
+
+  //  ZWave message for send commands through the Z/IP Gateway
+  matrix.malos.v1.comm.ZWaveMsg zwave = 11;
+
+  // Pocket Sphinx wake word configuration
+  matrix.malos.v1.io.WakeWordParams wakeword = 12;
+}
+
+
+// Message used by MALOS to report its internal state and the configuration of
+// its drivers.
+message DriverInfo {
+  // Driver name.
+  string driver_name = 1;
+  // Base port: Port where the device is located.
+  // base_port => config channel (0MQ pull, you should push)
+  // base_port + 1 => keepalive channel (0MQ pull, you should push)
+  // base_port + 2 => error channel (0MQ push, you should pull)
+  // base_port + 3 => send update channel (0MQ push, you should pull)
+  int32 base_port = 2;
+
+  // Does the device provide updates? Some devices such as the everloop
+  // LED array don't provide updates.
+  bool provides_updates = 3;
+  // What is the device delay between updates? In milliseconds.
+  // This field only makes sense if provides_updates is set.
+  int32 delay_between_updates = 4;
+
+  // Does the device need pings (keepalive messages) to keep returning messages?
+  bool needs_pings = 5;
+  // This field only makes sense if needs_pings is set.
+  // If the device hasn't received keepalive messages in a time interenal
+  // bigger than this amount, the device will stop sending updates.
+  int32 timeout_after_last_ping = 6;
+
+  // Notes set by the driver. Meant to be read by humans.
+  string notes_for_human = 7;
+}
+
+// Information about all the available drivers.
+message MalosDriverInfo {
+  // The available drivers.
+  repeated DriverInfo info = 1;
+}
