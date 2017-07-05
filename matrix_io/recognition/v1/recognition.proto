@@ -1,12 +1,12 @@
 
 syntax = "proto3";
 
-package matrix.recognition.v1;
+package matrix_io.recognition.v1;
 
-option csharp_namespace = "Matrix.Recognition.V1";
+option csharp_namespace = "MatrixIO.Recognition.V1";
 option java_multiple_files = true;
 option java_outer_classname = "RecognitionProto";
-option java_package = "com.matrix.recognition.v1";
+option java_package = "com.matrix_io.recognition.v1";
 
 // Describes a recognition feature descriptor
 message FeatureDescriptor {
@@ -21,7 +21,7 @@ message FeatureDescriptor {
   repeated float data = 3;
 
   // Arbitrary tags for the descriptor set
-  // i.e ['lucas', 'jackson family'] 
+  // i.e ['lucas', 'jackson family']
   repeated string tags = 4;
 }
 

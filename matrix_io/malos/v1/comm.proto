@@ -16,14 +16,14 @@
 
 syntax = "proto3";
 
-package matrix.malos.v1.comm;
+package matrix_io.malos.v1.comm;
 
-option csharp_namespace = "Matrix.Malos.Comm.V1";
+option csharp_namespace = "MatrixIO.Malos.Comm.V1";
 option java_multiple_files = true;
 option java_outer_classname = "CommProto";
-option java_package = "com.matrix.malos.v1";
+option java_package = "com.matrix_io.malos.v1";
 
-import "matrix/malos/v1/zwave_commands.proto";
+import "matrix_io/malos/v1/zwave_commands.proto";
 
 
 // ZigBee message
@@ -173,9 +173,9 @@ message ZigBeeMsg {
 
       enum ZCLIdentifyCmdType  {
         // Starts the identification process
-        IDENTIFY_ON = 0; 
+        IDENTIFY_ON = 0;
         // Stops the identification process
-        IDENTIFY_OFF = 1;  
+        IDENTIFY_OFF = 1;
       }
 
       message IdentifyOnCmdParams {
@@ -212,7 +212,7 @@ message ZigBeeMsg {
     // Identify command
     IdentifyCmd identify_cmd = 5;
 
-    // Node Id 
+    // Node Id
     uint32 node_id = 6;
 
     // Endpoint Id
@@ -267,7 +267,7 @@ message ZigBeeMsg {
       uint32 endpoint_index = 1;
       // EndPoint Profile ID
       uint32 profile_id = 2;
-      // EndPoint Device ID 
+      // EndPoint Device ID
       uint32 device_id = 3;
       // EndPoint Clusters
       repeated ClusterDescription clusters = 4;
@@ -354,7 +354,7 @@ message ZWaveMsg {
   message ZWaveCommandInfo {
     ZWaveCmdType cmd = 1;
     repeated string param = 2;
-  } 
+  }
 
   // ZWave class with params
   message ZWaveClassInfo {
@@ -366,7 +366,7 @@ message ZWaveMsg {
   message ZWaveNode {
     // unique service name (device address)
     string service_name = 1;
-    // list of ZWave classes supported by the device 
+    // list of ZWave classes supported by the device
     repeated ZWaveClassInfo zwave_class = 2;
   }
 
@@ -376,7 +376,7 @@ message ZWaveMsg {
     ZWaveCmdType cmd = 2;
     bytes params = 3;
   }
- 
+
   // Malos operation {SEND,ADDNODE,REMOVENODE,LIST,...}
   ZWaveOperations operation = 1;
 
@@ -407,5 +407,3 @@ message LircParams {
   //http://assets.admobilize.com/lirc-remotes/
   string config = 3;
 }
-
-

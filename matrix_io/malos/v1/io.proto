@@ -16,12 +16,12 @@
 
 syntax = "proto3";
 
-package matrix.malos.v1.io;
+package matrix_io.malos.v1.io;
 
-option csharp_namespace = "Matrix.Malos.IO.V1";
+option csharp_namespace = "MatrixIO.Malos.IO.V1";
 option java_multiple_files = true;
 option java_outer_classname = "IOProto";
-option java_package = "com.matrix.malos.v1";
+option java_package = "com.matrix_io.malos.v1";
 
 // Value for a led. Values range from 0 to 255.
 message LedValue {
@@ -42,7 +42,7 @@ message ServoParams {
   uint32 pin = 1;
 
   // Servo angle
-  uint32 angle = 2; 
+  uint32 angle = 2;
 }
 
 // GPIO handler params
@@ -74,14 +74,14 @@ message MicArrayParams {
   //
   // azimutal angle (must lie between -pi/2 an pi/2)
   float azimutal_angle  = 2;
-  
+
   // polar angle (must lie between -pi/2 an pi/2)
   float polar_angle = 3;
 
   // distance from the center of the MATRIX Creator to the sound source.
   float radial_distance_mm = 4;
 
-  // sound speed in mm/seg  
+  // sound speed in mm/seg
   float sound_speed_mmseg = 5;
 }
 
@@ -108,7 +108,7 @@ message WakeWordParams {
   // http://www.speech.cs.cmu.edu/tools/lmtool-new.html
   string lm_path = 3;
 
-  // dictionary path from lmtool 
+  // dictionary path from lmtool
   string dic_path = 4;
 
   // enable pocketsphinx verbose mode
@@ -117,4 +117,3 @@ message WakeWordParams {
   // stop recognition service
   bool stop_recognition = 6;
 }
-

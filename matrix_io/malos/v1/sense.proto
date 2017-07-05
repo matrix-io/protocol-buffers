@@ -16,12 +16,12 @@
 
 syntax = "proto3";
 
-package matrix.malos.v1.sense;
+package matrix_io.malos.v1.sense;
 
-option csharp_namespace = "Matrix.Malos.Sense.V1";
+option csharp_namespace = "MatrixIO.Malos.Sense.V1";
 option java_multiple_files = true;
 option java_outer_classname = "SenseProto";
-option java_package = "com.matrix.malos.v1";
+option java_package = "com.matrix_io.malos.v1";
 
 // Dummy lecture.
 message Dummy {
@@ -46,7 +46,7 @@ message Humidity {
 
 message HumidityParams{
   // Current temperature used for calibration.
-  float current_temperature = 1; 
+  float current_temperature = 1;
 }
 
 // Basic UV radiation lecture.
@@ -99,4 +99,3 @@ message Imu {
   float mag_y = 11;
   float mag_z = 12;
 }
-

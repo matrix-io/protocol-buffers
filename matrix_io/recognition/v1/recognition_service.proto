@@ -15,19 +15,19 @@
 
 syntax = "proto3";
 
-package matrix.recognition.v1;
+package matrix_io.recognition.v1;
 
-import "matrix/vision/v1/vision_service.proto";
-import "matrix/recognition/v1/recognition.proto";
+import "matrix_io/vision/v1/vision_service.proto";
+import "matrix_io/recognition/v1/recognition.proto";
 
-option csharp_namespace = "Matrix.Recognition.V1";
+option csharp_namespace = "MatrixIO.Recognition.V1";
 option java_multiple_files = true;
 option java_outer_classname = "RecognitionServiceProto";
-option java_package = "com.matrix.recognition.v1";
+option java_package = "com.matrix_io.recognition.v1";
 
 service RecognitionService {
 
-  // Store a descriptor 
+  // Store a descriptor
   //
   // The received message may:
   //   - contain the calculated descriptors
@@ -38,11 +38,11 @@ service RecognitionService {
   // When device_id field is set, the descriptor will be scoped
   // to the given device IDs, meaning that only Recognize() requests from such
   // device IDs will match those descriptors.
-  // 
+  //
   // Returned Message
   // When the save is successful, a list of unique string UUIDs identifying
   // the stored descriptors
-  rpc StoreFeatureDescriptors(StoreFeatureDescriptorsRequest) 
+  rpc StoreFeatureDescriptors(StoreFeatureDescriptorsRequest)
     returns (StoreFeatureDescriptorsResponse) {}
 
   // Obtain a list of descriptors
@@ -53,21 +53,21 @@ service RecognitionService {
   // associated with the given device ID will be returned. The same
   // applies for tags and device_id.
   //
-  // If no uuid, tags or devices_id fields are defined, all available 
+  // If no uuid, tags or devices_id fields are defined, all available
   // descriptor will be returned.
   //
   // An empty list will be returned if no descriptors are found
-  rpc GetFeatureDescriptors(GetFeatureDescriptorsRequest) 
+  rpc GetFeatureDescriptors(GetFeatureDescriptorsRequest)
     returns (GetFeatureDescriptorsResponse) {}
 
   // Delete descriptors saved under a user account
   //
-  // Method will delete all descriptors matching provided uuids or tags. 
+  // Method will delete all descriptors matching provided uuids or tags.
   // When matching tags, descriptors matching any tag will be returned.
   //
   // When a device_id is provided, only those associated with the device will
   // be deleted.
-  rpc DeleteFeatureDescriptors(DeleteFeatureDescriptorsRequest) 
+  rpc DeleteFeatureDescriptors(DeleteFeatureDescriptorsRequest)
     returns (DeleteFeatureDescriptorsResponse) {}
 
   // Request a set of all available descriptor tags for the user account
@@ -78,10 +78,10 @@ service RecognitionService {
   // Request a descriptor match against recognition services.
   //
   // For recognize requests to be possible, descriptors must first be
-  // stored (see StoreFeatureDescriptors method). 
-  // 
+  // stored (see StoreFeatureDescriptors method).
+  //
   // Recognize calls can include a variety of fields:
-  //   - when feature_descriptor_list field is set, it will be used to perform the 
+  //   - when feature_descriptor_list field is set, it will be used to perform the
   //     match against stored descriptors.
   //   - when vision_request field is set, descriptors will first be calculated for
   //     the images and then matched against stored descriptors.
@@ -92,7 +92,7 @@ service RecognitionService {
 message StoreFeatureDescriptorsRequest {
 
   // Source images / video to obtain descriptors
-  matrix.vision.v1.VisionRequest vision_request = 1;
+  matrix_io.vision.v1.VisionRequest vision_request = 1;
 
   // Arbitrary tags to use for descriptors calculated from
   // vision_request. Ignored when feature_descriptors are set.
@@ -162,7 +162,7 @@ message DeleteFeatureDescriptorsResponse {
 message RecognizeRequest {
 
   // Source for VisionRequest for recognition
-  matrix.vision.v1.VisionRequest vision_request = 1;
+  matrix_io.vision.v1.VisionRequest vision_request = 1;
 
   // Set of descriptors
   FeatureDescriptorList feature_descriptor_list= 2;
@@ -177,7 +177,7 @@ message FeatureDescriptorMatch {
   // user set tags
   repeated string tags = 1;
 
-  // Score for the match from 0 to 1. 
+  // Score for the match from 0 to 1.
   // A bigger value means a closer match.
   // Statistical interpretation of the scores makes no sense with this value.
   float score = 2;
@@ -186,7 +186,7 @@ message FeatureDescriptorMatch {
 // Message returned by Recognize()
 message RecognizeResponse {
 
-  // List of matches 
+  // List of matches
   repeated FeatureDescriptorMatch matches = 1;
 }
 

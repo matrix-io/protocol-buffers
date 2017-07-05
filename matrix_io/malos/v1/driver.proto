@@ -16,16 +16,16 @@
 
 syntax = "proto3";
 
-package matrix.malos.v1.driver;
+package matrix_io.malos.v1.driver;
 
-option csharp_namespace = "Matrix.Malos.Driver.V1";
+option csharp_namespace = "MatrixIO.Malos.Driver.V1";
 option java_multiple_files = true;
 option java_outer_classname = "DriverProto";
-option java_package = "com.matrix.malos.v1";
+option java_package = "com.matrix_io.malos.v1";
 
-import "matrix/malos/v1/comm.proto";
-import "matrix/malos/v1/io.proto";
-import "matrix/malos/v1/sense.proto";
+import "matrix_io/malos/v1/comm.proto";
+import "matrix_io/malos/v1/io.proto";
+import "matrix_io/malos/v1/sense.proto";
 
 // configuration of drivers. Both global configuration and
 // for specific drivers.
@@ -37,34 +37,34 @@ message DriverConfig {
 
   // Values for LEDs. When configuring the driver you should leave
   // delay_between_updates and timeout_after_last_ping unchanged.
-  matrix.malos.v1.io.EverloopImage image = 3;
+  matrix_io.malos.v1.io.EverloopImage image = 3;
 
   // Malos-Eye configuration.
   //MalosEyeConfig malos_eye_config = 4;
 
   // ZigBee Message.
-  matrix.malos.v1.comm.ZigBeeMsg zigbee_message = 5;
+  matrix_io.malos.v1.comm.ZigBeeMsg zigbee_message = 5;
 
   // LIRC service configuration for IR commands.
-  matrix.malos.v1.comm.LircParams lirc = 6;
+  matrix_io.malos.v1.comm.LircParams lirc = 6;
 
-  // ServoMotor service configuration 
-  matrix.malos.v1.io.ServoParams servo = 7;
+  // ServoMotor service configuration
+  matrix_io.malos.v1.io.ServoParams servo = 7;
 
   // Gpio service configuration
-  matrix.malos.v1.io.GpioParams gpio = 8;
+  matrix_io.malos.v1.io.GpioParams gpio = 8;
 
   // Humidity configuration
-  matrix.malos.v1.sense.HumidityParams humidity = 9;
+  matrix_io.malos.v1.sense.HumidityParams humidity = 9;
 
   // Microphone Array configuration
-  matrix.malos.v1.io.MicArrayParams  micarray = 10;  
+  matrix_io.malos.v1.io.MicArrayParams  micarray = 10;
 
   //  ZWave message for send commands through the Z/IP Gateway
-  matrix.malos.v1.comm.ZWaveMsg zwave = 11;
+  matrix_io.malos.v1.comm.ZWaveMsg zwave = 11;
 
   // Pocket Sphinx wake word configuration
-  matrix.malos.v1.io.WakeWordParams wakeword = 12;
+  matrix_io.malos.v1.io.WakeWordParams wakeword = 12;
 }
 
 

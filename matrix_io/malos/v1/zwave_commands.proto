@@ -3,12 +3,12 @@
 
 syntax = "proto3";
 
-package matrix.malos.v1.comm;
+package matrix_io.malos.v1.comm;
 
-option csharp_namespace = "Matrix.Malos.Zwave.V1";
+option csharp_namespace = "MatrixIO.Malos.Zwave.V1";
 option java_multiple_files = true;
 option java_outer_classname = "ZwaveProto";
-option java_package = "com.matrix.malos.v1";
+option java_package = "com.matrix_io.malos.v1";
 
 enum ZWaveClassType {
  option allow_alias = true;
@@ -782,4 +782,3 @@ enum ZWaveCmdType {
  ZWAVE_CMD_NOP = 634;
  ZWAVE_CMD_RESERVE_NODE_IDS = 635;
 }
-
