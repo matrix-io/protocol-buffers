@@ -41,11 +41,11 @@ endif()
 set(PROTO_CFLAGS)
 list(APPEND PROTOC_FLAGS "--proto_path=${PROTO_SEARCH_PATH}")
 list(APPEND PROTOC_FLAGS "--${GEN_LANG}_out=${CMAKE_CURRENT_BINARY_DIR}") 
-list(APPEND PROTOC_FLAGS "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}") 
 
 # Build grpc if the plugin is found
 if (DEFINED GRPC_PLUGIN)
   list(APPEND PROTOC_FLAGS "--plugin=protoc-gen-grpc=${GRPC_PLUGIN}")
+  list(APPEND PROTOC_FLAGS "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}") 
 endif()
 
 file(GLOB_RECURSE proto_files ABSOLUTE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
