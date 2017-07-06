@@ -43,39 +43,47 @@ list(APPEND PROTOC_FLAGS "--proto_path=${PROTO_SEARCH_PATH}")
 list(APPEND PROTOC_FLAGS "--${GEN_LANG}_out=${CMAKE_CURRENT_BINARY_DIR}") 
 
 # Build grpc if the plugin is found
-if (DEFINED GRPC_PLUGIN)
+if (EXISTS ${GRPC_PLUGIN})
   list(APPEND PROTOC_FLAGS "--plugin=protoc-gen-grpc=${GRPC_PLUGIN}")
   list(APPEND PROTOC_FLAGS "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}") 
 endif()
 
-file(GLOB_RECURSE proto_files ABSOLUTE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
+# .proto relative paths
+file(GLOB_RECURSE proto_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
 
+# Absolute paths of .proto files to be passed to protoc program
 set(ABSProtoFiles)
+# Absolute paths of generated .h and .cc 
 set(ProtoHeaders)
 set(ProtoSources)
 
+#string(REPLACE ${PROTO_SEARCH_PATH} ${CMAKE_CURRENT_BINARY_DIR} GEN_OUT ${PROTO_PATH})
 foreach(FNAME ${proto_files})
+  # relative directory for .proto file
   get_filename_component(PROTO_PATH ${FNAME} DIRECTORY)
+  # .proto name
   get_filename_component(PROTO_NAME ${FNAME} NAME_WE)
-  list(APPEND ABSProtoFiles ${FNAME})
-  string(REPLACE ${PROTO_SEARCH_PATH} ${CMAKE_CURRENT_BINARY_DIR} GEN_OUT ${PROTO_PATH})
-  list(APPEND ProtoHeaders "${GEN_OUT}/${PROTO_NAME}.pb.h")
-  list(APPEND ProtoSources "${GEN_OUT}/${PROTO_NAME}.pb.cc")
-  install (FILES ${GEN_OUT}/${PROTO_NAME}.pb.h DESTINATION include/${PROTO_PATH})
+  # absolute directory and name of generated .h and .cc file
+  set(GENERATED_PROTO_PATH "${CMAKE_CURRENT_BINARY_DIR}/${PROTO_PATH}/${PROTO_NAME}")
 
-  # include grpc .h adn .cc files if generated
-  if (DEFINED GRPC_PLUGIN)
-    list(APPEND ProtoHeaders "${GEN_OUT}/${PROTO_NAME}.grpc.pb.h")
-    list(APPEND ProtoSources "${GEN_OUT}/${PROTO_NAME}.grpc.pb.cc")
-    install (FILES "${GEN_OUT}/${PROTO_NAME}.grpc.pb.h" DESTINATION "include/${PROTO_PATH}")
+  list(APPEND ABSProtoFiles "${PROTO_SEARCH_PATH}/${FNAME}")
+  list(APPEND ProtoHeaders "${GENERATED_PROTO_PATH}.pb.h")
+  list(APPEND ProtoSources "${GENERATED_PROTO_PATH}.pb.cc")
+  install (FILES ${GENERATED_PROTO_PATH}.pb.h DESTINATION include/${PROTO_PATH})
+
+  # include grpc .h and .cc files if generated
+  if (EXISTS ${GRPC_PLUGIN})
+    list(APPEND ProtoHeaders "${GENERATED_PROTO_PATH}.grpc.pb.h")
+    list(APPEND ProtoSources "${GENERATED_PROTO_PATH}.grpc.pb.cc")
+    install (FILES "${GENERATED_PROTO_PATH}.grpc.pb.h" DESTINATION "include/${PROTO_PATH}")
   endif()
-
 endforeach()
 
+# Generate protos
 add_custom_command(
   COMMAND ${PROTOC} ${PROTOC_FLAGS} ${ABSProtoFiles}
   OUTPUT ${ProtoSources} ${ProtoHeaders}
-  COMMENT "Generating code for ${ProtoName}."
+  COMMENT "Generating proto messages for matrix_io ..."
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
