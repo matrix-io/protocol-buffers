@@ -51,6 +51,7 @@ foreach(FNAME ${proto_files})
   string(REPLACE ${PROTO_SEARCH_PATH} ${CMAKE_CURRENT_BINARY_DIR} GEN_OUT ${PROTO_PATH})
   list(APPEND ProtoHeaders "${GEN_OUT}/${PROTO_NAME}.pb.h")
   list(APPEND ProtoSources "${GEN_OUT}/${PROTO_NAME}.pb.cc")
+  install (FILES ${GEN_OUT}/${PROTO_NAME}.pb.h DESTINATION include/${PROTO_PATH})
 endforeach()
 
 add_custom_command(
@@ -61,3 +62,6 @@ add_custom_command(
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_library(${PROJECT_NAME} ${ProtoHeaders} ${ProtoSources})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+
