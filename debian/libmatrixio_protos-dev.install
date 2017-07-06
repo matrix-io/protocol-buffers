@@ -1,0 +1,2 @@
+debian/tmp/usr/include/matrix_malos/*.h usr/include/matrix_malos
+debian/tmp/usr/include/matrix_malos/third_party/*hpp usr/include/matrix_malos/third_party

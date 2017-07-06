@@ -24,6 +24,7 @@ foreach(FNAME ${proto_files})
   list(APPEND ABSProtoFiles "${CMAKE_SOURCE_DIR}/${FNAME}")
   list(APPEND ProtoHeaders "${CMAKE_BINARY_DIR}/${PROTO_PATH}/${PROTO_NAME}.pb.h")
   list(APPEND ProtoSources "${CMAKE_BINARY_DIR}/${PROTO_PATH}/${PROTO_NAME}.pb.cc")
+  install (FILES ${CMAKE_BINARY_DIR}/${PROTO_PATH}/${PROTO_NAME}.pb.h DESTINATION include/${PROTO_PATH})
 endforeach()
 
 add_custom_command(
@@ -33,3 +34,6 @@ add_custom_command(
 )
 
 add_library(${PROJECT_NAME} ${ProtoHeaders} ${ProtoSources})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+
