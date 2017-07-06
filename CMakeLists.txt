@@ -12,13 +12,24 @@ find_package(Protobuf 3 REQUIRED)
 find_package(GRPC REQUIRED)
 
 # Language to generate
-set(GEN_LANG "cpp")
+if (NOT DEFINED GEN_LANG)
+  set(GEN_LANG "cpp")
+endif()
+
 # protoc program
-set(PROTOC /usr/local/bin/protoc)
+if (NOT DEFINED PROTOC)
+  set(PROTOC protoc)
+endif()
+
 # protoc grpc plugin
-set(GRPC_PLUGIN "/usr/local/bin/grpc_${GEN_LANG}_plugin")
+if (NOT DEFINED GRPC_PLUGIN)
+  set(GRPC_PLUGIN "/usr/local/bin/grpc_${GEN_LANG}_plugin")
+endif()
+
 # .proto file search directory
-set(PROTO_SEARCH_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+if (NOT DEFINED PROTO_SEARCH_PATH)
+  set(PROTO_SEARCH_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
 
 # protoc flags
 set(PROTO_CFLAGS)
