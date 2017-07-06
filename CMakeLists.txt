@@ -13,6 +13,6 @@ include_directories(${CMAKE_BINARY_DIR})
 
 set(PROTOBUF_IMPORT_DIRS ${PROJECT_SOURCE_DIR})
 
-add_subdirectory(matrix)
+add_subdirectory(matrix_io)
 
 
