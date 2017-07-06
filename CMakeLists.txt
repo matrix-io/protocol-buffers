@@ -7,23 +7,29 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 add_definitions(-std=c++11)
 
+# Required packages to build
 find_package(Protobuf 3 REQUIRED)
-
 find_package(GRPC REQUIRED)
+
+# protoc program
+find_program(PROTOC NAMES protoc)
+if (NOT EXISTS ${PROTOC})
+  message(FATAL_ERROR "The protoc program was not found")
+endif()
+message(STATUS "Found protoc program: " ${PROTOC})
 
 # Language to generate
 if (NOT DEFINED GEN_LANG)
   set(GEN_LANG "cpp")
 endif()
 
-# protoc program
-if (NOT DEFINED PROTOC)
-  set(PROTOC protoc)
-endif()
-
 # protoc grpc plugin
-if (NOT DEFINED GRPC_PLUGIN)
-  set(GRPC_PLUGIN "/usr/local/bin/grpc_${GEN_LANG}_plugin")
+find_program(GRPC_PLUGIN NAMES "grpc_${GEN_LANG}_plugin")
+if (NOT EXISTS ${GRPC_PLUGIN})
+  message(WARNING "The grpc_${GEN_LANG}_plugin plugin was not found, \
+                   the gRPC classes are not being generated")
+else(EXISTS ${GRPC_PLUGIN})
+  message(STATUS "Found grpc_${GEN_LANG}_plugin : " ${GRPC_PLUGIN})
 endif()
 
 # .proto file search directory
@@ -36,7 +42,11 @@ set(PROTO_CFLAGS)
 list(APPEND PROTOC_FLAGS "--proto_path=${PROTO_SEARCH_PATH}")
 list(APPEND PROTOC_FLAGS "--${GEN_LANG}_out=${CMAKE_CURRENT_BINARY_DIR}") 
 list(APPEND PROTOC_FLAGS "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}") 
-list(APPEND PROTOC_FLAGS "--plugin=protoc-gen-grpc=${GRPC_PLUGIN}")
+
+# Build grpc if the plugin is found
+if (DEFINED GRPC_PLUGIN)
+  list(APPEND PROTOC_FLAGS "--plugin=protoc-gen-grpc=${GRPC_PLUGIN}")
+endif()
 
 file(GLOB_RECURSE proto_files ABSOLUTE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
 
@@ -52,6 +62,14 @@ foreach(FNAME ${proto_files})
   list(APPEND ProtoHeaders "${GEN_OUT}/${PROTO_NAME}.pb.h")
   list(APPEND ProtoSources "${GEN_OUT}/${PROTO_NAME}.pb.cc")
   install (FILES ${GEN_OUT}/${PROTO_NAME}.pb.h DESTINATION include/${PROTO_PATH})
+
+  # include grpc .h adn .cc files if generated
+  if (DEFINED GRPC_PLUGIN)
+    list(APPEND ProtoHeaders "${GEN_OUT}/${PROTO_NAME}.grpc.pb.h")
+    list(APPEND ProtoSources "${GEN_OUT}/${PROTO_NAME}.grpc.pb.cc")
+    install (FILES "${GEN_OUT}/${PROTO_NAME}.grpc.pb.h" DESTINATION "include/${PROTO_PATH}")
+  endif()
+
 endforeach()
 
 add_custom_command(
