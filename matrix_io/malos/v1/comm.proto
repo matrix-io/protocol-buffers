@@ -352,13 +352,13 @@ message ZWaveMsg {
 
   // ZWave command with params
   message ZWaveCommandInfo {
-    matrix_io.malos.v1.zwave_commands.ZWaveCmdType cmd = 1;
+    matrix_io.malos.v1.comm.ZWaveCmdType cmd = 1;
     repeated string param = 2;
   }
 
   // ZWave class with params
   message ZWaveClassInfo {
-    matrix_io.malos.v1.zwave_commands.ZWaveClassType zwave_class = 1;
+    matrix_io.malos.v1.comm.ZWaveClassType zwave_class = 1;
     repeated ZWaveCommandInfo command = 2;
   }
 
@@ -372,8 +372,8 @@ message ZWaveMsg {
 
   // ZWave command to sent
   message ZWaveCommand {
-    matrix_io.malos.v1.zwave_commands.ZWaveClassType zwclass = 1;
-    matrix_io.malos.v1.zwave_commands.ZWaveCmdType cmd = 2;
+    matrix_io.malos.v1.comm.ZWaveClassType zwclass = 1;
+    matrix_io.malos.v1.comm.ZWaveCmdType cmd = 2;
     bytes params = 3;
   }
 

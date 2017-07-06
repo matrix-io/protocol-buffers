@@ -16,6 +16,7 @@ file(GLOB_RECURSE proto_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
 set(ABSProtoFiles)
 set(ProtoHeaders)
 set(ProtoSources)
+include_directories(${CMAKE_BINARY_DIR})
 
 foreach(FNAME ${proto_files})
   get_filename_component(PROTO_PATH ${FNAME} DIRECTORY)
@@ -31,9 +32,4 @@ add_custom_command(
   COMMENT "Generating code for ${ProtoName}."
 )
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 add_library(${PROJECT_NAME} ${ProtoHeaders} ${ProtoSources})
-
-#target_link_libraries(${PROJECT_NAME} PUBLIC ${PROTOBUF_LIBRARIES})
-
