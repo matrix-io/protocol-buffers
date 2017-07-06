@@ -5,8 +5,11 @@
 - Recognition service protos
 - Vision service protos (demographics services)
 - Malos protos
-  - Hal
-  - Drivers
+  - comm.proto
+  - driver.proto
+  - io.proto
+  - sense.proto
+  - zwave\_commands.proto
 
 ### Changed
 - Fully qualified names, as suggested in [protobuf 3 documentation][1]

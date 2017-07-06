@@ -5,7 +5,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 add_definitions(-std=c++11)
 
-project(build_protos C CXX)
+project(matrixio_protos C CXX)
 
 find_package(Protobuf 3 REQUIRED)
 
