@@ -57,7 +57,6 @@ set(ABSProtoFiles)
 set(ProtoHeaders)
 set(ProtoSources)
 
-#string(REPLACE ${PROTO_SEARCH_PATH} ${CMAKE_CURRENT_BINARY_DIR} GEN_OUT ${PROTO_PATH})
 foreach(FNAME ${proto_files})
   # relative directory for .proto file
   get_filename_component(PROTO_PATH ${FNAME} DIRECTORY)
