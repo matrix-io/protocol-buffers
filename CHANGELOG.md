@@ -4,14 +4,16 @@
 ### Added
 - Recognition service protos
 - Vision service protos (demographics services)
-- Malos protos
+- CMake now auto-discovers protos recursively
+
+
+### Changed
+- Malos protos are now split as follows:
   - comm.proto
   - driver.proto
   - io.proto
   - sense.proto
   - zwave\_commands.proto
-
-### Changed
 - Fully qualified names, as suggested in [protobuf 3 documentation][1]
 - Unifies package names `admobilize_vision` -> `matrix_vision`
 
