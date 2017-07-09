@@ -16,6 +16,6 @@ Description: Protocolbuffers for MATRIX abstraction layer
 Package: libmatrixio-protos-dev
 Section: libdevel
 Architecture: any
-Depends: libmatrix-malos  (= ${binary:Version}), libc6-dev | libc-dev, ${misc:Depends}
-Description: Protocolbuffers for MATRIX abstraction layer
+Depends: libmatrixio-protos  (= ${binary:Version}), libc6-dev | libc-dev, ${misc:Depends}
+Description: Protocolbuffers headers for MATRIX abstraction layer
 
