@@ -1,6 +1,11 @@
 # Change Log
 ## [Unreleased]
-## [0.1.0] - 2017-02-17
+## [0.0.11] - 2017-07-14
+### Added 
+- AreaConfig, AreaZndZonde Config proto merge into namespaced version
+- debian package configuration
+
+## [0.0.10] - 2017-02-17
 ### Added
 - Recognition service protos
 - Vision service protos (demographics services)
