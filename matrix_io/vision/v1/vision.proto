@@ -156,6 +156,30 @@ enum ZoneDirection {
   BACKWARD = 2;
 }
 
+message ZoneConfig {
+  // Zone name.
+  string name = 1;
+  // First point for the zone. The "FORWARD" direction of a zone is
+  // at 90° to the right of the line formed by B->A.
+  Point point_a = 2;
+  // Second point of the zone.
+  Point point_b = 3;
+  // Total height of the zone.
+  int32 height = 4;
+}
+
+message AreaConfig {
+  // Area name.
+  string name = 1;
+  // Points of the area. At least 3 different points.
+  repeated Point point = 2;
+}
+
+message AreaAndZoneConfig {
+  repeated AreaConfig area = 1;
+  repeated ZoneConfig zone = 2;
+}
+
 enum EventTag {
   TRACKING_START = 0;
   TRACKING_END = 1;
