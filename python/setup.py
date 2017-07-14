@@ -7,6 +7,7 @@ https://github.com/matrix-io/protocol-buffers
 import setuptools
 
 from setuptools import setup, find_packages
+from matrix_io.proto import __version__
 
 install_requires = [
   'protobuf>=3.2.0'
@@ -18,7 +19,7 @@ extras_require = {
 
 setuptools.setup(
   name='matrix_io-proto',
-  version='0.0.10',
+  version=__version__,
 
   author='MATRIX Labs',
   author_email='devel@matrixlabs.ai',
