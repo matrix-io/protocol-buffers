@@ -1,4 +1,7 @@
 # Protocol Buffers
+
+[![Build Status][travis-badge]][travis-link]
+
 This repo contains the message structures (as protocol buffers) currently defined for inter application communication. Applications using protocol buffers should `git submodule` this repo. 
 
 ## Building the protos
@@ -27,4 +30,9 @@ Changes done to messages will impact many applications, so make sure you create 
 You should always keep your application compatible with the latest version of the protocol buffers, so make sure you run `git submodule update --remote` the protocol buffer submodule, or `git pull origin master` inside the submodule.  
 
 ## License
-See [LICENSE](./LICENSE)
+
+* See [LICENSE](./LICENSE)
+
+
+[travis-badge]: https://travis-ci.org/matrix-io/protocol-buffers.svg?branch=master
+[travis-link]: https://travis-ci.org/matrix-io/protocol-buffers
