@@ -5,22 +5,32 @@
 set -e
 
 PYTHON=$(which python)
+PROTOC=protoc
 VERSION=$1
 OUT_PATH=./
+GRPC_PLUGIN="protoc-gen-grpc_python=/usr/local/bin/grpc_python_plugin"
+
+if [ "$PYTHON" = '' ]; then
+  echo "A python executable is required to build python protos"
+fi
+
+if [ "$VERSION" = '' ]; then
+  echo "Please specify a version as the first positional argument. ie. 0.0.20"
+  exit 1
+fi
 
 echo "Building python proto package v${VERSION} ..."
 
 # Clean up
 rm -rf matrix_io
 
-
 # Generate protos
 # make sure you did pip install grpcio grpcio-tools
 FILES=$(find .. -name "*.proto")
-$PYTHON -m grpc.tools.protoc \
-  -I .. \
-  --python_out $OUT_PATH  \
-  --grpc_python_out $OUT_PATH \
+protoc -I .. \
+  --plugin=$GRPC_PLUGIN \
+  --python_out=$OUT_PATH \
+  --grpc_python_out=$OUT_PATH \
   $FILES
 
 # Add proto namespace
