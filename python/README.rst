@@ -10,21 +10,22 @@ protocol buffers available in the matrixprotos_ repository.
 Installation
 ------------
 
-  ::
+  .. code-block:: bash
+
   $ pip install matrix_io-proto
 
 Features
 --------
 
-  * Cleaner imports of proto messages to python projects
+* Cleaner imports of proto messages to python projects
 
 Docs & Community 
 ----------------
 
-  * `MATRIX documentation / Quickstart <https://creator.matrix.one/#!/develop/start>`
-  * `Community <http://community.matrix.one>`
-  * `Github repo <https://github.com/matrix-io>`
-  * `Examples <https://creator.matrix.one/#!/examples>`
+* `MATRIX documentation / Quickstart <https://creator.matrix.one/#!/develop/start>`
+* `Community <http://community.matrix.one>`
+* `Github repo <https://github.com/matrix-io>`
+* `Examples <https://creator.matrix.one/#!/examples>`
 
 Quick Start
 ------------
@@ -40,7 +41,7 @@ Please refer to the `examples <https://github.com/matrix-io/matrix-creator-malos
 Importing ZMQ and matrix_io.proto modules
 +++++++++++++++++++++++++++++++++++++++++
 
-  ::
+  .. code-block:: python
   import zmq
   from matrix_io.proto.malos.v1 import driver_pb2 as driver_proto
 
@@ -48,7 +49,9 @@ Importing ZMQ and matrix_io.proto modules
 Getting data about the available drivers and ports
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_driver_info.py>`::
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_driver_info.py>`:
+
+  .. code-block:: python
 
   # or local ip of MATRIX creator
   creator_ip = os.environ.get('CREATOR_IP', '127.0.0.1')
@@ -75,9 +78,11 @@ Getting data about the available drivers and ports
   # print the prased proto data to stdout
   print(proto_data)
 
-The output should more or less look like this:: 
+The output should more or less look like this:
 
-  python test_driver_info.py
+  .. code-block:: bash
+  $ python test_driver_info.py
+
   MalosDriverInfo {
     info:
     [ DriverInfo {
@@ -123,7 +128,7 @@ The output should more or less look like this::
         basePort: 20037,
         delayBetweenUpdates: 1000,
         timeoutAfterLastPing: 6000,
-        notesForHuman: 'Simple ALSA Driver for MATRIX Creator\'s Microphone Array' },
+        notesForHuman: 'Simple ALSA Driver for MATRIX Creators Microphone Array' },
       DriverInfo {
         driverName: 'Lirc',
         basePort: 20041,
@@ -149,8 +154,9 @@ You can then use the `basePort` in the examples below.
 Configuring and reading the pressure sensor
 +++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_pressure.py>`::
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_pressure.py>`:
 
+  .. code-block:: python
   from multiprocessing import Process
 
   from zmq.eventloop import ioloop
@@ -178,8 +184,9 @@ Configuring and reading the pressure sensor
 Configuring and reading the humidity sensor
 +++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_humidity.py>`::
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_humidity.py>`:
 
+  .. code-block:: python
   import time
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import sense_pb2
@@ -248,7 +255,9 @@ Configuring and reading the humidity sensor
 Configuring and reading the IMU (Inertial Measurement Unit)
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_imu.py>`::
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_imu.py>`:
+
+  .. code-block:: python
 
   def imu_data_callback(data):
       """Callback that prints new data updates to stdout"""
@@ -277,7 +286,9 @@ Configuring and reading the IMU (Inertial Measurement Unit)
 Setting the Everloop LED intensity
 ++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_everloop.py>`::
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_everloop.py>`:
+
+  .. code-block:: python
 
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import io_pb2
@@ -362,7 +373,9 @@ Setting the Everloop LED intensity
 Using the GPIO
 ++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_gpio.py>`::
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_gpio.py>`:
+
+  .. code-block:: python
 
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import io_pb2
