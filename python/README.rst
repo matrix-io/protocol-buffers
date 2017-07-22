@@ -5,12 +5,10 @@ MATRIX Ecosystem protos
 matrix-protos contains the python classes generated from the 
 protocol buffers available in the matrixprotos_ repository.
 
-.. _`matrixprotos`: https://github.com/matrix-io/protocol-buffers
-
 Installation
 ------------
 
-  .. code-block:: bash
+  .. code:: bash
 
   $ pip install matrix_io-proto
 
@@ -22,26 +20,26 @@ Features
 Docs & Community 
 ----------------
 
-* `MATRIX documentation / Quickstart <https://creator.matrix.one/#!/develop/start>`
-* `Community <http://community.matrix.one>`
-* `Github repo <https://github.com/matrix-io>`
-* `Examples <https://creator.matrix.one/#!/examples>`
+* `MATRIX documentation / Quickstart`_
+* `Community`_
+* `Github repo`_
+* `Examples`_
 
 Quick Start
 ------------
 
-Make sure you check the `Python generated code reference <https://grpc.io/docs/reference/python/generated-code.html>` to understand details and usage patterns of the proto classes.
+Make sure you check the `Python generated code reference`_  to understand details and usage patterns of the proto classes.
 
-You can find the code of the following examples in the `MATRIX MALOS repo <https://github.com/matrix-io/matrix-creator-malos/tree/master/src/python_test>`
+You can find the code of the following examples in the `MATRIX MALOS repo`_. 
 
-`MATRIX MALOS protocol <https://github.com/matrix-io/matrix-creator-malos>` is an abstraction layer built on top of `ZeroMQ <http://zeromq.org/>` that uses `protocol buffers <https://developers.google.com/protocol-buffers/docs/proto3>` as the data exchange format. In a nutshell, MALOS exposes 4 ports for every service: **base or driver port**, **error port**, **keep alive port** and **data update port**. In the following examples, we will show how to send a config to the **driver port** and how to obtain data updates on the **data update port**. 
+`MATRIX MALOS protocol`_ is an abstraction layer built on top of `ZeroMQ`_  that uses `protocol buffers`_ as the data exchange format. In a nutshell, MALOS exposes 4 ports for every service: **base or driver port**, **error port**, **keep alive port** and **data update port**. In the following examples, we will show how to send a config to the **driver port** and how to obtain data updates on the **data update port**. 
 
-Please refer to the `examples <https://github.com/matrix-io/matrix-creator-malos/tree/master/src/python_test>` for a complete implementation.
+Please refer to the `MATRIX MALOS repo`_ code examples for a complete implementation.
 
 Importing ZMQ and matrix_io.proto modules
 +++++++++++++++++++++++++++++++++++++++++
 
-  .. code-block:: python
+.. code:: python
   import zmq
   from matrix_io.proto.malos.v1 import driver_pb2 as driver_proto
 
@@ -49,9 +47,9 @@ Importing ZMQ and matrix_io.proto modules
 Getting data about the available drivers and ports
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_driver_info.py>`:
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_driver_info.py>`_ :
 
-  .. code-block:: python
+.. code:: python
 
   # or local ip of MATRIX creator
   creator_ip = os.environ.get('CREATOR_IP', '127.0.0.1')
@@ -80,7 +78,7 @@ Getting data about the available drivers and ports
 
 The output should more or less look like this:
 
-  .. code-block:: bash
+.. code:: bash
   $ python test_driver_info.py
 
   MalosDriverInfo {
@@ -154,9 +152,9 @@ You can then use the `basePort` in the examples below.
 Configuring and reading the pressure sensor
 +++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_pressure.py>`:
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_pressure.py>`_:
 
-  .. code-block:: python
+.. code:: python
   from multiprocessing import Process
 
   from zmq.eventloop import ioloop
@@ -184,9 +182,9 @@ Configuring and reading the pressure sensor
 Configuring and reading the humidity sensor
 +++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_humidity.py>`:
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_humidity.py>`_:
 
-  .. code-block:: python
+.. code:: python
   import time
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import sense_pb2
@@ -255,9 +253,9 @@ Configuring and reading the humidity sensor
 Configuring and reading the IMU (Inertial Measurement Unit)
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_imu.py>`:
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_imu.py>`_:
 
-  .. code-block:: python
+.. code:: python
 
   def imu_data_callback(data):
       """Callback that prints new data updates to stdout"""
@@ -286,9 +284,9 @@ Configuring and reading the IMU (Inertial Measurement Unit)
 Setting the Everloop LED intensity
 ++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_everloop.py>`:
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_everloop.py>`_:
 
-  .. code-block:: python
+.. code:: python
 
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import io_pb2
@@ -373,9 +371,9 @@ Setting the Everloop LED intensity
 Using the GPIO
 ++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_gpio.py>`:
+  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_gpio.py>`_:
 
-  .. code-block:: python
+.. code:: python
 
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import io_pb2
@@ -415,3 +413,14 @@ Using the GPIO
       # Nap time
       time.sleep(1)
 
+
+.. _`matrixprotos`: https://github.com/matrix-io/protocol-buffers
+.. _`MATRIX documentation / Quickstart`: https://creator.matrix.one/#!/develop/start 
+.. _`Community`: http://community.matrix.one
+.. _`Github repo`: https://github.com/matrix-io
+.. _`Examples`: https://creator.matrix.one/#!/examples
+.. _`Python generated code reference`: https://grpc.io/docs/reference/python/generated-code.html
+.. _`MATRIX MALOS repo`: https://github.com/matrix-io/matrix-creator-malos/tree/master/src/python_test
+.. _`MATRIX MALOS protocol`: https://github.com/matrix-io/matrix-creator-malos
+.. _`ZeroMQ`: http://zeromq.org/
+.. _`protocol buffers`: https://developers.google.com/protocol-buffers/docs/proto3
