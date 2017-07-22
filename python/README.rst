@@ -8,7 +8,7 @@ protocol buffers available in the matrixprotos_ repository.
 Installation
 ------------
 
-  .. code:: bash
+.. code:: bash
 
   $ pip install matrix_io-proto
 
@@ -40,6 +40,7 @@ Importing ZMQ and matrix_io.proto modules
 +++++++++++++++++++++++++++++++++++++++++
 
 .. code:: python
+
   import zmq
   from matrix_io.proto.malos.v1 import driver_pb2 as driver_proto
 
@@ -47,7 +48,7 @@ Importing ZMQ and matrix_io.proto modules
 Getting data about the available drivers and ports
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_driver_info.py>`_ :
+Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_driver_info.py>`_ :
 
 .. code:: python
 
@@ -79,6 +80,7 @@ Getting data about the available drivers and ports
 The output should more or less look like this:
 
 .. code:: bash
+
   $ python test_driver_info.py
 
   MalosDriverInfo {
@@ -152,9 +154,10 @@ You can then use the `basePort` in the examples below.
 Configuring and reading the pressure sensor
 +++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_pressure.py>`_:
+Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_pressure.py>`_:
 
 .. code:: python
+
   from multiprocessing import Process
 
   from zmq.eventloop import ioloop
@@ -182,9 +185,10 @@ Configuring and reading the pressure sensor
 Configuring and reading the humidity sensor
 +++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_humidity.py>`_:
+Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_humidity.py>`_:
 
 .. code:: python
+
   import time
   from matrix_io.proto.malos.v1 import driver_pb2
   from matrix_io.proto.malos.v1 import sense_pb2
@@ -253,7 +257,7 @@ Configuring and reading the humidity sensor
 Configuring and reading the IMU (Inertial Measurement Unit)
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_imu.py>`_:
+Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_imu.py>`_:
 
 .. code:: python
 
@@ -284,7 +288,7 @@ Configuring and reading the IMU (Inertial Measurement Unit)
 Setting the Everloop LED intensity
 ++++++++++++++++++++++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_everloop.py>`_:
+Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_everloop.py>`_:
 
 .. code:: python
 
@@ -371,7 +375,7 @@ Setting the Everloop LED intensity
 Using the GPIO
 ++++++++++++++
 
-  Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_gpio.py>`_:
+Go to the `full code <https://github.com/matrix-io/matrix-creator-malos/blob/master/src/python_test/test_gpio.py>`_:
 
 .. code:: python
 
