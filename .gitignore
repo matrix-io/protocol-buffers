@@ -1,1 +1,7 @@
 build/
+nodejs/index.js
+nodejs/node_modules/
+nodejs/package.json
+python/dist/
+python/matrix_io/
+python/matrix_io_proto.egg-info/
