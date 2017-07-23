@@ -25,6 +25,7 @@ option java_package = "com.matrixio.malos.v1";
 
 import "matrix_io/malos/v1/comm.proto";
 import "matrix_io/malos/v1/io.proto";
+import "matrix_io/malos/v1/maloseye.proto";
 import "matrix_io/malos/v1/sense.proto";
 
 // configuration of drivers. Both global configuration and
@@ -40,7 +41,7 @@ message DriverConfig {
   matrix_io.malos.v1.io.EverloopImage image = 3;
 
   // Malos-Eye configuration.
-  //MalosEyeConfig malos_eye_config = 4;
+  matrix_io.malos.v1.maloseye.MalosEyeConfig malos_eye_config = 4;
 
   // ZigBee Message.
   matrix_io.malos.v1.comm.ZigBeeMsg zigbee_message = 5;
