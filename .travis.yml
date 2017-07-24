@@ -3,24 +3,11 @@ dist: jessie
 language: cpp
 cache: ccache
 
-env:
-  matrix:
-    - GRPC_RELEASE_TAG=v1.1.4
-    - GRPC_RELEASE_TAG=v1.2.0
-
 before_install:
+  - sudo echo "deb http://unstable-packages.matrix.one/ stable main" | sudo tee /etc/apt/sources.list.d/matrixio.list
   - sudo apt-get update -qq
-
-before_script:
-  - git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc
+  - sudo apt-get install grpc
 
 script:
-  - cd grpc
-  - git submodule update --init
-  # Build protobuf
-  - cd third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install
-  - sudo ldconfig
-  # Build grpc
-  - cd ../../ && make && sudo make install && make clean
-  - cd .. && mkdir build
+  - mkdir build
   - cd build && cmake -D CMAKE_CXX_FLAGS="-std=c++11" .. && make
