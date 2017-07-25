@@ -1,0 +1,81 @@
+
+/*
+ * Copyright 2016-2017 Matrix Labs
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+syntax = "proto3";
+
+package matrix_io.malos.v1.maloseye;
+
+option csharp_namespace = "MatrixIO.Malos.MalosEye.V1";
+option java_multiple_files = true;
+option java_outer_classname = "MalosEyeProto";
+option java_package = "com.matrixio.malos.v1";
+
+// Configuration for MALOS-eye. If object_to_detect has at least
+// one element the rest of the configuration will be ignored and the
+// objects to be detected will change acordingly.
+message MalosEyeConfig {
+  // Camera configuration. Camera id, width, height, and so on.
+  CameraConfig camera_config = 1;
+  // Configuration of the detection server.
+  DetectionServerConfig detection_server_config = 4;
+  // Detections to perform. When this field is set the other fields
+  // are ignored.
+  repeated EnumMalosEyeDetectionType object_to_detect = 21;
+}
+
+message CameraConfig {
+  // What camera to open? 0 is usually the first camera.
+  int32 camera_id = 1;
+  // Capture width, i.e. 640.
+  int32 width = 2;
+  // Capture height, i.e. 480.
+  int32 height = 3;
+}
+
+// Warning! This setting is not used yet. It will probably need a token.
+message DetectionServerConfig {
+  // Detection server connection string. For instance, "127.0.0.1:32061".
+  string detection_server_address = 1;
+  // Timeout for detection server (in milliseconds).
+  int32 detection_server_timeout = 2;
+}
+
+enum EnumMalosEyeDetectionType {
+  // Stop. Don't do detections.
+  // This only makes sense when this is the only command sent to MalosEye.
+  STOP = 0;
+
+  // Detect frontal faces.
+  FACE = 20;
+
+  // Detect faces and enhance the detection with demographics.
+  // This might involve a connection to a remote detection server.
+  FACE_DEMOGRAPHICS = 21;
+
+  // Get face descriptors for detected faces.
+  // The descriptors are used for face recognition,
+  // that is, tell people apart.
+  FACE_DESCRIPTOR = 30;
+
+  // Detect thum-up gesture.
+  HAND_THUMB_UP = 40;
+  // Detect palm gesture.
+  HAND_PALM = 41;
+  // Detect pinch gesture.
+  HAND_PINCH = 42;
+  // Detect fist gesture.
+  HAND_FIST = 43;
+}

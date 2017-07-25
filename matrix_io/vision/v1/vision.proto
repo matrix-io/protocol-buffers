@@ -15,7 +15,12 @@
 
 syntax = "proto3";
 
-package admobilize_vision;
+package matrix_io.vision.v1;
+
+option csharp_namespace = "Matrix().Vision.V1";
+option java_multiple_files = true;
+option java_outer_classname = "VisionProto";
+option java_package = "com.matrixio.vision.v1";
 
 // Basic point.
 message Point {
@@ -250,10 +255,10 @@ message RectangularDetection {
   uint64 tracking_id = 8;
 }
 
-// Collection of images. For some applications the 
-// order can be important for others doesn't. 
+// Collection of images. For some applications the
+// order can be important for others doesn't.
 message ImageList {
-  // Image data 
+  // Image data
   repeated bytes image_data = 1;
 
   // If image data above was taken in a sequence, the frame rate
@@ -311,7 +316,7 @@ message Image {
 message VisionResult {
   // Results of all the rectangular detectors.
   // Each detecion also stores the recognitions that can be done inside of this
-  // rectangle. For instance, for faces the available recognitions are 
+  // rectangle. For instance, for faces the available recognitions are
   // (age, gender, emotion).
   repeated RectangularDetection rect_detection = 1;
   // Vision events. For instance, tracking events (start, end).

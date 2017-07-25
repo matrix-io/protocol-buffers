@@ -1,0 +1,101 @@
+
+/*
+ * Copyright 2016-2017 Matrix Labs
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+syntax = "proto3";
+
+package matrix_io.malos.v1.sense;
+
+option csharp_namespace = "MatrixIO.Malos.Sense.V1";
+option java_multiple_files = true;
+option java_outer_classname = "SenseProto";
+option java_package = "com.matrixio.malos.v1";
+
+// Dummy lecture.
+message Dummy {
+  // Random value.
+  float value = 1;
+}
+
+// Basic Humidity lecture.
+message Humidity {
+  // Humidity.
+  float humidity = 1;
+
+  // Temperature.
+  float temperature = 2;
+
+  // Raw temperature value from the sensor.
+  float temperature_raw = 3;
+
+  //  Flag that tells if the temperature is calibrated
+  bool temperature_is_calibrated = 4 ;
+}
+
+message HumidityParams{
+  // Current temperature used for calibration.
+  float current_temperature = 1;
+}
+
+// Basic UV radiation lecture.
+message UV{
+  // UV index.
+  float uv_index = 1;
+
+  // Risk of harm from unprotected sun exposure, for the average adult.
+  // Accordin to the OMS table. https://www.epa.gov/sunsafety/uv-index-scale-0
+  string oms_risk = 2;
+}
+
+
+// Basic Pressure lecture.
+message Pressure {
+  // Pressure.
+  float pressure = 1;
+
+  // Altimeter.
+  float altitude = 2;
+
+  // Temperature.
+  float temperature = 3;
+}
+
+
+// Basic Pressure lecture.
+message Imu {
+  //Vertical axis (yaw)
+  float yaw = 1;
+
+  //Lateral axis (pitch)
+  float pitch = 2;
+
+  //Longitudinal axis (roll)
+  float roll = 3;
+
+  // acceleration
+  float accel_x = 4;
+  float accel_y = 5;
+  float accel_z = 6;
+
+  // gyroscope
+  float gyro_x = 7;
+  float gyro_y = 8;
+  float gyro_z = 9;
+
+  // magnetometer
+  float mag_x = 10;
+  float mag_y = 11;
+  float mag_z = 12;
+}
