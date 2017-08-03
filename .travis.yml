@@ -4,9 +4,8 @@ language: cpp
 cache: ccache
 
 before_install:
-  - echo "deb http://unstable-packages.matrix.one/ stable main" | sudo tee /etc/apt/sources.list.d/matrixio.list
+  - echo "deb http://packages.matrixlabs.ai/ubuntu trusty main" | sudo tee /etc/apt/sources.list.d/matrixio.list
   - sudo apt-get update -qq
-  - sudo apt-get install build-essential cmake 
   - sudo apt-get install protobuf grpc-trusty --yes --allow-unauthenticated
 
 script:
