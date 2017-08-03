@@ -178,7 +178,7 @@ message FeatureDescriptorMatch {
   repeated string tags = 1;
 
   // Score for the match from 0 to 1.
-  // A bigger value means a closer match.
+  // A smaller value means a closer match.
   // Statistical interpretation of the scores makes no sense with this value.
   float score = 2;
 }
