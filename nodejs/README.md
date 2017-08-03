@@ -170,8 +170,6 @@ configSocket.connect('tcp://' + creator_ip + ':' + creator_humidity_base_port)
 
 // Now prepare valid configuration and send it.
 var config = matrix_io.malos.v1.driver.DriverConfig.create({
-  delayBetweenUpdates: 2.0,  // 2 seconds between updates
-  timeoutAfterLastPing: 6.0, // Stop sending updates 6 seconds after pings.
   humidity: matrix_io.malos.v1.sense.HumidityParams.create({
     currentTemperature: 23   // Real current temperature [Celsius] for calibration
   })
@@ -199,10 +197,13 @@ Go to the [full code][4]
 var configSocket = zmq.socket('push')
 configSocket.connect('tcp://' + creator_ip + ':' + creator_imu_base_port)
 
-// Now prepare valid configuration and send it.
+// Now prepare a valid configuration message and send it. The extra args in this
+// example:  
+//  * delayBetweenUpdates: different delay between data updates
+//  * timeoutAfterLastPing: Stop sending data updates after 6 secs of the last ping
 var config = matrix_io.malos.v1.driver.DriverConfig.create({
-  delayBetweenUpdates: 2.0,  // 2 seconds between updates
-  timeoutAfterLastPing: 6.0  // Stop sending updates 6 seconds after pings.
+  delayBetweenUpdates: 5.0,  
+  timeoutAfterLastPing: 6.0 
 })
 
 configSocket.send(matrix_io.malos.v1.driver.DriverConfig.encode(config).finish())

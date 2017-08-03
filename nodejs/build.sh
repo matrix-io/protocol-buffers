@@ -1,11 +1,12 @@
 #!/bin/bash
 # Generates NodeJS protocol buffers via protobufjs
 
-#set -e
-
 PBJS=$(which pbjs)
-OUT_FILE=index.js
+OUT_FILE=matrix-protos/index.js
 VERSION=$1
+
+# Cleanup
+rm -rf matrix-protos
 
 if [ "$PBJS" = '' ]; then
   echo "A pbjs executable is required to build nodejs protos"
@@ -19,11 +20,16 @@ fi
 
 echo "Building nodejs proto package v${VERSION} ..."
 
+mkdir matrix-protos
+
+# Copy docs
+cp README.md matrix-protos
+
 # Generate protos
 FILES=$(find .. -name "*.proto")
 $PBJS -t static-module  -o $OUT_FILE $FILES
 
-cat <<EOF > package.json
+cat <<EOF > matrix-protos/package.json
 {
   "name": "matrix-protos",
   "version": "${VERSION}",
