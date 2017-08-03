@@ -1,5 +1,10 @@
 # Change Log
 ## [Unreleased]
+## [0.0.14] - 2017-08-03
+### Added
+- Travis CI builds now use `.deb` packages via packages.matrixlabs.ai
+- NodeJS Documentation adjustments
+
 ## [0.0.11] - 2017-07-14
 ### Added 
 - AreaConfig, AreaZndZonde Config proto merge into namespaced version
