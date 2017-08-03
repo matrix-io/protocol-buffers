@@ -1,6 +1,7 @@
 sudo: required
 dist: trusty
 language: cpp
+# see https://docs.travis-ci.com/user/caching
 cache: ccache
 
 before_install:
