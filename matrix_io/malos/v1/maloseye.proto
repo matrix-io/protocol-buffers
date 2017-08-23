@@ -37,6 +37,9 @@ message MalosEyeConfig {
 }
 
 message CameraConfig {
+  // Source (camera URL, file). When set this has precedence over
+  // camera_id.
+  string source = 4;
   // What camera to open? 0 is usually the first camera.
   int32 camera_id = 1;
   // Capture width, i.e. 640.
