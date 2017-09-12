@@ -37,7 +37,11 @@ message MalosEyeConfig {
 }
 
 message CameraConfig {
-  // What camera to open? 0 is usually the first camera.
+  // Source (camera URL, file). When set this has precedence over
+  // camera_id.
+  string source = 4;
+  // What camera to open? 0 is usually the first camera and it's the
+  // default value.
   int32 camera_id = 1;
   // Capture width, i.e. 640.
   int32 width = 2;
