@@ -85,7 +85,7 @@ message MicArrayParams {
   float sound_speed_mmseg = 5;
 
   //sampling frequency in Hz
-  uint32_t sampling_frequency = 6;
+  uint32 sampling_frequency = 6;
 }
 
 message WakeWordParams {
