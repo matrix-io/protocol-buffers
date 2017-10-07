@@ -241,8 +241,6 @@ message VehicleRecognition {
   string model = 3;
   // Year of release.
   int32 year = 4;
-  // Car speed.
-  float speed = 5;
 }
 
 // Result of a rectangle detector.
@@ -264,6 +262,10 @@ message RectangularDetection {
   // This can happen because some cars can have more than type or because
   // we decide to output more than one classifier output.
   repeated VehicleRecognition vehicle_recognition = 9;
+
+  // Speed of the object being detected / tracked.
+  // Please use meters per second as the unit.
+  float speed = 9;
 
   // Image snippet of the rectangle taken from the original image where the
   // detection took place.
