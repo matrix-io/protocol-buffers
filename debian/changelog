@@ -1,5 +1,12 @@
 libmatrixio-protos (0.1.0) unstable; urgency=medium
 
+  * Add message and fields for car tracking.
+
+ -- Admobilize  <info@admobilize.com>  Fri, 7 Oct 2017 21:57:43 +0000
+
+
+libmatrixio-protos (0.1.0) unstable; urgency=medium
+
   * Initial realease of MATRIX MALOS protocol buffer library
 
  -- Admobilize  <info@admobilize.com>  Thu, 6 Jul 2017 21:57:43 +0000

@@ -265,7 +265,7 @@ message RectangularDetection {
 
   // Speed of the object being detected / tracked.
   // Please use meters per second as the unit.
-  float speed = 9;
+  float speed = 10;
 
   // Image snippet of the rectangle taken from the original image where the
   // detection took place.
