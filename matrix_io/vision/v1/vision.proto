@@ -232,6 +232,19 @@ enum EnumDetectionAlgorithm {
     FIRST_ALTERNATIVE = 1;
 }
 
+message VehicleRecognition {
+  // Type of vehicle: van, motorcyle, etc.
+  string type = 1;
+  // Brand of car: Toyota, Tesla, etc.
+  string brand = 2;
+  // Model of the car: Corolla, S, etc.
+  string model = 3;
+  // Year of release.
+  int32 year = 4;
+  // Car speed.
+  float speed = 5;
+}
+
 // Result of a rectangle detector.
 message RectangularDetection {
   // The algorithm used in this detection.
@@ -242,8 +255,16 @@ message RectangularDetection {
   EnumDetectionTag tag = 3;
   // Detection confidence.
   float confidence = 4;
+
   // Facial recognitions for this detection (age, gender, pose, features, etc).
   repeated FacialRecognition facial_recognition = 5;
+
+  // Vehicle recognition for this detection. In most cases you will only
+  // get one recognition but we leave room for more than one.
+  // This can happen because some cars can have more than type or because
+  // we decide to output more than one classifier output.
+  repeated VehicleRecognition vehicle_recognition = 9;
+
   // Image snippet of the rectangle taken from the original image where the
   // detection took place.
   bytes image = 6;
