@@ -22,7 +22,8 @@ pipeline:
 
       # Pick which repo component to upload
       - export RCEXPR="*-rc*"
-      - export COMPONENT=$([[ "${DRONE_TAG}" == $RCEXPR ]] && echo "rc" || echo "main")
+      - export PKG_VER="${DRONE_TAG}"
+      - export COMPONENT=$([[ "$PKG_VER" == "$RCEXPR" ]] && echo "rc" || echo "main")
 
       # Upload packages
       - mv libmatrixio-protos_${DRONE_TAG##v}_armhf.deb 
