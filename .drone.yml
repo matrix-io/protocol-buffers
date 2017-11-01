@@ -25,6 +25,7 @@ pipeline:
       # Only TAG events are published to main
       - export COMPONENT=$([ "${DRONE_BUILD_EVENT}" = "tag" ] && echo "main" || echo "unstable")
       - export PKG_VER=$(dpkg-parsechangelog --show-field Version -ldebian/changelog)
+      - echo "AWS Key $${AWS_ACCESS_KEY_ID}"
 
       # Upload packages
       - mv libmatrixio-protos_$${PKG_VER}_armhf.deb 
