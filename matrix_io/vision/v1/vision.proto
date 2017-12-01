@@ -182,8 +182,8 @@ message AreaAndZoneConfig {
   repeated AreaConfig area = 1;
   // Zones for counting.
   repeated ZoneConfig zone = 2;
-  // Areas for detection.
-  repeated Rectangle detection_area = 3;
+  // Region of interest, where to detect.
+  repeated Rectangle region_of_interest = 3;
 }
 
 enum EventTag {
