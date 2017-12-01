@@ -164,8 +164,10 @@ message ZoneConfig {
   Point point_a = 2;
   // Second point of the zone.
   Point point_b = 3;
-  // Total height of the zone.
+  // Total height of the zone. In pixels.
   int32 height = 4;
+  // Total heigt in meters. It should be in meters.
+  float real_height = 5;
 }
 
 message AreaConfig {
@@ -176,8 +178,12 @@ message AreaConfig {
 }
 
 message AreaAndZoneConfig {
+  // Areas for counting.
   repeated AreaConfig area = 1;
+  // Zones for counting.
   repeated ZoneConfig zone = 2;
+  // Region of interest, where to detect.
+  repeated Rectangle region_of_interest = 3;
 }
 
 enum EventTag {
