@@ -10,7 +10,7 @@ system :
 ```
 $ mkdir build
 $ cd build 
-$ cmake -DCMAKE_CXX_FLAGS="-std=c++11 ..
+$ cmake -DCMAKE_CXX_FLAGS="-std=c++11" ..
 $ make
 ```
 
@@ -20,7 +20,8 @@ with a single [docker-compose](https://docs.docker.com/compose/) command:
 $ docker-compose run c-build
 ```
 
-Docker based Python builds coming soon!
+## Proto messages for other languages
+You can find packaged proto messages for NodeJS in the [npm](https://www.npmjs.com/package/matrix-proto) and [Pypi](https://pypi.python.org/pypi/matrix-io-proto/0.0.12) repos.
 
 ## Contributing
 As a general guideline, protocol buffers should be backwards compatible, so make sure any changes you do, are in fact backwards compatible. 
