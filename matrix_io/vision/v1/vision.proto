@@ -186,6 +186,13 @@ message AreaAndZoneConfig {
   repeated Rectangle region_of_interest = 3;
 }
 
+message VehicleConfig {
+  // Camera URL.
+  string camera_url = 1;
+  // Areas and zones.
+  AreaAndZoneConfig area_and_zone = 2;
+}
+
 enum EventTag {
   TRACKING_START = 0;
   TRACKING_END = 1;
