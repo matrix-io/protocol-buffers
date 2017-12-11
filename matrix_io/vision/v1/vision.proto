@@ -226,6 +226,9 @@ message VisionEvent {
   // Direction of the object that leaves the zone.
   // Used when ZONE_ENTER or ZONE_EXIT is set.
   ZoneDirection zone_direction = 7;
+
+  // Speed of the object. Usually relative to the zone.
+  float speed = 8;
 }
 
 // When a detection is done, a tag specifies what is being detected.
