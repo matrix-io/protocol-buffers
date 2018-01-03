@@ -21,7 +21,7 @@ package matrix_io.malos.v1.maloseye;
 option csharp_namespace = "MatrixIO.Malos.MalosEye.V1";
 option java_multiple_files = true;
 option java_outer_classname = "MalosEyeProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 // Configuration for MALOS-eye. If object_to_detect has at least
 // one element the rest of the configuration will be ignored and the

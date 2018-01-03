@@ -21,7 +21,7 @@ package matrix_io.malos.v1.driver;
 option csharp_namespace = "MatrixIO.Malos.Driver.V1";
 option java_multiple_files = true;
 option java_outer_classname = "DriverProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 import "matrix_io/malos/v1/comm.proto";
 import "matrix_io/malos/v1/io.proto";

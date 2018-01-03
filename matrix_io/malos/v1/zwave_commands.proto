@@ -8,7 +8,7 @@ package matrix_io.malos.v1.comm;
 option csharp_namespace = "MatrixIO.Malos.Zwave.V1";
 option java_multiple_files = true;
 option java_outer_classname = "ZwaveProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 enum ZWaveClassType {
  option allow_alias = true;

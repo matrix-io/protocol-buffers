@@ -6,7 +6,7 @@ package matrix_io.recognition.v1;
 option csharp_namespace = "MatrixIO.Recognition.V1";
 option java_multiple_files = true;
 option java_outer_classname = "RecognitionProto";
-option java_package = "com.matrixio.recognition.v1";
+option java_package = "one.matrixio.proto.recognition.v1";
 
 // Describes a recognition feature descriptor
 message FeatureDescriptor {
