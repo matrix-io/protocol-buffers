@@ -1,5 +1,12 @@
 version: '2'
 services:
+  build:
+    image: grpc-builder
+    build:
+      context: .
+    volumes:
+      - .:/src
+    command: make
   c-build:
     image: matrix-io-protobuf
     build: 

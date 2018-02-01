@@ -15,9 +15,14 @@
 
 syntax = "proto3";
 
-package admobilize_vision;
+package matrix_io.vision.v1;
 
-import "vision.proto";
+import "matrix_io/vision/v1/vision.proto";
+
+option csharp_namespace = "MatrixIO.Vision.V1";
+option java_multiple_files = true;
+option java_outer_classname = "VisionServiceProto";
+option java_package = "one.matrixio.proto.vision.v1";
 
 // Message used to send vision requests
 message VisionRequest {
@@ -35,7 +40,7 @@ message VisionRequest {
   // by vision services
   ImageList image_list = 4;
 
-  // Video data 
+  // Video data
   Video video = 5;
 }
 

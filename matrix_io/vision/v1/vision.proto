@@ -15,7 +15,12 @@
 
 syntax = "proto3";
 
-package admobilize_vision;
+package matrix_io.vision.v1;
+
+option csharp_namespace = "Matrix().Vision.V1";
+option java_multiple_files = true;
+option java_outer_classname = "VisionProto";
+option java_package = "one.matrixio.proto.vision.v1";
 
 // Basic point.
 message Point {
@@ -159,8 +164,10 @@ message ZoneConfig {
   Point point_a = 2;
   // Second point of the zone.
   Point point_b = 3;
-  // Total height of the zone.
+  // Total height of the zone. In pixels.
   int32 height = 4;
+  // Total heigt in meters. It should be in meters.
+  float real_height = 5;
 }
 
 message AreaConfig {
@@ -171,8 +178,19 @@ message AreaConfig {
 }
 
 message AreaAndZoneConfig {
+  // Areas for counting.
   repeated AreaConfig area = 1;
+  // Zones for counting.
   repeated ZoneConfig zone = 2;
+  // Region of interest, where to detect.
+  repeated Rectangle region_of_interest = 3;
+}
+
+message VehicleConfig {
+  // Camera URL.
+  string camera_url = 1;
+  // Areas and zones.
+  AreaAndZoneConfig area_and_zone = 2;
 }
 
 enum EventTag {
@@ -208,6 +226,9 @@ message VisionEvent {
   // Direction of the object that leaves the zone.
   // Used when ZONE_ENTER or ZONE_EXIT is set.
   ZoneDirection zone_direction = 7;
+
+  // Speed of the object. Usually relative to the zone.
+  float speed = 8;
 }
 
 // When a detection is done, a tag specifies what is being detected.
@@ -227,6 +248,17 @@ enum EnumDetectionAlgorithm {
     FIRST_ALTERNATIVE = 1;
 }
 
+message VehicleRecognition {
+  // Type of vehicle: van, motorcyle, etc.
+  string type = 1;
+  // Brand of car: Toyota, Tesla, etc.
+  string brand = 2;
+  // Model of the car: Corolla, S, etc.
+  string model = 3;
+  // Year of release.
+  int32 year = 4;
+}
+
 // Result of a rectangle detector.
 message RectangularDetection {
   // The algorithm used in this detection.
@@ -237,8 +269,20 @@ message RectangularDetection {
   EnumDetectionTag tag = 3;
   // Detection confidence.
   float confidence = 4;
+
   // Facial recognitions for this detection (age, gender, pose, features, etc).
   repeated FacialRecognition facial_recognition = 5;
+
+  // Vehicle recognition for this detection. In most cases you will only
+  // get one recognition but we leave room for more than one.
+  // This can happen because some cars can have more than type or because
+  // we decide to output more than one classifier output.
+  repeated VehicleRecognition vehicle_recognition = 9;
+
+  // Speed of the object being detected / tracked.
+  // Please use meters per second as the unit.
+  float speed = 10;
+
   // Image snippet of the rectangle taken from the original image where the
   // detection took place.
   bytes image = 6;
@@ -250,10 +294,10 @@ message RectangularDetection {
   uint64 tracking_id = 8;
 }
 
-// Collection of images. For some applications the 
-// order can be important for others doesn't. 
+// Collection of images. For some applications the
+// order can be important for others doesn't.
 message ImageList {
-  // Image data 
+  // Image data
   repeated bytes image_data = 1;
 
   // If image data above was taken in a sequence, the frame rate
@@ -311,7 +355,7 @@ message Image {
 message VisionResult {
   // Results of all the rectangular detectors.
   // Each detecion also stores the recognitions that can be done inside of this
-  // rectangle. For instance, for faces the available recognitions are 
+  // rectangle. For instance, for faces the available recognitions are
   // (age, gender, emotion).
   repeated RectangularDetection rect_detection = 1;
   // Vision events. For instance, tracking events (start, end).

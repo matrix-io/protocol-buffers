@@ -1,26 +1,14 @@
 sudo: required
-dist: jessie
+dist: trusty
 language: cpp
+# see https://docs.travis-ci.com/user/caching
 cache: ccache
 
-env:
-  matrix:
-    - GRPC_RELEASE_TAG=v1.1.4
-    - GRPC_RELEASE_TAG=v1.2.0
-
 before_install:
+  - echo "deb http://packages.matrixlabs.ai/ubuntu trusty main" | sudo tee /etc/apt/sources.list.d/matrixio.list
   - sudo apt-get update -qq
-
-before_script:
-  - git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc
+  - sudo apt-get install grpc --yes --allow-unauthenticated
 
 script:
-  - cd grpc
-  - git submodule update --init
-  # Build protobuf
-  - cd third_party/protobuf && ./autogen.sh && ./configure && make && sudo make install
-  - sudo ldconfig
-  # Build grpc
-  - cd ../../ && make && sudo make install && make clean
-  - cd .. && mkdir build
+  - mkdir build
   - cd build && cmake -D CMAKE_CXX_FLAGS="-std=c++11" .. && make

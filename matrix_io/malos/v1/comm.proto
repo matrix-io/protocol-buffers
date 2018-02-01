@@ -16,253 +16,15 @@
 
 syntax = "proto3";
 
-package matrix_malos;
+package matrix_io.malos.v1.comm;
 
-import "zwave_commands.proto";
+option csharp_namespace = "MatrixIO.Malos.Comm.V1";
+option java_multiple_files = true;
+option java_outer_classname = "CommProto";
+option java_package = "one.matrixio.proto.malos.v1";
 
-// configuration of drivers. Both global configuration and
-// for specific drivers.
-message DriverConfig {
-  // Delay between updates. In seconds.
-  float delay_between_updates = 1;
-  // Timeout after last ping.
-  float timeout_after_last_ping = 2;
+import "matrix_io/malos/v1/zwave_commands.proto";
 
-  // Values for LEDs. When configuring the driver you should leave
-  // delay_between_updates and timeout_after_last_ping unchanged.
-  EverloopImage image = 3;
-
-  // Malos-Eye configuration.
-  MalosEyeConfig malos_eye_config = 4;
-
-  // ZigBee Message.
-  ZigBeeMsg zigbee_message = 5;
-
-  // LIRC service configuration for IR commands.
-  LircParams lirc = 6;
-
-  // ServoMotor service configuration 
-  ServoParams servo = 7;
-
-  // Gpio service configuration
-  GpioParams gpio = 8;
-
-  // Humidity configuration
-  HumidityParams humidity = 9;
-
-  // Microphone Array configuration
-  MicArrayParams  micarray = 10;  
-
-  //  ZWave message for send commands through the Z/IP Gateway
-  ZWaveMsg zwave = 11;
-
-  // Pocket Sphinx wake word configuration
-  WakeWordParams wakeword = 12;
-
-}
-
-
-enum EnumMalosEyeDetectionType {
-  // Stop. Don't do detections.
-  // This only makes sense when this is the only command sent to MalosEye.
-  STOP = 0;
-
-  // Detect frontal faces.
-  FACE = 20;
-
-  // Detect faces and enhance the detection with demographics.
-  // This might involve a connection to a remote detection server.
-  FACE_DEMOGRAPHICS = 21;
-
-  // Get face descriptors for detected faces.
-  // The descriptors are used for face recognition,
-  // that is, tell people apart.
-  FACE_DESCRIPTOR = 30;
-
-  // Detect thum-up gesture.
-  HAND_THUMB_UP = 40;
-  // Detect palm gesture.
-  HAND_PALM = 41;
-  // Detect pinch gesture.
-  HAND_PINCH = 42;
-  // Detect fist gesture.
-  HAND_FIST = 43;
-}
-
-// Configuration for MALOS-eye. If object_to_detect has at least
-// one element the rest of the configuration will be ignored and the
-// objects to be detected will change acordingly.
-message MalosEyeConfig {
-  // Camera configuration. Camera id, width, height, and so on.
-  CameraConfig camera_config = 1;
-  // Configuration of the object detector.l
-  ObjectDetectorConfig detector_config = 2;
-  // Tracker configuration.
-  TrackerConfig tracker_config = 3;
-  // Configuration of the detection server.
-  DetectionServerConfig detection_server_config = 4;
-  // Detections to perform. When this field is set the other fields
-  // are ignored.
-  repeated EnumMalosEyeDetectionType object_to_detect = 21;
-}
-
-message CameraConfig {
-  // What camera to open? 0 is usually the first camera.
-  int32 camera_id = 1;
-  // Capture width, i.e. 640.
-  int32 width = 2;
-  // Capture height, i.e. 480.
-  int32 height = 3;
-}
-
-message ObjectDetectorConfig {
-  // Cascade path that the program can open
-  string cascade_path = 1;
-}
-
-// These settings could depend on time and not on frames, as frame-rate
-// depends on the resolution.
-message TrackerConfig {
-  // In how many frames does the object need to be before being taken
-  // into account?
-  int32 frames_to_count = 1;
-  // Once we stop seeing the object, how many frames should we wait before
-  // we discard the object?
-  int32 frames_to_discard = 2;
-}
-
-message DetectionServerConfig {
-  // Detection server connection string. For instance, "127.0.0.1:32061".
-  string detection_server_address = 1;
-  // Timeout for detection server (in milliseconds).
-  int32 detection_server_timeout = 2;
-}
-
-// Message used by MALOS to report its internal state and the configuration of
-// its drivers.
-message DriverInfo {
-  // Driver name.
-  string driver_name = 1;
-  // Base port: Port where the device is located.
-  // base_port => config channel (0MQ pull, you should push)
-  // base_port + 1 => keepalive channel (0MQ pull, you should push)
-  // base_port + 2 => error channel (0MQ push, you should pull)
-  // base_port + 3 => send update channel (0MQ push, you should pull)
-  int32 base_port = 2;
-
-  // Does the device provide updates? Some devices such as the everloop
-  // LED array don't provide updates.
-  bool provides_updates = 3;
-  // What is the device delay between updates? In milliseconds.
-  // This field only makes sense if provides_updates is set.
-  int32 delay_between_updates = 4;
-
-  // Does the device need pings (keepalive messages) to keep returning messages?
-  bool needs_pings = 5;
-  // This field only makes sense if needs_pings is set.
-  // If the device hasn't received keepalive messages in a time interenal
-  // bigger than this amount, the device will stop sending updates.
-  int32 timeout_after_last_ping = 6;
-
-  // Notes set by the driver. Meant to be read by humans.
-  string notes_for_human = 7;
-}
-
-// Information about all the available drivers.
-message MalosDriverInfo {
-  // The available drivers.
-  repeated DriverInfo info = 1;
-}
-
-// Dummy lecture.
-message Dummy {
-  // Random value.
-  float value = 1;
-}
-
-// Basic Humidity lecture.
-message Humidity {
-  // Humidity.
-  float humidity = 1;
-
-  // Temperature.
-  float temperature = 2;
-
-  // Raw temperature value from the sensor.
-  float temperature_raw = 3;
-
-  //  Flag that tells if the temperature is calibrated
-  bool temperature_is_calibrated = 4 ;
-}
-
-message HumidityParams{
-  // Current temperature used for calibration.
-  float current_temperature = 1; 
-}
-
-// Basic UV radiation lecture.
-message UV{
-  // UV index.
-  float uv_index = 1;
-
-  // Risk of harm from unprotected sun exposure, for the average adult.
-  // Accordin to the OMS table. https://www.epa.gov/sunsafety/uv-index-scale-0
-  string oms_risk = 2;
-}
-
-
-// Basic Pressure lecture.
-message Pressure {
-  // Pressure.
-  float pressure = 1;
-
-  // Altimeter.
-  float altitude = 2;
-
-  // Temperature.
-  float temperature = 3;
-}
-
-
-// Basic Pressure lecture.
-message Imu {
-  //Vertical axis (yaw)
-  float yaw = 1;
-
-  //Lateral axis (pitch)
-  float pitch = 2;
-
-  //Longitudinal axis (roll)
-  float roll = 3;
-
-  // acceleration
-  float accel_x = 4;
-  float accel_y = 5;
-  float accel_z = 6;
-
-  // gyroscope
-  float gyro_x = 7;
-  float gyro_y = 8;
-  float gyro_z = 9;
-
-  // magnetometer
-  float mag_x = 10;
-  float mag_y = 11;
-  float mag_z = 12;
-}
-
-// Value for a led. Values range from 0 to 255.
-message LedValue {
-  uint32 red = 1;
-  uint32 green = 2;
-  uint32 blue = 3;
-  uint32 white = 4;
-}
-
-// The led array.
-message EverloopImage {
-  repeated LedValue led = 1;
-}
 
 // ZigBee message
 message ZigBeeMsg {
@@ -411,9 +173,9 @@ message ZigBeeMsg {
 
       enum ZCLIdentifyCmdType  {
         // Starts the identification process
-        IDENTIFY_ON = 0; 
+        IDENTIFY_ON = 0;
         // Stops the identification process
-        IDENTIFY_OFF = 1;  
+        IDENTIFY_OFF = 1;
       }
 
       message IdentifyOnCmdParams {
@@ -450,7 +212,7 @@ message ZigBeeMsg {
     // Identify command
     IdentifyCmd identify_cmd = 5;
 
-    // Node Id 
+    // Node Id
     uint32 node_id = 6;
 
     // Endpoint Id
@@ -505,7 +267,7 @@ message ZigBeeMsg {
       uint32 endpoint_index = 1;
       // EndPoint Profile ID
       uint32 profile_id = 2;
-      // EndPoint Device ID 
+      // EndPoint Device ID
       uint32 device_id = 3;
       // EndPoint Clusters
       repeated ClusterDescription clusters = 4;
@@ -590,13 +352,13 @@ message ZWaveMsg {
 
   // ZWave command with params
   message ZWaveCommandInfo {
-    ZWaveCmdType cmd = 1;
+    matrix_io.malos.v1.comm.ZWaveCmdType cmd = 1;
     repeated string param = 2;
-  } 
+  }
 
   // ZWave class with params
   message ZWaveClassInfo {
-    ZWaveClassType zwave_class = 1;
+    matrix_io.malos.v1.comm.ZWaveClassType zwave_class = 1;
     repeated ZWaveCommandInfo command = 2;
   }
 
@@ -604,17 +366,17 @@ message ZWaveMsg {
   message ZWaveNode {
     // unique service name (device address)
     string service_name = 1;
-    // list of ZWave classes supported by the device 
+    // list of ZWave classes supported by the device
     repeated ZWaveClassInfo zwave_class = 2;
   }
 
   // ZWave command to sent
   message ZWaveCommand {
-    ZWaveClassType zwclass = 1;
-    ZWaveCmdType cmd = 2;
+    matrix_io.malos.v1.comm.ZWaveClassType zwclass = 1;
+    matrix_io.malos.v1.comm.ZWaveCmdType cmd = 2;
     bytes params = 3;
   }
- 
+
   // Malos operation {SEND,ADDNODE,REMOVENODE,LIST,...}
   ZWaveOperations operation = 1;
 
@@ -645,87 +407,3 @@ message LircParams {
   //http://assets.admobilize.com/lirc-remotes/
   string config = 3;
 }
-
-// Servo handler params
-message ServoParams {
-  // GPIO to config
-  uint32 pin = 1;
-
-  // Servo angle
-  uint32 angle = 2; 
-}
-
-// GPIO handler params
-message GpioParams {
-  // GPIO to config
-  uint32 pin = 1;
-
-  // GPIO mode input/output
-  enum EnumMode {
-    INPUT = 0;
-    OUTPUT = 1;
-  }
-  EnumMode mode = 2;
-
-  // GPIO value
-  uint32 value = 3;
-
-  // GPIO vector value
-  uint32 values = 4;
-}
-
-// Microphone Array params
-message MicArrayParams {
-  // gain for all microphones
-  int32 gain = 1;
-
-  // Spherical coordinates for beamforming (azimutal_angle,
-  // polar_angle, radial_distance_mm).
-  //
-  // azimutal angle (must lie between -pi/2 an pi/2)
-  float azimutal_angle  = 2;
-  
-  // polar angle (must lie between -pi/2 an pi/2)
-  float polar_angle = 3;
-
-  // distance from the center of the MATRIX Creator to the sound source.
-  float radial_distance_mm = 4;
-
-  // sound speed in mm/seg  
-  float sound_speed_mmseg = 5;
-}
-
-message WakeWordParams {
-  // Wake Word
-  string wake_word = 1;
-
-  // Mic channel
-  enum MicChannel {
-    channel0 = 0;
-    channel1 = 1;
-    channel2 = 2;
-    channel3 = 3;
-    channel4 = 4;
-    channel5 = 5;
-    channel6 = 6;
-    channel7 = 7;
-    channel8 = 8;
-  }
-
-  MicChannel channel = 2;
-
-  // lenguaje model path from lmtool or similar alternative:
-  // http://www.speech.cs.cmu.edu/tools/lmtool-new.html
-  string lm_path = 3;
-
-  // dictionary path from lmtool 
-  string dic_path = 4;
-
-  // enable pocketsphinx verbose mode
-  bool enable_verbose = 5;
-
-  // stop recognition service
-  bool stop_recognition = 6;
-  
-}
-
