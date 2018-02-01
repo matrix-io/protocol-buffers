@@ -21,7 +21,7 @@ package matrix_io.malos.v1.comm;
 option csharp_namespace = "MatrixIO.Malos.Comm.V1";
 option java_multiple_files = true;
 option java_outer_classname = "CommProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 import "matrix_io/malos/v1/zwave_commands.proto";
 
