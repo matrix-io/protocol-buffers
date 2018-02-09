@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
   unzip \
   && apt-get clean
 
-ENV GRPC_RELEASE_TAG v1.2.0
+ENV GRPC_RELEASE_TAG v1.8.5
 
 # Install gRPC and friends
 RUN git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc /grpc \
@@ -17,7 +17,7 @@ RUN git clone -b ${GRPC_RELEASE_TAG} https://github.com/grpc/grpc /grpc \
     && git submodule update --init \
     # Install protobuf
     && cd third_party/protobuf \
-    && ./autogen.sh && ./configure && make && make install && ldconfig \
+    && ./autogen.sh && ./configure && make -j $(nproc) && make install && ldconfig \
     # Install gRPC
-    && cd ../../ && make && make install && make clean \
+    && cd ../../ && make && make -j $(nproc) install && make clean \
     && rm -r /grpc
