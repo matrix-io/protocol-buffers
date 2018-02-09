@@ -105,6 +105,10 @@ message FacialRecognition {
     SAD = 4;
     SURPRISED = 5;
     CALM = 6;
+
+    // Feb 9 2018
+    FEAR = 7;
+    NEUTRAL = 8;
   }
 
   // The following fields should only be present when the tag HAS_EMOTION is set.
