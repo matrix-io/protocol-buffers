@@ -17,6 +17,8 @@ syntax = "proto3";
 
 package matrix_io.vision.v1;
 
+// google/protobuf protos are Installed along with protoc, see
+// https://github.com/google/protobuf/tree/2761122b810fe8861004ae785cc3ab39f384d342/src/google/protobuf
 import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "Matrix().Vision.V1";
