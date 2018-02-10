@@ -238,7 +238,8 @@ message VisionEvent {
   // Speed of the object. Usually relative to the zone.
   float speed = 8;
 
-  // Vision event UTC timestamp with nanos
+  // Vision event UTC timestamp (seconds and nanos) 
+  // see google/protobuf/timestamp.proto
   google.protobuf.Timestamp timestamp = 9;
 }
 
