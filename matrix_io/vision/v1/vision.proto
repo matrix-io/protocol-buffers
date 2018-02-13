@@ -17,6 +17,10 @@ syntax = "proto3";
 
 package matrix_io.vision.v1;
 
+// google/protobuf protos are Installed along with protoc, see
+// https://github.com/google/protobuf/tree/2761122b810fe8861004ae785cc3ab39f384d342/src/google/protobuf
+import "google/protobuf/timestamp.proto";
+
 option csharp_namespace = "Matrix().Vision.V1";
 option java_multiple_files = true;
 option java_outer_classname = "VisionProto";
@@ -233,6 +237,10 @@ message VisionEvent {
 
   // Speed of the object. Usually relative to the zone.
   float speed = 8;
+
+  // Vision event UTC timestamp (seconds and nanos) 
+  // see google/protobuf/timestamp.proto
+  google.protobuf.Timestamp timestamp = 9;
 }
 
 // When a detection is done, a tag specifies what is being detected.
@@ -296,6 +304,8 @@ message RectangularDetection {
   bytes image_small = 7;
   // Tracking id for this detection.
   uint64 tracking_id = 8;
+  // UUID (v4) identifies this unique rectangular detection
+  string uuid = 11;
 }
 
 // Collection of images. For some applications the
