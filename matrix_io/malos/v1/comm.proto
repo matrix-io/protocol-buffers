@@ -111,6 +111,7 @@ message ZigBeeMsg {
         MOVETOHUE = 0;
         MOVETOSAT = 1;
         MOVETOHUEANDSAT = 2;
+        MOVETOCOLORTEMP = 3;
       }
 
       // MoveToHue command
@@ -155,6 +156,15 @@ message ZigBeeMsg {
         uint32 transition_time = 3;
       }
 
+      message MoveToColorTempCmdParams {
+
+	// Color Temperature <uint16>
+	uint32 color_temperature = 1;
+
+	// Transition Time <uint16>
+	uint32 transition_time = 2;
+      }
+
       // ZCLColorControl command type
       ZCLColorControlCmdType type = 1;
 
@@ -166,6 +176,9 @@ message ZigBeeMsg {
 
       // MoveToHueAndSat commands params
       MoveToHueAndSatCmdParams movetohueandsat_params = 4;
+
+      // MoveToColorTemp commands params
+      MoveToColorTempCmdParams movetocolortemp_params = 5;
     }
 
     //ZCL Identify command type
