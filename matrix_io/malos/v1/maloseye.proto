@@ -29,6 +29,8 @@ option java_package = "one.matrixio.proto.malos.v1";
 message MalosEyeConfig {
   // Camera configuration. Camera id, width, height, and so on.
   CameraConfig camera_config = 1;
+  // Face configuration. models path, send slow, send text proto.
+  FaceConfig face_config = 2;
   // Configuration of the detection server.
   DetectionServerConfig detection_server_config = 4;
   // Detections to perform. When this field is set the other fields
@@ -55,6 +57,17 @@ message DetectionServerConfig {
   string detection_server_address = 1;
   // Timeout for detection server (in milliseconds).
   int32 detection_server_timeout = 2;
+}
+
+message FaceConfig {
+  // The path with the models folder.
+  string models_path = 1;
+
+  // Send slow frames for debugging
+  bool send_slow = 2;
+
+  // Send text proto for debugging
+  bool send_text_proto = 3;
 }
 
 enum EnumMalosEyeDetectionType {
