@@ -120,3 +120,22 @@ message WakeWordParams {
   // stop recognition service
   bool stop_recognition = 6;
 }
+
+message MatrixDeviceParams {
+  // Matrix Device Type (1: CREATOR - 2:VOICE)
+  EnumMatrixDeviceType device_type = 1;
+
+  // Number of leds in the Everloop
+  uint32 everloop_length =2;
+}
+
+enum EnumMatrixDeviceType {
+  // Undetected device.
+  UNDETECTED = 0;
+
+  // Detected MATRIX Creator.
+  CREATOR = 1;
+
+  // Detected MATRIX Creator.
+  VOICE = 2;
+}

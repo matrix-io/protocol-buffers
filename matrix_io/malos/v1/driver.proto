@@ -66,6 +66,10 @@ message DriverConfig {
 
   // Pocket Sphinx wake word configuration
   matrix_io.malos.v1.io.WakeWordParams wakeword = 12;
+
+  // Matrix Device parameters
+  matrix_io.malos.v1.io.MatrixDeviceParams matrix_device = 13;
+
 }
 
 
