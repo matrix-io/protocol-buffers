@@ -34,6 +34,9 @@ message LedValue {
 // The led array.
 message EverloopImage {
   repeated LedValue led = 1;
+
+  // Number of leds in the Everloop
+  uint32 everloop_length = 2;
 }
 
 // Servo handler params
@@ -124,9 +127,6 @@ message WakeWordParams {
 message MatrixDeviceParams {
   // Matrix Device Type (1: CREATOR - 2:VOICE)
   EnumMatrixDeviceType device_type = 1;
-
-  // Number of leds in the Everloop
-  uint32 everloop_length =2;
 }
 
 enum EnumMatrixDeviceType {
