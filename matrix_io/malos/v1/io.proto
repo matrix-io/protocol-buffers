@@ -36,7 +36,7 @@ message EverloopImage {
   repeated LedValue led = 1;
 
   // Number of leds in the Everloop
-  uint32 everloop_length = 2;
+  int32 everloop_length = 2;
 }
 
 // Servo handler params
