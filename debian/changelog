@@ -1,3 +1,9 @@
+libmatrixio-protos (0.1.5) unstable; urgency=medium
+
+  * Allows to get the MATRIX Device and Everloop led number
+
+ -- Admobilize  <info@admobilize.com>  Tue, 22 May 2018 17:50:00 +0000
+
 libmatrixio-protos (0.1.4) unstable; urgency=medium
 
   * Allows to set the color temperature (warm white <-> cold white) for non-color zigbee bulbs.
