@@ -69,7 +69,9 @@ enum EnumFacialRecognitionTag {
   FACE_FEATURES = 5;
   // Descriptor vector.
   FACE_DESCRIPTOR = 6;
-  // Gender classification.
+  // Additional face classification 
+  // for detections tagged EnumDetectionTag.FACE 
+  // permits to discard false possitives
   IS_FACE = 7;
 }
 
@@ -155,12 +157,8 @@ message FacialRecognition {
   //  Basic features for the face.
   BasicFaceFeature basic_feature = 11;
   
-  enum Is_face {
-    NON_FACE = 0;
-    FACE = 1;
-  }
-
-  Is_face is_face = 12;
+  // Result of is_face classifier
+  bool is_face = 12;
 }
 
 enum ZoneDirection {
