@@ -69,7 +69,9 @@ enum EnumFacialRecognitionTag {
   FACE_FEATURES = 5;
   // Descriptor vector.
   FACE_DESCRIPTOR = 6;
-  // Face classification.
+  // Additional face classification 
+  // for detections tagged EnumDetectionTag.FACE 
+  // permits to discard false possitives
   IS_FACE = 7;
 }
 
