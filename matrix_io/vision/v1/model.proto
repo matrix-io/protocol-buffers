@@ -1,0 +1,46 @@
+enum EnumModelType {
+  // Is face model.
+  IS_FACE = 0;
+
+  // Age model.
+  AGE = 1;
+
+  // Gender model.
+  GENDER = 2;
+
+  // Emotion model.
+  EMOTION = 3;
+}
+
+message Size {
+   int width = 1;
+   int height = 2;
+}
+
+message Model {
+  // Model version, ie. 0.23
+  string version = 1; 
+
+  // Model type, ie. AGE, GENDER, EMOTION
+  EnumModelType type = 2;
+
+  bytes model = 3;
+  
+  bytes weights = 4;
+  
+  repeated float mean = 5;
+  
+  //Input image shape
+  Size size = 6;
+  
+  //Number of input channels
+  int channels = 7;
+
+  //Scale input
+  double scale = 8;
+}
+
+message Models {
+   // Model collection
+  repeated Model models = 1;
+}
