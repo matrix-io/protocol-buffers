@@ -1,3 +1,29 @@
+/*
+* Copyright 2016-2017 Matrix Labs
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, version 3 of the License.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+syntax = "proto3";
+
+package matrix_io.vision.v1;
+
+import "matrix_io/vision/v1/model.proto";
+
+option csharp_namespace = "MatrixIO.Vision.V1";
+option java_multiple_files = true;
+option java_outer_classname = "ModelProto";
+option java_package = "one.matrixio.proto.vision.v1";
+
 enum EnumModelType {
   // Is face model.
   IS_FACE = 0;
