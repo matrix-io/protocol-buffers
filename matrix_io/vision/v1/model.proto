@@ -24,21 +24,16 @@ option java_package = "one.matrixio.proto.vision.v1";
 
 enum EnumModelType {
   // Is face model.
-  IS_FACE = 0;
+  IS_FACE_MODEL = 0;
 
   // Age model.
-  AGE = 1;
+  AGE_MODEL = 1;
 
   // Gender model.
-  GENDER = 2;
+  GENDER_MODEL = 2;
 
   // Emotion model.
-  EMOTION = 3;
-}
-
-message Size {
-   int width = 1;
-   int height = 2;
+  EMOTION_MODEL = 3;
 }
 
 message Model {
