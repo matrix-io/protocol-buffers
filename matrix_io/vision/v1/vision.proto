@@ -34,14 +34,6 @@ message Point {
   float y = 2;
 }
 
-// Basic Vector.
-message Vector {
-  // X coordinate.
-  float x = 1;
-  // Y coordinate.
-  float y = 2;
-}
-
 message Size {
   // Width (x).
   int32 width = 1;
@@ -198,8 +190,9 @@ message AreaConfig {
   string name = 1;
   // Points of the area. At least 3 different points.
   repeated Point point = 2;
-  // Count direction.
-  Vector count_direction = 3;
+  // Count direction. The (x,y) direction vector that will be used to 
+  // determine whether the object should be counted when leaving the area.
+  Point count_direction = 3;
 }
 
 message AreaAndZoneConfig {
