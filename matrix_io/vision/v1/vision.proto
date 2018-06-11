@@ -190,6 +190,9 @@ message AreaConfig {
   string name = 1;
   // Points of the area. At least 3 different points.
   repeated Point point = 2;
+  // Count direction. The (x,y) direction vector that will be used to 
+  // determine whether the object should be counted when leaving the area.
+  Point count_direction = 3;
 }
 
 message AreaAndZoneConfig {
