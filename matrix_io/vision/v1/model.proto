@@ -59,6 +59,9 @@ message Model {
 
   //Scale input
   double scale = 8;
+
+  //Labels
+  repeated string labels = 9;
 }
 
 message Models {
