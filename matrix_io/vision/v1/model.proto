@@ -49,7 +49,7 @@ message Model {
   
   bytes weights = 4;
   
-  repeated float mean = 5;
+  bytes mean = 5;
   
   //Input image shape
   Size size = 6;
