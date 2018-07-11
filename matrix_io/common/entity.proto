@@ -21,6 +21,11 @@ message ArrayValue {
 
 // Container of the value of an object message
 message Value {
+  message Size {
+    int64 width = 1;
+    int64 height = 2;
+  }
+
   // Must have a value set
   oneof value_type {
     bool boolean_value = 1;
@@ -31,7 +36,7 @@ message Value {
     google.protobuf.Timestamp timestamp_value = 10;
     string string_value = 17;
     bytes blob_value = 18;
-
+    Size size_value = 19;
   }
 }
 
