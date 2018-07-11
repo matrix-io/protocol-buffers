@@ -23,6 +23,8 @@ option java_multiple_files = true;
 option java_outer_classname = "MalosEyeProto";
 option java_package = "one.matrixio.proto.malos.v1";
 
+import "matrix_io/common/entity.proto";
+
 // Configuration for MALOS-eye. If object_to_detect has at least
 // one element the rest of the configuration will be ignored and the
 // objects to be detected will change acordingly.
@@ -36,9 +38,12 @@ message MalosEyeConfig {
   // Detections to perform. When this field is set the other fields
   // are ignored.
   repeated EnumMalosEyeDetectionType object_to_detect = 21;
-
   // Action to start, stop or restart the detection.
   EnumMalosAction action = 5;
+  // Models configuration
+  repeated matrix_io.common.Entity models = 6;
+  // Config Entity
+  matrix_io.common.Entity config = 7;
 }
 
 message CameraConfig {
