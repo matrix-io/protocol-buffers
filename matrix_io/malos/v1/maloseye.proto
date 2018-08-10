@@ -85,6 +85,8 @@ enum EnumMalosAction {
   STOP_DETECTION = 1;
   // Restart the detection.
   RESTART_DETECTION = 2;
+  // Capture preview image.
+  CAPTURE_PREVIEW = 3;
 }
 
 enum EnumMalosEyeDetectionType {
