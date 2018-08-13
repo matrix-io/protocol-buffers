@@ -400,4 +400,6 @@ message VisionResult {
   bytes image = 2;
   // Deprecated by result_image_small.
   bytes image_small = 3;
+  // UUID (v4) that uniquely identifies each vision result
+  string uuid = 7;
 }
