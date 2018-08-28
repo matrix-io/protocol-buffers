@@ -55,24 +55,25 @@ message Rectangle {
 }
 
 enum EnumFacialRecognitionTag {
+  UNKNOWN = 0;
   // Age classification.
-  AGE = 0;
+  AGE = 1;
   // Emotion classification.
-  EMOTION = 1;
+  EMOTION = 2;
   // Gender classification.
-  GENDER = 2;
+  GENDER = 3;
   // Identification.
-  FACE_ID = 3;
+  FACE_ID = 4;
   // Pose of the head (pitch, yaw, roll).
-  HEAD_POSE = 4;
+  HEAD_POSE = 5;
   // Features such as nose, eyes, mouth.
-  FACE_FEATURES = 5;
+  FACE_FEATURES = 6;
   // Descriptor vector.
-  FACE_DESCRIPTOR = 6;
+  FACE_DESCRIPTOR = 7;
   // Additional face classification 
   // for detections tagged EnumDetectionTag.FACE 
   // permits to discard false possitives
-  IS_FACE = 7;
+  IS_FACE = 8;
 }
 
 message FacialRecognition {
@@ -95,8 +96,9 @@ message FacialRecognition {
   // TODO(vision.team): Should this be GenderExpression? If that's the case, at some
   // point we might need to add NEUTRAL to the options.
   enum Gender {
-    MALE = 0;
-    FEMALE = 1;
+    UNKNOWN = 0;
+    MALE = 1;
+    FEMALE = 2;
   }
 
   // The following fields should only be present when the tag HAS_GENDER is set.
@@ -106,17 +108,18 @@ message FacialRecognition {
 
   // Emotions available for recognition.
   enum Emotion {
-    ANGRY = 0;
-    DISGUST = 1;
-    CONFUSED = 2;
-    HAPPY = 3;
-    SAD = 4;
-    SURPRISED = 5;
-    CALM = 6;
+    UNKNOWN = 0;
+    ANGRY = 1;
+    DISGUST = 2;
+    CONFUSED = 3;
+    HAPPY = 4;
+    SAD = 5;
+    SURPRISED = 6;
+    CALM = 7;
 
     // Feb 9 2018
-    FEAR = 7;
-    NEUTRAL = 8;
+    FEAR = 8;
+    NEUTRAL = 9;
   }
 
   // The following fields should only be present when the tag HAS_EMOTION is set.
@@ -212,12 +215,13 @@ message VehicleConfig {
 }
 
 enum EventTag {
-  TRACKING_START = 0;
-  TRACKING_END = 1;
-  AREA_ENTER = 2;
-  AREA_EXIT = 3;
-  ZONE_ENTER = 4;
-  ZONE_EXIT = 5;
+  UNKNOWN = 1;
+  TRACKING_START = 2;
+  TRACKING_END = 3;
+  AREA_ENTER = 4;
+  AREA_EXIT = 5;
+  ZONE_ENTER = 6;
+  ZONE_EXIT = 7;
 }
 
 message VisionEvent {
@@ -255,19 +259,21 @@ message VisionEvent {
 
 // When a detection is done, a tag specifies what is being detected.
 enum EnumDetectionTag {
-  FACE = 0;
-  HAND_THUMB = 1;
-  HAND_PALM = 2;
-  HAND_PINCH = 3;
-  HAND_FIST = 4;
-  PERSON = 5;
+  UNKNOWN = 0;
+  FACE = 1;
+  HAND_THUMB = 2;
+  HAND_PALM = 3;
+  HAND_PINCH = 4;
+  HAND_FIST = 5;
+  PERSON = 6;
 }
 
 enum EnumDetectionAlgorithm {
-    // Default algorithm.
-    DEFAULT = 0;
-    // First alternative.
-    FIRST_ALTERNATIVE = 1;
+  UNKNOWN = 0;
+  // Default algorithm.
+  DEFAULT = 1;
+  // First alternative.
+  FIRST_ALTERNATIVE = 2;
 }
 
 message VehicleRecognition {
@@ -331,12 +337,13 @@ message ImageList {
 
 // Video codecs available for vision requests
 enum EnumVideoCodec {
-  UNDEFINED_VIDEO_CODEC = 0;
-  H264 = 1;
-  MP4V = 2;
-  RV24 = 3;
-  VP8 = 4;
-  VP9 = 5;
+  UNKNOWN = 0;
+  UNDEFINED_VIDEO_CODEC = 1;
+  H264 = 2;
+  MP4V = 3;
+  RV24 = 4;
+  VP8 = 5;
+  VP9 = 6;
 }
 
 // Source video
@@ -353,13 +360,14 @@ message Video {
 }
 
 enum ImageFormat {
-  UNSPECIFIED = 0;
+  UNKNOWN = 0;
+  UNSPECIFIED = 1;
   // unsigned byte, 3 channels. RGB.
-  FORMAT_8URGB = 1;
+  FORMAT_8URGB = 2;
   // unsigned byte, 3 channels. BGR.
-  FORMAT_8UBGR = 2;
+  FORMAT_8UBGR = 3;
   // unsigned byte, 1 channel.
-  FORMAT_8U = 3;
+  FORMAT_8U = 4;
 }
 
 message Image {
