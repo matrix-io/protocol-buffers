@@ -70,6 +70,8 @@ message DriverConfig {
   // Matrix Device parameters
   matrix_io.malos.v1.io.MatrixDeviceParams matrix_device = 13;
 
+  // UUID (v4) that uniquely identifies each driver config
+  string uuid = 14;
 }
 
 
@@ -107,4 +109,24 @@ message DriverInfo {
 message MalosDriverInfo {
   // The available drivers.
   repeated DriverInfo info = 1;
+}
+
+// Information message sent from device through the status port
+message Status {
+  enum MessageType {
+    NOT_DEFINED = 0;
+    STARTED = 1;
+    STOPPED = 2;
+    CONFIG_RECEIVED = 3;
+    COMMAND_EXECUTED = 4;
+    ERROR = 5;
+    WARNING = 6;
+  }
+  // Identifies the type of message event
+  MessageType type = 1;
+  // This id can be useful when matched with the uuid from the configuration
+  // that generated the event
+  string uuid = 2;
+  // The actual body of the message
+  string message = 3;
 }
