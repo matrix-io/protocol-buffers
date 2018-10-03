@@ -18,6 +18,7 @@ syntax = "proto3";
 
 package matrix_io.malos.v1.sense;
 
+option go_package = "github.com/matrix-io/go-matrix-protos/matrix_io/malos/v1";
 option csharp_namespace = "MatrixIO.Malos.Sense.V1";
 option java_multiple_files = true;
 option java_outer_classname = "SenseProto";
