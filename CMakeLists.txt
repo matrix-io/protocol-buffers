@@ -57,6 +57,8 @@ set(ABSProtoFiles)
 set(ProtoHeaders)
 set(ProtoSources)
 
+include_directories(${ProtoHeaders})
+
 foreach(FNAME ${proto_files})
   # relative directory for .proto file
   get_filename_component(PROTO_PATH ${FNAME} DIRECTORY)
