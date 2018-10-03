@@ -85,7 +85,12 @@ add_custom_command(
   COMMENT "Generating proto messages for matrix_io ..."
 )
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+if (MSVC)
+  include_directories(${CMAKE_CURRENT_BINARY_DIR} ${PROTOBUF_INCLUDE_DIR})
+else (MSVC)
+  include_directories(${CMAKE_CURRENT_BINARY_DIR})
+endif(MSVC)
+
 add_library(${PROJECT_NAME} ${ProtoHeaders} ${ProtoSources})
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
