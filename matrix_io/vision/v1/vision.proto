@@ -312,7 +312,7 @@ message RectangularDetection {
   // detection took place. This image is expected to be smaller than
   // "image".
   bytes image_small = 7;
-  // type of the detection (person, face, car, bus)
+  // Type of the detection (person, face, car, bus ...)
   string type = 12;
   // Tracking id for this detection.
   uint64 tracking_id = 8;
