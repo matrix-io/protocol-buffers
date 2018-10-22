@@ -215,13 +215,13 @@ message VehicleConfig {
 }
 
 enum EventTag {
-  EVENT_NOT_DEFINED = 1;
-  TRACKING_START = 2;
-  TRACKING_END = 3;
-  AREA_ENTER = 4;
-  AREA_EXIT = 5;
-  ZONE_ENTER = 6;
-  ZONE_EXIT = 7;
+  EVENT_NOT_DEFINED = 0;
+  TRACKING_START = 1;
+  TRACKING_END = 2;
+  AREA_ENTER = 3;
+  AREA_EXIT = 4;
+  ZONE_ENTER = 5;
+  ZONE_EXIT = 6;
 }
 
 message VisionEvent {
