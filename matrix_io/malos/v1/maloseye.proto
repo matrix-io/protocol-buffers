@@ -79,7 +79,7 @@ message FaceConfig {
 }
 
 enum EnumMalosAction {
-  NOT_DEFINED = 0;
+  MALOS_ACTION_NOT_DEFINED = 0;
   // Start the detection.
   START_DETECTION = 1;
   // Stop the detection.
@@ -91,7 +91,7 @@ enum EnumMalosAction {
 }
 
 enum EnumMalosEyeDetectionType {
-  NOT_DEFINED = 0;
+  MALOS_DETECTION_TYPE_NOT_DEFINED = 0;
   // Stop. Don't do detections.
   // This only makes sense when this is the only command sent to MalosEye.
   STOP = 1;

@@ -55,7 +55,7 @@ message Rectangle {
 }
 
 enum EnumFacialRecognitionTag {
-  NOT_DEFINED = 0;
+  FACIAL_RECOGNITION_NOT_DEFINED = 0;
   // Age classification.
   AGE = 1;
   // Emotion classification.
@@ -96,7 +96,7 @@ message FacialRecognition {
   // TODO(vision.team): Should this be GenderExpression? If that's the case, at some
   // point we might need to add NEUTRAL to the options.
   enum Gender {
-    NOT_DEFINED = 0;
+    GENDER_NOT_DEFINED = 0;
     MALE = 1;
     FEMALE = 2;
   }
@@ -108,7 +108,7 @@ message FacialRecognition {
 
   // Emotions available for recognition.
   enum Emotion {
-    NOT_DEFINED = 0;
+    EMOTION_NOT_DEFINED = 0;
     ANGRY = 1;
     DISGUST = 2;
     CONFUSED = 3;
@@ -169,7 +169,7 @@ enum ZoneDirection {
   // the zone from the same side or in other edge cases. This enumerator
   // is included here because it is still useful to report the session time
   // of the objects that traverse a zone.
-  NOT_DEFINED = 0;
+  ZONE_DIRECTION_NOT_DEFINED = 0;
   FORWARD = 1;
   BACKWARD = 2;
 }
@@ -215,7 +215,7 @@ message VehicleConfig {
 }
 
 enum EventTag {
-  NOT_DEFINED = 1;
+  EVENT_NOT_DEFINED = 1;
   TRACKING_START = 2;
   TRACKING_END = 3;
   AREA_ENTER = 4;
@@ -259,7 +259,7 @@ message VisionEvent {
 
 // When a detection is done, a tag specifies what is being detected.
 enum EnumDetectionTag {
-  NOT_DEFINED = 0;
+  DETECTION_NOT_DEFINED = 0;
   FACE = 1;
   HAND_THUMB = 2;
   HAND_PALM = 3;
@@ -269,7 +269,7 @@ enum EnumDetectionTag {
 }
 
 enum EnumDetectionAlgorithm {
-  NOT_DEFINED = 0;
+  DETECTION_ALGORITHM_NOT_DEFINED = 0;
   // Default algorithm.
   DEFAULT = 1;
   // First alternative.
@@ -339,7 +339,7 @@ message ImageList {
 
 // Video codecs available for vision requests
 enum EnumVideoCodec {
-  NOT_DEFINED = 0;
+  VIDEO_CODEC_NOT_DEFINED = 0;
   UNDEFINED_VIDEO_CODEC = 1;
   H264 = 2;
   MP4V = 3;
@@ -362,7 +362,7 @@ message Video {
 }
 
 enum ImageFormat {
-  NOT_DEFINED = 0;
+  IMAGE_FORMAT_NOT_DEFINED = 0;
   UNSPECIFIED = 1;
   // unsigned byte, 3 channels. RGB.
   FORMAT_8URGB = 2;
