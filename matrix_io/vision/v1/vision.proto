@@ -55,7 +55,7 @@ message Rectangle {
 }
 
 enum EnumFacialRecognitionTag {
-  UNKNOWN = 0;
+  NOT_DEFINED = 0;
   // Age classification.
   AGE = 1;
   // Emotion classification.
@@ -96,7 +96,7 @@ message FacialRecognition {
   // TODO(vision.team): Should this be GenderExpression? If that's the case, at some
   // point we might need to add NEUTRAL to the options.
   enum Gender {
-    UNKNOWN = 0;
+    NOT_DEFINED = 0;
     MALE = 1;
     FEMALE = 2;
   }
@@ -108,7 +108,7 @@ message FacialRecognition {
 
   // Emotions available for recognition.
   enum Emotion {
-    UNKNOWN = 0;
+    NOT_DEFINED = 0;
     ANGRY = 1;
     DISGUST = 2;
     CONFUSED = 3;
@@ -165,11 +165,11 @@ message FacialRecognition {
 }
 
 enum ZoneDirection {
-  // We can get an unknown direction when the object enters and leaves
+  // We can get an NOT_DEFINED direction when the object enters and leaves
   // the zone from the same side or in other edge cases. This enumerator
   // is included here because it is still useful to report the session time
   // of the objects that traverse a zone.
-  UNKNOWN = 0;
+  NOT_DEFINED = 0;
   FORWARD = 1;
   BACKWARD = 2;
 }
@@ -215,7 +215,7 @@ message VehicleConfig {
 }
 
 enum EventTag {
-  UNKNOWN = 1;
+  NOT_DEFINED = 1;
   TRACKING_START = 2;
   TRACKING_END = 3;
   AREA_ENTER = 4;
@@ -259,7 +259,7 @@ message VisionEvent {
 
 // When a detection is done, a tag specifies what is being detected.
 enum EnumDetectionTag {
-  UNKNOWN = 0;
+  NOT_DEFINED = 0;
   FACE = 1;
   HAND_THUMB = 2;
   HAND_PALM = 3;
@@ -269,7 +269,7 @@ enum EnumDetectionTag {
 }
 
 enum EnumDetectionAlgorithm {
-  UNKNOWN = 0;
+  NOT_DEFINED = 0;
   // Default algorithm.
   DEFAULT = 1;
   // First alternative.
@@ -339,7 +339,7 @@ message ImageList {
 
 // Video codecs available for vision requests
 enum EnumVideoCodec {
-  UNKNOWN = 0;
+  NOT_DEFINED = 0;
   UNDEFINED_VIDEO_CODEC = 1;
   H264 = 2;
   MP4V = 3;
@@ -362,7 +362,7 @@ message Video {
 }
 
 enum ImageFormat {
-  UNKNOWN = 0;
+  NOT_DEFINED = 0;
   UNSPECIFIED = 1;
   // unsigned byte, 3 channels. RGB.
   FORMAT_8URGB = 2;
