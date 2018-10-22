@@ -114,7 +114,7 @@ message MalosDriverInfo {
 // Information message sent from device through the status port
 message Status {
   enum MessageType {
-    NOT_DEFINED = 0;
+    MESSAGE_TYPE_NOT_DEFINED = 0;
     STARTED = 1;
     STOPPED = 2;
     CONFIG_RECEIVED = 3;
