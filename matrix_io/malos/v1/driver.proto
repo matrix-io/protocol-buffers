@@ -119,8 +119,8 @@ message Status {
     STOPPED = 2;
     CONFIG_RECEIVED = 3;
     COMMAND_EXECUTED = 4;
-    ERROR = 5;
-    WARNING = 6;
+    STATUS_ERROR = 5;
+    STATUS_WARNING = 6;
   }
   // Identifies the type of message event
   MessageType type = 1;
