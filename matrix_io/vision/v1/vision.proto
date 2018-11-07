@@ -91,6 +91,16 @@ message FacialRecognition {
   // TODO(nelson.castillo, vision.team): How are we going to represent age?
   // It should be a range.
   int32 age = 3;
+  
+  enum AgeClass {
+    CHILDREN = 0;
+    YOUNG_ADULT = 1;
+    ADULT = 2;
+    SENIOR = 3;
+  }
+  
+  AgeClass age_class = 13;
+  
 
   // Genders available for detections.
   // TODO(vision.team): Should this be GenderExpression? If that's the case, at some
@@ -146,6 +156,8 @@ message FacialRecognition {
   float pose_roll = 9;
   // Face pitch.
   float pose_pitch = 10;
+  // Face looking
+  bool is_looking = 14;
 
   // The following fields should only be present when the tag HAS_FACE_FEATURES is set.
   // TODO(carlos.gonzalez, nelson.castillo): Improve the features.
