@@ -93,10 +93,11 @@ message FacialRecognition {
   int32 age = 3;
   
   enum AgeClass {
-    CHILDREN = 0;
-    YOUNG_ADULT = 1;
-    ADULT = 2;
-    SENIOR = 3;
+    AGE_CLASS_NOT_DEFINED = 0 
+    CHILDREN = 1;
+    YOUNG_ADULT = 2;
+    ADULT = 3;
+    SENIOR = 4;
   }
   
   AgeClass age_class = 13;
