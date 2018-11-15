@@ -268,6 +268,12 @@ message VisionEvent {
   // Vision event UTC timestamp (seconds and nanos) 
   // see google/protobuf/timestamp.proto
   google.protobuf.Timestamp timestamp = 9;
+
+  // Friendly identifier for areas. Used when AREA_ENTER or AREA_EXIT is set
+  string area_name = 10;
+
+  // Friendly identifier for zones. Used when ZONE_ENTER or ZONE_EXIT is set
+  string zone_name = 11;
 }
 
 // When a detection is done, a tag specifies what is being detected.
