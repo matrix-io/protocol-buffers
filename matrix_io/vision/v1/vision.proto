@@ -21,6 +21,7 @@ package matrix_io.vision.v1;
 // https://github.com/google/protobuf/tree/2761122b810fe8861004ae785cc3ab39f384d342/src/google/protobuf
 import "google/protobuf/timestamp.proto";
 
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/vision/v1";
 option csharp_namespace = "Matrix().Vision.V1";
 option java_multiple_files = true;
 option java_outer_classname = "VisionProto";
