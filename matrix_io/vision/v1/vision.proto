@@ -22,7 +22,7 @@ package matrix_io.vision.v1;
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/vision/v1";
-option csharp_namespace = "Matrix().Vision.V1";
+option csharp_namespace = "MatrixIO.Vision.V1";
 option java_multiple_files = true;
 option java_outer_classname = "VisionProto";
 option java_package = "one.matrixio.proto.vision.v1";
