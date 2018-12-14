@@ -77,6 +77,8 @@ enum EnumFacialRecognitionTag {
   IS_FACE = 8;
   // Have glass classification.
   HAVE_GLASS = 9;
+  // Check if the face has facial_hair or not
+  BEARD = 10;
 }
 
 message FacialRecognition {
@@ -180,6 +182,9 @@ message FacialRecognition {
   bool is_face = 12;
   // Result of have_glass classifier
   bool have_glass = 15;
+  // Result of facial hair classifier
+  bool beard = 16;
+  
 }
 
 enum ZoneDirection {
