@@ -142,13 +142,9 @@ message FacialRecognition {
     NEUTRAL = 9;
   }
 
-  // The following fields should only be present when the tag HAS_EMOTION is set.
-
-  
-
-  // Type glass available for recognition.
-  enum Glass {
-    GLASS_NOT_DEFINED = 0;
+  // Type glasses available for recognition.
+  enum Glasses {
+    GLASSES_NOT_DEFINED = 0;
     GLASSES = 1;
     NO_GLASSES = 2;
     SUN_GLASSES = 3;
