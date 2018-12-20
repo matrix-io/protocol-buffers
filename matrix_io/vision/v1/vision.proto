@@ -197,7 +197,7 @@ message FacialRecognition {
   // Result of facial hair classifier
   bool beard = 16;
   // Detected emotion.
-  Glass glass = 17;  
+  Glasses glasses = 17;  
 }
 
 enum ZoneDirection {
