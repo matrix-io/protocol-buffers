@@ -19,10 +19,11 @@ package matrix_io.vision.v1;
 
 import "matrix_io/vision/v1/vision.proto";
 
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/vision/v1";
 option csharp_namespace = "MatrixIO.Vision.V1";
 option java_multiple_files = true;
 option java_outer_classname = "VisionServiceProto";
-option java_package = "com.matrixio.vision.v1";
+option java_package = "one.matrixio.proto.vision.v1";
 
 // Message used to send vision requests
 message VisionRequest {

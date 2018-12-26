@@ -18,10 +18,11 @@ syntax = "proto3";
 
 package matrix_io.malos.v1.driver;
 
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/malos/v1";
 option csharp_namespace = "MatrixIO.Malos.Driver.V1";
 option java_multiple_files = true;
 option java_outer_classname = "DriverProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 import "matrix_io/malos/v1/comm.proto";
 import "matrix_io/malos/v1/io.proto";
@@ -66,6 +67,12 @@ message DriverConfig {
 
   // Pocket Sphinx wake word configuration
   matrix_io.malos.v1.io.WakeWordParams wakeword = 12;
+
+  // Matrix Device parameters
+  matrix_io.malos.v1.io.MatrixDeviceParams matrix_device = 13;
+
+  // UUID (v4) that uniquely identifies each driver config
+  string uuid = 14;
 }
 
 
@@ -103,4 +110,27 @@ message DriverInfo {
 message MalosDriverInfo {
   // The available drivers.
   repeated DriverInfo info = 1;
+}
+
+// Information message sent from device through the status port
+message Status {
+  enum MessageType {
+    MESSAGE_TYPE_NOT_DEFINED = 0;
+    STARTED = 1;
+    STOPPED = 2;
+    CONFIG_RECEIVED = 3;
+    COMMAND_EXECUTED = 4;
+    STATUS_CRITICAL = 5;
+    STATUS_ERROR = 6;
+    STATUS_WARNING = 7;
+    STATUS_INFO = 8;
+    STATUS_DEBUG  = 9;
+  }
+  // Identifies the type of message event
+  MessageType type = 1;
+  // This id can be useful when matched with the uuid from the configuration
+  // that generated the event
+  string uuid = 2;
+  // The actual body of the message
+  string message = 3;
 }

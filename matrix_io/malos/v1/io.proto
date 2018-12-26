@@ -18,10 +18,11 @@ syntax = "proto3";
 
 package matrix_io.malos.v1.io;
 
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/malos/v1";
 option csharp_namespace = "MatrixIO.Malos.IO.V1";
 option java_multiple_files = true;
 option java_outer_classname = "IOProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 // Value for a led. Values range from 0 to 255.
 message LedValue {
@@ -34,6 +35,9 @@ message LedValue {
 // The led array.
 message EverloopImage {
   repeated LedValue led = 1;
+
+  // Number of leds in the Everloop
+  int32 everloop_length = 2;
 }
 
 // Servo handler params
@@ -83,6 +87,9 @@ message MicArrayParams {
 
   // sound speed in mm/seg
   float sound_speed_mmseg = 5;
+
+  //sampling frequency in Hz
+  uint32 sampling_frequency_hz = 6;
 }
 
 message WakeWordParams {
@@ -116,4 +123,20 @@ message WakeWordParams {
 
   // stop recognition service
   bool stop_recognition = 6;
+}
+
+message MatrixDeviceParams {
+  // Matrix Device Type (1: CREATOR - 2:VOICE)
+  EnumMatrixDeviceType device_type = 1;
+}
+
+enum EnumMatrixDeviceType {
+  // Undetected device.
+  UNDETECTED = 0;
+
+  // Detected MATRIX Creator.
+  CREATOR = 1;
+
+  // Detected MATRIX Creator.
+  VOICE = 2;
 }

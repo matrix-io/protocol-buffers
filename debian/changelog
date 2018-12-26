@@ -1,3 +1,37 @@
+libmatrixio-protos (0.1.5) unstable; urgency=medium
+
+  * Allows to get the MATRIX Device and Everloop led number
+
+ -- Admobilize  <info@admobilize.com>  Tue, 22 May 2018 17:50:00 +0000
+
+libmatrixio-protos (0.1.4) unstable; urgency=medium
+
+  * Allows to set the color temperature (warm white <-> cold white) for non-color zigbee bulbs.
+
+ -- Admobilize  <info@admobilize.com>  Mon, 5 Mar 2018 10:50:00 +0000
+ 
+libmatrixio-protos (0.1.3) unstable; urgency=medium
+
+  * RectangularDetection now has a uuid field.
+  * VisionEvent now has an event timestamp field.
+
+ -- Admobilize  <info@admobilize.com>  Fri, 22 Feb 2018 21:57:43 +0000
+ 
+libmatrixio-protos (0.1.2) unstable; urgency=medium
+
+  * Add message and fields for car tracking.
+  * Release of properly namespaced protocol buffer messages
+  * Python and Node proto packages are created from the new namespaced proto structure (see python package and node module ).
+
+ -- Admobilize  <info@admobilize.com>  Fri, 16 Feb 2018 21:57:43 +0000
+ 
+libmatrixio-protos (0.1.1) unstable; urgency=medium
+
+  * Add message and fields for car tracking.
+
+ -- Admobilize  <info@admobilize.com>  Fri, 7 Oct 2017 21:57:43 +0000
+
+
 libmatrixio-protos (0.1.0) unstable; urgency=medium
 
   * Initial realease of MATRIX MALOS protocol buffer library

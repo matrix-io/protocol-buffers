@@ -18,10 +18,13 @@ syntax = "proto3";
 
 package matrix_io.malos.v1.maloseye;
 
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/malos/v1";
 option csharp_namespace = "MatrixIO.Malos.MalosEye.V1";
 option java_multiple_files = true;
 option java_outer_classname = "MalosEyeProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
+
+import "matrix_io/common/entity.proto";
 
 // Configuration for MALOS-eye. If object_to_detect has at least
 // one element the rest of the configuration will be ignored and the
@@ -29,15 +32,27 @@ option java_package = "com.matrixio.malos.v1";
 message MalosEyeConfig {
   // Camera configuration. Camera id, width, height, and so on.
   CameraConfig camera_config = 1;
+  // Face configuration. models path, send slow, send text proto.
+  FaceConfig face_config = 2;
   // Configuration of the detection server.
   DetectionServerConfig detection_server_config = 4;
   // Detections to perform. When this field is set the other fields
   // are ignored.
   repeated EnumMalosEyeDetectionType object_to_detect = 21;
+  // Action to start, stop or restart the detection.
+  EnumMalosAction action = 5;
+  // Models configuration
+  repeated matrix_io.common.Entity models = 6;
+  // Config Entity
+  matrix_io.common.Entity config = 7;
 }
 
 message CameraConfig {
-  // What camera to open? 0 is usually the first camera.
+  // Source (camera URL, file). When set this has precedence over
+  // camera_id.
+  string source = 4;
+  // What camera to open? 0 is usually the first camera and it's the
+  // default value.
   int32 camera_id = 1;
   // Capture width, i.e. 640.
   int32 width = 2;
@@ -53,10 +68,34 @@ message DetectionServerConfig {
   int32 detection_server_timeout = 2;
 }
 
+message FaceConfig {
+  // The path with the models folder.
+  string models_path = 1;
+
+  // Send slow frames for debugging
+  bool send_slow = 2;
+
+  // Send text proto for debugging
+  bool send_text_proto = 3;
+}
+
+enum EnumMalosAction {
+  MALOS_ACTION_NOT_DEFINED = 0;
+  // Start the detection.
+  START_DETECTION = 1;
+  // Stop the detection.
+  STOP_DETECTION = 2;
+  // Restart the detection.
+  RESTART_DETECTION = 3;
+  // Capture preview image.
+  CAPTURE_PREVIEW = 4;
+}
+
 enum EnumMalosEyeDetectionType {
+  MALOS_DETECTION_TYPE_NOT_DEFINED = 0;
   // Stop. Don't do detections.
   // This only makes sense when this is the only command sent to MalosEye.
-  STOP = 0;
+  STOP = 1;
 
   // Detect frontal faces.
   FACE = 20;

@@ -18,10 +18,11 @@ syntax = "proto3";
 
 package matrix_io.malos.v1.comm;
 
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/malos/v1";
 option csharp_namespace = "MatrixIO.Malos.Comm.V1";
 option java_multiple_files = true;
 option java_outer_classname = "CommProto";
-option java_package = "com.matrixio.malos.v1";
+option java_package = "one.matrixio.proto.malos.v1";
 
 import "matrix_io/malos/v1/zwave_commands.proto";
 
@@ -111,6 +112,7 @@ message ZigBeeMsg {
         MOVETOHUE = 0;
         MOVETOSAT = 1;
         MOVETOHUEANDSAT = 2;
+        MOVETOCOLORTEMP = 3;
       }
 
       // MoveToHue command
@@ -155,6 +157,15 @@ message ZigBeeMsg {
         uint32 transition_time = 3;
       }
 
+      message MoveToColorTempCmdParams {
+
+	// Color Temperature <uint16>
+	uint32 color_temperature = 1;
+
+	// Transition Time <uint16>
+	uint32 transition_time = 2;
+      }
+
       // ZCLColorControl command type
       ZCLColorControlCmdType type = 1;
 
@@ -166,6 +177,9 @@ message ZigBeeMsg {
 
       // MoveToHueAndSat commands params
       MoveToHueAndSatCmdParams movetohueandsat_params = 4;
+
+      // MoveToColorTemp commands params
+      MoveToColorTempCmdParams movetocolortemp_params = 5;
     }
 
     //ZCL Identify command type

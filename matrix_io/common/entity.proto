@@ -1,0 +1,51 @@
+// Copyright 2018 AdMobilize LLC
+// Structure based on Google Datastore Entity proto messages
+
+syntax = "proto3";
+
+package matrix_io.common;
+
+option go_package = "github.com/matrix-io/matrix-protos-go/matrix_io/common";
+option csharp_namespace = "MatrixIO.Common";
+option java_multiple_files = true;
+option java_outer_classname = "EntityProto";
+option java_package = "one.matrixio.common";
+option objc_class_prefix = "ADMCE";
+
+import "google/protobuf/timestamp.proto";
+
+// An array value
+message ArrayValue {
+  // Values in the array.
+  repeated Value values = 1;
+}
+
+// Container of the value of an object message
+message Value {
+  message Size {
+    int64 width = 1;
+    int64 height = 2;
+  }
+
+  // Must have a value set
+  oneof value_type {
+    bool boolean_value = 1;
+    int64 integer_value = 2;
+    double double_value = 3;
+    Entity entity_value = 6;
+    ArrayValue array_value = 9;
+    google.protobuf.Timestamp timestamp_value = 10;
+    string string_value = 17;
+    bytes blob_value = 18;
+    Size size_value = 19;
+  }
+}
+
+// Object message that can contain object structures defined at
+// runtime
+message Entity {
+  // Collection of named object fields and their values
+  // The name must not contain more than 60 characters
+  // the name cannot be empty
+  map<string, Value> properties = 1;
+}
