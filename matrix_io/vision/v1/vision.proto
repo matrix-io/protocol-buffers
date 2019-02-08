@@ -97,7 +97,7 @@ message VehicleRecognition {
   // Confidence of the recognition.
   float confidence = 2;
 
-  // Result of is_face classifier
+  // Result of family car classifier
   bool family_car = 3;
     
 }
