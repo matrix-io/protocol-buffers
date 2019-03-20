@@ -88,18 +88,26 @@ enum EnumVehicleRecognitionTag {
 }
 
 message VehicleRecognition {
+
   // Tags that can be recognized. If a tag starts with "HAS_", it means that
   // another member of the message must be set to specify a value for this tag.
+  // Type of vehicle: van, motorcyle, etc.
+  string type = 1;
+
+  // Brand of car: Toyota, Tesla, etc.
+  string brand = 2;
+
+  // Model of the car: Corolla, S, etc.
+  string model = 3;
+
+  // Year of release.
+  int32 year = 4;
 
   // What was recognized in the image?
-  EnumVehicleRecognitionTag tag = 1;
+  EnumVehicleRecognitionTag tag = 5;
 
   // Confidence of the recognition.
-  float confidence = 2;
-
-  // Result of family car classifier
-  bool family_car = 3;
-    
+  float confidence = 6;
 }
 
 message FacialRecognition {
