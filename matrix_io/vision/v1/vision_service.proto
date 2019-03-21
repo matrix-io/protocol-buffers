@@ -37,6 +37,8 @@ message VisionRequest {
   // after the detections.
   repeated EnumFacialRecognitionTag recognition = 3;
 
+  repeated EnumVehicleRecognitionTag vehicle_recognition = 6;
+
   // It is sometimes more convenient to send more than one image to be processed
   // by vision services
   ImageList image_list = 4;

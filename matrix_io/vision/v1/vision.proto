@@ -83,6 +83,35 @@ enum EnumFacialRecognitionTag {
   TYPE_GLASS = 11;
 }
 
+enum EnumVehicleRecognitionTag {
+  VEHICLE_RECOGNITION_NOT_DEFINED = 0;
+  // Family car classification.
+  FAMILY_CAR = 1;
+}
+
+message VehicleRecognition {
+
+  // Tags that can be recognized. If a tag starts with "HAS_", it means that
+  // another member of the message must be set to specify a value for this tag.
+  // Type of vehicle: van, motorcyle, etc.
+  string type = 1;
+
+  // Brand of car: Toyota, Tesla, etc.
+  string brand = 2;
+
+  // Model of the car: Corolla, S, etc.
+  string model = 3;
+
+  // Year of release.
+  int32 year = 4;
+
+  // What was recognized in the image?
+  EnumVehicleRecognitionTag tag = 5;
+
+  // Confidence of the recognition.
+  float confidence = 6;
+}
+
 message FacialRecognition {
   // Tags that can be recognized. If a tag starts with "HAS_", it means that
   // another member of the message must be set to specify a value for this tag.
@@ -312,17 +341,6 @@ enum EnumDetectionAlgorithm {
   DEFAULT = 1;
   // First alternative.
   FIRST_ALTERNATIVE = 2;
-}
-
-message VehicleRecognition {
-  // Type of vehicle: van, motorcyle, etc.
-  string type = 1;
-  // Brand of car: Toyota, Tesla, etc.
-  string brand = 2;
-  // Model of the car: Corolla, S, etc.
-  string model = 3;
-  // Year of release.
-  int32 year = 4;
 }
 
 // Result of a rectangle detector.
