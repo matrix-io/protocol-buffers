@@ -437,11 +437,27 @@ message Image {
   Size size = 3;
 }
 
+message FrameData {
+  // Frame Id
+  uint64 id = 1;
+  // Start time
+  google.protobuf.Timestamp start_time = 2;
+  // End time
+  google.protobuf.Timestamp end_time = 3;
+  // Collection of named code sections and their values in ms
+  // The name cannot be empty
+  map<string, float> sections = 4;
+}
+
+message FrameDataList {
+  repeated FrameData frames = 1;
+}
+
 // This message organizes (at least) four components:
 // - Detections (faces, hands, cars).
 // - Tracking information.
 // - Recognition (gender, age, emotion).
-//  -Events (New face in video, face leaves video, gesture starts).
+// - Events (New face in video, face leaves video, gesture starts).
 message VisionResult {
   // Results of all the rectangular detectors.
   // Each detecion also stores the recognitions that can be done inside of this
@@ -467,4 +483,7 @@ message VisionResult {
   bytes image_small = 3;
   // UUID (v4) that uniquely identifies each vision result
   string uuid = 7;
+  // Frame data information. Generally, this will only be filled when a debug or 
+  // testing mode is enabled.
+  FrameData frame_data = 8;
 }
