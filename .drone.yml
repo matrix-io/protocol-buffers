@@ -2,11 +2,8 @@ pipeline:
   build-debs:
     when:
       branch: [master, av/namespacesio_pkg]
-      event: [ push, pull_request, tag ]
-    image: gcr.io/admobilize-testing/builder-qemu:latest
+    image: gcr.io/admobilize-testing/creator-builder-${ARCHITECTURE}-${DISTRIBUTION}-${CODENAME}-${IMAGE_TAG}
     privileged: true
-    mountimg: ${MOUNTIMG}
-    mountoffset: ${MOUNTOFFSET}
     body: |
       curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add -
       export COMPONENT=$([ "${DRONE_BUILD_EVENT}" = "tag" ] && echo "main" || echo "unstable")
@@ -19,7 +16,7 @@ pipeline:
   upload-debs:
     when:
       branch: [master, av/namespacesio_pkg]
-      event: [ push, pull_request, tag ]
+      event: [ push, tag ]
     image: gcr.io/admobilize-testing/gce-builder:latest
     secrets: [aws_access_key_id, aws_secret_access_key, gpg_key, gpg_pass]
     commands:
@@ -36,6 +33,7 @@ pipeline:
            libmatrixio-protos_${DISTRIBUTION}-${CODENAME}-$${PKG_VER}-$${COMPONENT}_armhf.deb
       - mv libmatrixio-protos-dev_$${PKG_VER}_armhf.deb 
            libmatrixio-protos-dev_${DISTRIBUTION}-${CODENAME}-$${PKG_VER}-$${COMPONENT}_armhf.deb
+
       - echo "$${GPG_PASS}" | deb-s3 upload --bucket apt.matrix.one 
         --prefix $DISTRIBUTION
         --component $COMPONENT
@@ -57,7 +55,7 @@ pipeline:
     channel: notifications
     when:
       branch: [master, av/namespacesio_pkg]
-      event: [ push, pull_request, tag ]
+      event: [ push, tag ]
       status: [ success, failure ]
     template: file:///drone/src/github.com/matrix-io/protocol-buffers/notification.tpl
 
@@ -65,11 +63,10 @@ matrix:
   include: 
     - CODENAME: jessie
       DISTRIBUTION: raspbian
-      MOUNTOFFSET: 48234496
-      MOUNTDIR: /drone/src/github.com/matrix-io/protocol-buffers
-      MOUNTIMG: https://storage.googleapis.com/raspbian-images/2017-07-05-raspbian-jessie-debuild-grpc-1.6.img.gz
-    - CODENAME: stretch
-      MOUNTOFFSET: 48234496
-      MOUNTDIR: /drone/src/github.com/matrix-io/protocol-buffers
+      ARCHITECTURE: armhf
+      IMAGE_TAG: 3181f193
+    
+    - CODENAME: jessie
       DISTRIBUTION: raspbian
-      MOUNTIMG: https://storage.googleapis.com/raspbian-images/2017-08-16-raspbian-stretch-debuild-grpc-1.6.img.gz
+      ARCHITECTURE: armhf
+      IMAGE_TAG: 3181f193
