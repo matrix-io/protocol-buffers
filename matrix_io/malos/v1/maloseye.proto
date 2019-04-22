@@ -89,6 +89,10 @@ enum EnumMalosAction {
   RESTART_DETECTION = 3;
   // Capture preview image.
   CAPTURE_PREVIEW = 4;
+  // Start live stream
+  START_STREAMING = 5;
+  // Stop live stream
+  STOP_STREAMING = 6;
 }
 
 enum EnumMalosEyeDetectionType {
