@@ -75,7 +75,7 @@ matrix:
       ARCHITECTURE: armhf
       IMAGE_TAG: 3181f193
     
-    - CODENAME: jessie
+    - CODENAME: stretch
       DISTRIBUTION: raspbian
       ARCHITECTURE: armhf
       IMAGE_TAG: 3181f193
