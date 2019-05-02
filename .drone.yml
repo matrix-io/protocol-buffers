@@ -2,19 +2,17 @@ pipeline:
   build-debs:
     when:
       branch: [master, av/namespacesio_pkg]
-      event: [ push, pull_request, tag ]
-    image: gcr.io/admobilize-testing/builder-qemu:latest
+      event: [push, pull_request, tag]
+    image: gcr.io/admobilize-testing/creator-builder-${ARCHITECTURE}-${DISTRIBUTION}-${CODENAME}:${IMAGE_TAG}
     privileged: true
-    mountimg: ${MOUNTIMG}
-    mountoffset: ${MOUNTOFFSET}
-    body: |
-      curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add -
-      export COMPONENT=$([ "${DRONE_BUILD_EVENT}" = "tag" ] && echo "main" || echo "unstable")
-      echo "deb https://apt.matrix.one/raspbian ${CODENAME} $COMPONENT" > /etc/apt/sources.list.d/matrixlabs.list
-      apt-get update
-      apt-get install --yes matrixio-protobuf
-      debuild -us -uc -b
-      mv ../*.deb .
+    commands:
+      - curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add -
+      - export COMPONENT=$([ "${DRONE_BUILD_EVENT}" = "tag" ] && echo "main" || echo "unstable")
+      - echo "deb https://apt.matrix.one/raspbian ${CODENAME} $COMPONENT" > /etc/apt/sources.list.d/matrixlabs.list
+      - apt-get update
+      - apt-get install --yes matrixio-protobuf
+      - debuild -us -uc -b
+      - mv ../*.deb .
 
   upload-debs:
     when:
@@ -36,6 +34,7 @@ pipeline:
            libmatrixio-protos_${DISTRIBUTION}-${CODENAME}-$${PKG_VER}-$${COMPONENT}_armhf.deb
       - mv libmatrixio-protos-dev_$${PKG_VER}_armhf.deb 
            libmatrixio-protos-dev_${DISTRIBUTION}-${CODENAME}-$${PKG_VER}-$${COMPONENT}_armhf.deb
+
       - echo "$${GPG_PASS}" | deb-s3 upload --bucket apt.matrix.one 
         --prefix $DISTRIBUTION
         --component $COMPONENT
@@ -57,19 +56,27 @@ pipeline:
     channel: notifications
     when:
       branch: [master, av/namespacesio_pkg]
-      event: [ push, pull_request, tag ]
-      status: [ success, failure ]
-    template: file:///drone/src/github.com/matrix-io/protocol-buffers/notification.tpl
+      event: [ push, tag ]
+    link_names: true
+    template: |
+      {{#success build.status}}
+        {{build.author}} just built `{{repo.name}}:{{build.branch}}` from <${DRONE_COMMIT_LINK}|#{{truncate build.commit 8}}>
+        :new: {{build.message}}
+      {{else}}
+        {{build.author}} just broke the build of `{{repo.name}}:{{build.branch}}` with >${DRONE_COMMIT_LINK}|#{{truncate build.commit 8}}
+        :new: :zombie: {{build.message}}
+      {{/success}}
+      :stopwatch: {{ since build.started }}
+      :gear: {{build.link}}
 
 matrix:
   include: 
     - CODENAME: jessie
       DISTRIBUTION: raspbian
-      MOUNTOFFSET: 48234496
-      MOUNTDIR: /drone/src/github.com/matrix-io/protocol-buffers
-      MOUNTIMG: https://storage.googleapis.com/raspbian-images/2017-07-05-raspbian-jessie-debuild-grpc-1.6.img.gz
+      ARCHITECTURE: armhf
+      IMAGE_TAG: 3181f193
+    
     - CODENAME: stretch
-      MOUNTOFFSET: 48234496
-      MOUNTDIR: /drone/src/github.com/matrix-io/protocol-buffers
       DISTRIBUTION: raspbian
-      MOUNTIMG: https://storage.googleapis.com/raspbian-images/2017-08-16-raspbian-stretch-debuild-grpc-1.6.img.gz
+      ARCHITECTURE: armhf
+      IMAGE_TAG: 3181f193
