@@ -11,19 +11,19 @@ add_definitions(-std=c++11)
 find_package(Protobuf 3 REQUIRED)
 find_package(GRPC REQUIRED)
 
-# protoc program
-find_program(PROTOC NAMES protoc)
-if (NOT EXISTS ${PROTOC})
-  message(FATAL_ERROR "The protoc program was not found")
+# PROTOBUF_PROTOC_EXECUTABLE program
+
+if (NOT EXISTS ${PROTOBUF_PROTOC_EXECUTABLE})
+  message(FATAL_ERROR "The PROTOBUF_PROTOC_EXECUTABLE program was not found")
 endif()
-message(STATUS "Found protoc program: " ${PROTOC})
+message(STATUS "Found PROTOBUF_PROTOC_EXECUTABLE program: " ${PROTOBUF_PROTOC_EXECUTABLE})
 
 # Language to generate
 if (NOT DEFINED GEN_LANG)
   set(GEN_LANG "cpp")
 endif()
 
-# protoc grpc plugin
+# PROTOBUF_PROTOC_EXECUTABLE grpc plugin
 find_program(GRPC_PLUGIN NAMES "grpc_${GEN_LANG}_plugin")
 if (NOT EXISTS ${GRPC_PLUGIN})
   message(WARNING "The grpc_${GEN_LANG}_plugin plugin was not found, \
@@ -37,21 +37,21 @@ if (NOT DEFINED PROTO_SEARCH_PATH)
   set(PROTO_SEARCH_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-# protoc flags
+# PROTOBUF_PROTOC_EXECUTABLE flags
 set(PROTO_CFLAGS)
-list(APPEND PROTOC_FLAGS "--proto_path=${PROTO_SEARCH_PATH}")
-list(APPEND PROTOC_FLAGS "--${GEN_LANG}_out=${CMAKE_CURRENT_BINARY_DIR}") 
+list(APPEND PROTOBUF_PROTOC_EXECUTABLE_FLAGS "--proto_path=${PROTO_SEARCH_PATH}")
+list(APPEND PROTOBUF_PROTOC_EXECUTABLE_FLAGS "--${GEN_LANG}_out=${CMAKE_CURRENT_BINARY_DIR}") 
 
 # Build grpc if the plugin is found
 if (EXISTS ${GRPC_PLUGIN})
-  list(APPEND PROTOC_FLAGS "--plugin=protoc-gen-grpc=${GRPC_PLUGIN}")
-  list(APPEND PROTOC_FLAGS "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}") 
+  list(APPEND PROTOBUF_PROTOC_EXECUTABLE_FLAGS "--plugin=PROTOBUF_PROTOC_EXECUTABLE-gen-grpc=${GRPC_PLUGIN}")
+  list(APPEND PROTOBUF_PROTOC_EXECUTABLE_FLAGS "--grpc_out=${CMAKE_CURRENT_BINARY_DIR}") 
 endif()
 
 # .proto relative paths
 file(GLOB_RECURSE proto_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
 
-# Absolute paths of .proto files to be passed to protoc program
+# Absolute paths of .proto files to be passed to PROTOBUF_PROTOC_EXECUTABLE program
 set(ABSProtoFiles)
 # Absolute paths of generated .h and .cc 
 set(ProtoHeaders)
@@ -82,7 +82,7 @@ endforeach()
 
 # Generate protos
 add_custom_command(
-  COMMAND ${PROTOC} ${PROTOC_FLAGS} ${ABSProtoFiles}
+  COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} ${PROTOBUF_PROTOC_EXECUTABLE_FLAGS} ${ABSProtoFiles}
   OUTPUT ${ProtoSources} ${ProtoHeaders}
   COMMENT "Generating proto messages for matrix_io ..."
 )
