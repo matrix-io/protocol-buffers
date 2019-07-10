@@ -1,14 +1,13 @@
 pipeline:
   build-debs:
     when:
-      branch: [master, av/namespacesio_pkg]
+      branch: [master]
       event: [push, pull_request, tag]
     image: gcr.io/admobilize-testing/creator-builder-${ARCHITECTURE}-${DISTRIBUTION}-${CODENAME}:${IMAGE_TAG}
     privileged: true
     commands:
       - curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add -
-      - export COMPONENT=$([ "${DRONE_BUILD_EVENT}" = "tag" ] && echo "main" || echo "unstable")
-      - echo "deb https://apt.matrix.one/raspbian ${CODENAME} $COMPONENT" > /etc/apt/sources.list.d/matrixlabs.list
+      - echo "deb https://apt.matrix.one/raspbian ${CODENAME} main" > /etc/apt/sources.list.d/matrixlabs.list
       - ${UPDATE_CMD}
       - apt-get install --yes matrixio-protobuf
       - debuild -us -uc -b
@@ -16,7 +15,7 @@ pipeline:
 
   upload-debs:
     when:
-      branch: [master, av/namespacesio_pkg]
+      branch: [master]
       event: [ push, pull_request, tag ]
     image: gcr.io/admobilize-testing/gce-builder:latest
     secrets: [aws_access_key_id, aws_secret_access_key, gpg_key, gpg_pass]
