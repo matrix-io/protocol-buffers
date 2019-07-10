@@ -1,3 +1,9 @@
+libmatrixio-protos (0.1.6) unstable; urgency=medium
+
+  * Buster support
+
+ -- Andres Calderon  <andres.calderon@admobilize.com>  Wed, 10 Jul 2019 10:00:00 +0000
+
 libmatrixio-protos (0.1.5) unstable; urgency=medium
 
   * Allows to get the MATRIX Device and Everloop led number
