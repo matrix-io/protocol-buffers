@@ -1,0 +1,56 @@
+// Copyright 2019 AdMobilize LLC
+// Datapoint transport
+
+syntax = "proto3";
+
+package matrix_io.common;
+
+option java_multiple_files = true;
+option java_outer_classname = "CollectionProto";
+option java_package = "one.matrixio.common";
+
+import "matrix_io/vision/v1/vision.proto";
+
+message AdMobilizeMeta {
+
+    // AdMobilize Project ID to which the contained data points belong
+    string project_id = 1;
+
+    // IoT Core Device Registry (if any) that generated the message
+    string device_registry = 2;
+
+    // AdMobilize Device ID related to the message
+    string device_id = 3;
+
+    // Camera identifier on Device ID related to the message
+    string camera_id = 4;
+
+    // Schema to apply to the message
+    string schema = 8;
+}
+
+message BadMessage {
+
+    // Common meta data
+    AdMobilizeMeta meta = 1;
+
+    oneof json_or_vision_result {
+        // JSON message payload
+        bytes json = 2;
+
+        // VisionResult
+        matrix_io.vision.v1.VisionResult vision_result = 3;
+
+    }
+
+    string message = 10;
+}
+
+message Datapoint {
+
+    // Common meta data
+    AdMobilizeMeta meta = 1;
+
+    // Arbitrary number of vision results
+    matrix_io.vision.v1.VisionResult vision_result = 2;
+}
