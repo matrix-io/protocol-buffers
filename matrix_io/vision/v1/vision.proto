@@ -486,4 +486,6 @@ message VisionResult {
   // Frame data information. Generally, this will only be filled when a debug or 
   // testing mode is enabled.
   FrameData frame_data = 8;
+  // Results of the night solution (day_night_classifier or histogram night check)
+  string moment_of_the_day = 9;
 }
