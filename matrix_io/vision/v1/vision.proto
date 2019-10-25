@@ -437,6 +437,12 @@ message Image {
   Size size = 3;
 }
 
+enum MomentOfDay {
+  MOMENT_OF_DAY_NOT_DEFINED = 0;
+  DAY = 1;
+  NIGHT = 2;
+}
+
 message FrameData {
   // Frame Id
   uint64 id = 1;
@@ -486,4 +492,6 @@ message VisionResult {
   // Frame data information. Generally, this will only be filled when a debug or 
   // testing mode is enabled.
   FrameData frame_data = 8;
+  // Detected moment of day
+  MomentOfDay moment_of_day = 9;
 }
